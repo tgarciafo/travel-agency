@@ -1,0 +1,8 @@
+<h2>Activities</h2>
+<ul class="activities">
+    <li *ngFor="let activity of activities">
+        <a routerLink="/activityDetail/{{activity.id}}">
+        <span class="badge">{{activity.id}}</span>{{activity.name}}
+    </a>
+    </li>
+</ul>

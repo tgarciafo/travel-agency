@@ -1,0 +1,55 @@
+<div *ngIf="activity">
+    <h2>{{activity.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{activity.id}}</div>
+    <div>
+        <span>name: {{activity.name}}
+        </span>
+    </div>
+    <div>
+        <span>
+        category: {{activity.category}}
+    </span>
+</div>
+<div>
+    <span>
+        subcategory: {{activity.subcategory}}
+    </span>
+</div>
+<div>
+    <span>
+        description: {{activity.description}}
+    </span>
+</div>
+<div>
+    <span>
+        language: {{activity.language}}
+    </span>
+</div>
+<div>
+    <span>
+        date: {{activity.date}}
+    </span>
+</div>
+<div>
+    <span>
+        price: {{activity.price}}
+    </span>
+</div>
+<div>
+    <span>
+        minCapacity: {{activity.minCapacity}}
+    </span>
+</div>
+<div>
+    <span>
+        limitCapacity: {{activity.limitCapacity}}
+    </span>
+</div>
+<div>
+    <span>
+        state: {{activity.state}}
+    </span>
+    </div>
+    <div>
+    <button (click)="goBack()">go back</button>
+</div>

@@ -1,8 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { UsersComponent } from './components/users/users.component';
+import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
+import { NewActivityComponent } from './components/new-activity/new-activity.component';
 
+const routes: Routes = [
+  { path: '', redirectTo: '/newActivity', pathMatch: 'full'},
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'activityList', component: ActivityListComponent },
+  { path: 'activityDetail/:id', component: ActivityDetailComponent },
+  { path: 'newActivity', component: NewActivityComponent },
 
-const routes: Routes = [];
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,31 @@
+.logo{
+    text-align: left;
+    display: inline-block;  
+    width: 31.33%;  
+}
+
+.titol{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+display: inline-block;    
+text-align: center;
+width: 30%;
+}
+
+.menu{
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+text-align: right;
+width: 31.33%;
+}
+
+.menu nav a{
+    padding: 20px;
+
+}
+
+#header{
+    width: 100%;
+    margin: 30px;
+}
+
