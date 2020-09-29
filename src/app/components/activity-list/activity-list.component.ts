@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Activity } from '../../Models/activity';
-import { ActivityService } from '../../activity.service';
+import { ActivityService } from '../../Services/activity.service';
 
 
 @Component({

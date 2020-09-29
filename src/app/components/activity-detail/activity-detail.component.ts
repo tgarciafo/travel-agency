@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ActivityService } from '../../activity.service';
+import { ActivityService } from '../../Services/activity.service';
 import { Activity } from 'src/app/Models/activity';
 
 @Component({

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { CheckWord } from 'src/app/Directives/check-word.validator';
 import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { Activity } from 'src/app/Models/activity';
-import { ActivityService } from '../../activity.service';
+import { ActivityService } from '../../Services/activity.service';
 
 @Component({
   selector: 'app-new-activity',
