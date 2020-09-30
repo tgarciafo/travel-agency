@@ -6,10 +6,12 @@ import { UsersComponent } from './components/users/users.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
+import { HomeComponent } from '../app/components/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/newActivity', pathMatch: 'full'},
-  { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UsersComponent },
   { path: 'activityList', component: ActivityListComponent },

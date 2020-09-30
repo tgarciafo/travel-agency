@@ -19,3 +19,44 @@ body, input[type="text"], button {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.logo{
+  text-align: left;
+  display: inline-block;  
+  width: 31.33%;  
+}
+
+.titol{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 80%;
+display: inline-block;    
+text-align: center;
+width: 15%;
+}
+
+.menu{
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 90%;
+text-align: right;
+width: 46.33%;
+}
+
+.menu nav a{
+  padding: 5px;
+
+}
+
+#header{
+  width: 100%;
+  margin: 30px;
+}
+
+#home, #favorites, #myActivities, #admin, #profile, #logout{
+  visibility: hidden;
+}
+
+#login, #register{
+  visibility: visible;
+}
+

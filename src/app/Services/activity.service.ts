@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Activity } from '../Models/activity';
-import { ACTIVITIES } from '../mock-activities';
+import { Activity } from './../Models/activity';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';

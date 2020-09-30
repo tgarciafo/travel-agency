@@ -1,3 +1,24 @@
-<app-header></app-header>
+<div id="header">
+    <div class="logo">
+        <img src="../../../assets/images/uoc_logo.png" alt="logo UOC">
+    </div>
+    <div class="titol"><h1>Travel Agency</h1>
+    </div>
+    <div class="menu">
+        <nav>
+        <span id="home"><a routerLink="/home" routerLinkActive="active">HOME</a></span>
+        <span id="favorites"><a routerLink="/favorites" routerLinkActive="active">FAVORITES</a></span>
+        <span id="myActivities"><a routerLink="/myActivities" routerLinkActive="active">MY ACTIVITIES</a></span>
+        <span id="admin"><a routerLink="/admin" routerLinkActive="active">ADMIN</a></span>
+        <span id="profile"><a routerLink="/profile" routerLinkActive="active">PROFILE</a></span>
+        <span id="login"><a routerLink="/login" routerLinkActive="active">SIGN IN</a></span>
+        <span id="register"><a routerLink="/register" routerLinkActive="active">JOIN NOW</a></span>
+        <span id="logout"><a routerLink="/register" routerLinkActive="active" (click)="logout()">LOG OUT</a></span>
+    
+    </nav>
+    </div>
+    </div>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<div id="footer">
+    <p>2020</p>
+    </div>

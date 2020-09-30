@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { CheckWord } from 'src/app/Directives/check-word.validator';
 import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { User } from 'src/app/Models/user';
+import { UserService } from 'src/app/Services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +12,8 @@ import { User } from 'src/app/Models/user';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  users: User[];
 
   public user: User = new User();
 
@@ -21,7 +25,7 @@ export class RegisterComponent implements OnInit {
   public repeat_password: FormControl;
   public registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -40,17 +44,22 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       repeat_password: this.repeat_password
     });
+    this.getUsers();
 
   }
 
-  public checkRegister() {
-    this.user.name = this.name.value;
-    this.user.surname =  this.surname.value;
-    this.user.type =  this.type.value;
-    this.user.email =  this.email.value;
-    this.user.password =  this.password.value;
-    this.user.repeat_password = this.repeat_password.value;
-    console.log('User name --> ' + this.user.name + ' User surname --> ' + this.user.surname + ' User type --> ' + this.user.type + ' User email --> ' + this.user.email + ' User password --> ' + this.user.password + ' User repeat_password --> ' + this.user.repeat_password);
+  getUsers(): void{
+    this.userService.getUsers()
+      .subscribe(users => this.users = users);
+  }
+
+  checkRegister() {
+    this.userService.addUser(this.registerForm.value as User)
+      .subscribe(user => {
+        this.users.push(user);
+        console.log('Successfully logged in');
+        this.router.navigate(['login']);
+      });
   }
 
 }
