@@ -1,8 +1,28 @@
-<h2>Activities</h2>
-<ul class="activities">
-    <li *ngFor="let activity of activities">
-        <a routerLink="/activityDetail/{{activity.id}}">
-        <span class="badge">{{activity.id}}</span>{{activity.name}}
-    </a>
-    </li>
-</ul>
+
+<div>
+    <h2>ACTIVITIES LIST</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>NAME</th>
+            <th>CATEGORY</th>
+            <th>PRICE</th>
+            <th>LANGUAGE</th>
+            <th>DATE</th>
+            <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activity of activities">
+                <th>{{activity.name}}</th>
+                <th>{{activity.category}}</th>
+                <th>{{activity.price}}</th>
+                <th>{{activity.language}}</th>
+                <th>{{activity.date}}</th>
+                <th><button (click)="detall(activity)">Detall</button></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<app-activity-detail [activity]="activity"></app-activity-detail>

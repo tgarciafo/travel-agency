@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Activity } from '../../Models/activity';
 import { ActivityService } from '../../Services/activity.service';
@@ -12,11 +12,17 @@ import { ActivityService } from '../../Services/activity.service';
 export class ActivityListComponent implements OnInit {
   activities: Activity[];
 
+  activity: Activity[];
+
   constructor(private activityService: ActivityService) { }
 
   ngOnInit(): void {
     this.getActivities();
   }
+
+  detall(activity) {
+    this.activity = activity;
+}
 
   getActivities(): void{
     this.activityService.getActivities()
