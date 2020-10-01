@@ -60,3 +60,8 @@ width: 31.33%;
   display: inline;
 }
 
+#footer{
+  width: 100%;
+  margin: 30px;
+  clear: left;
+}
