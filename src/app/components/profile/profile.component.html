@@ -1,46 +1,40 @@
+<h2>PROFILE</h2>
+<div *ngIf="user != undefined">
 <div>
-<h1>PROFILE</h1>
-    <h1>Register</h1>
-    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <label>Name: 
+    <input type="text" value="{{user.name}}" readonly/>
+</label>
+</div>
+<div>
+    <label>Surname:
+        <input type="text" value="{{user.surname}}" readonly/>
+    </label>
+</div>
+<div>
+<label>Birth date:
+<input type="text" value="{{user.birthDate}}" readonly/>
+</label>
 
-        <div class="form-group">
-            <label>Name:</label>
-            <input type="text" [formControl]="name"/>
-        </div>
-
-        <div class="form-group">
-            <label>Surname:</label>
-            <input type="text" [formControl]="surname"/>
-        </div>
-
-        <div class="form-group">
-            <label>Birth date:</label>
-            <input type="text" [formControl]="birthdate"/>
-        </div>
-        <div class="form-group">
-            <label>Phone:</label>
-            <input type="number" [formControl]="phone"/>
-        </div>
-        <div class="form-group">
-            <label>Nationality:</label>
-            <select [formControl]="nationality">
-                <option>ES</option>
-                <option>FR</option>
-                <option>IT</option>
-                <option>PT</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>NIF:</label>
-            <input type="text" [formControl]="nif"/>
-        </div>
-        <div class="form-group">
-            <label>About me:</label>
-            <input type="text" [formControl]="about"/>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" [disabled]="!profileForm.valid">UPDATE PROFILE</button>
-        </div>
-    </form>
+</div>
+<div>
+<label>Phone:
+    <input type="text" value=" {{user.phone}}" readonly/>
+</label>
+</div>
+<div>
+<label>Nationality
+<input type="text" value="{{user.nationality}}" readonly/>
+</label>         
+</div>
+<div>
+<label>NIF:
+     <input type="text" value="{{user.nif}}" readonly/>
+</label>
+</div>
+<div>
+<label>About me:
+    <input type="text" value="{{user.aboutMe}}" readonly/>
+</label>
+</div>
+<button type="button" (click)="updateProfile()">UPDATE PROFILE INFORMATION</button>
 </div>

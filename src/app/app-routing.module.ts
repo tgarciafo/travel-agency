@@ -6,6 +6,8 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
 import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
 import { HomeComponent } from '../app/components/home/home.component';
+import { ProfileComponent } from '../../src/app/components/profile/profile.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'activityList', component: ActivityListComponent },
   { path: 'activityDetail/:id', component: ActivityDetailComponent },
   { path: 'newActivity', component: NewActivityComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'updateProfile', component: UpdateProfileComponent },
 
 ];
 

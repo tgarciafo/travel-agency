@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
+import { GlobalService } from '../../Services/global.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,44 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
   users: User[];
+  user: User;
 
-  public user: User = new User();
-
-
-  public name: FormControl;
-  public surname: FormControl;
-  public birthdate: FormControl;
-  public phone: FormControl;
-  public nationality: FormControl;
-  public nif: FormControl;
-  public about: FormControl;
-  public profileForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService ) { }
+  constructor(private _global: GlobalService, private router: Router, private userService: UserService) {
+    this.user = this._global.globalVar;
+   }
 
   ngOnInit(): void {
-
-    this.name = new FormControl('');
-    this.surname = new FormControl('');
-    this.birthdate = new FormControl('');
-    this.phone = new FormControl('');
-    this.nationality = new FormControl('');
-    this.nif = new FormControl('');
-    this.about = new FormControl('');
-
-    this.profileForm = this.formBuilder.group({
-      name: this.name,
-      surname: this.surname,
-      birthdate: this.birthdate,
-      phone: this.phone,
-      nationality: this.nationality,
-      nif: this.nif,
-      about: this.about
-    });
     this.getUsers();
-    
-
   }
 
   getUsers(): void{
@@ -55,9 +27,8 @@ export class ProfileComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  updateProfile(){
-    /* this.userService.patchUser(this.profileForm.vale as User)
-      .subscribe(console.log());
-    } */
+  updateProfile() {
+    this.router.navigateByUrl('/updateProfile');
   }
+  
 }

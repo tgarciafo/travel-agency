@@ -18,6 +18,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { EducationComponent } from './components/education/education.component';
+import { LanguagesComponent } from './components/languages/languages.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     UsersComponent,
     HomeComponent,
     ProfileComponent,
+    UpdateProfileComponent,
+    EducationComponent,
+    LanguagesComponent,
   ],
   imports: [
     BrowserModule,
