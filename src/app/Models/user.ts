@@ -13,6 +13,9 @@ export class User{
     nationality: string;
     nif: string;
     aboutMe: string;
+    companyName: string;
+    companyDescription: string;
+    cif: string;
     activities: Activity[];
     favorites: Activity[];
     education: Education[];

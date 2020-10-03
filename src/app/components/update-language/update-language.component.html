@@ -1,0 +1,33 @@
+<div>
+    <h1>Update Language information</h1>
+    <form [formGroup]="languageForm" (ngSubmit)="updateLanguage()">
+        <div class="form-group">
+            <label>Level:</label>
+            <select [formControl]="level">
+                <option>A1</option>
+                <option>A2</option>
+                <option>B1</option>
+                <option>B2</option>
+                <option>C1</option>
+                <option>C2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Language:</label>
+            <select [formControl]="language">
+                <option>Català</option>
+                <option>Castellà</option>
+                <option>Anglès</option>
+                <option>Francès</option>
+                <option>Alemany</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Finish Date:</label>
+            <input type="text" [formControl]="finishDate"/>
+        </div>    
+        <div class="form-group">
+            <button type="submit" [disabled]="!languageForm.valid">UPDATE LANGUAGE</button>
+        </div>
+    </form>
+</div>

@@ -4,6 +4,7 @@ import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -25,7 +26,13 @@ export class UpdateProfileComponent implements OnInit {
   public nationality: FormControl;
   public nif: FormControl;
   public about: FormControl;
+  public companyName: FormControl;
+  public companyDescription: FormControl;
+  public cif: FormControl;
   public profileForm: FormGroup;
+
+  company: boolean;
+
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) { 
     this.user = this._global.globalVar;
@@ -40,6 +47,9 @@ export class UpdateProfileComponent implements OnInit {
     this.nationality = new FormControl('');
     this.nif = new FormControl('');
     this.about = new FormControl('');
+    this.companyName = new FormControl('');
+    this.companyDescription = new FormControl('');
+    this.cif = new FormControl('');
 
     this.profileForm = this.formBuilder.group({
       name: this.name,
@@ -48,11 +58,24 @@ export class UpdateProfileComponent implements OnInit {
       phone: this.phone,
       nationality: this.nationality,
       nif: this.nif,
-      aboutMe: this.about
+      aboutMe: this.about,
+      companyName: this.companyName,
+      companyDescription: this.companyDescription,
+      cif: this.cif
     });
     this.getUsers();
+
+    this.getProfile();
     
 
+  }
+
+  getProfile() {
+    if (this.user.type === 'Company') {
+      return this.company = true;
+    } else {
+      return this.company = false;
+    }
   }
 
   getUsers(): void{
@@ -69,6 +92,9 @@ export class UpdateProfileComponent implements OnInit {
     this.user.nationality = form.nationality;
     this.user.nif = form.nif;
     this.user.aboutMe = form.aboutMe;
+    this.user.companyName = form.companyName;
+    this.user.companyDescription = form.companyDescription;
+    this.user.cif = form.cif;
     this.router.navigateByUrl('/profile');
 
   }

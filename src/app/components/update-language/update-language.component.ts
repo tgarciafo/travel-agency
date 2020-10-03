@@ -1,48 +1,42 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User, Education } from 'src/app/Models/user';
+import { User, Languages } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
 
 @Component({
-  selector: 'app-update-education',
-  templateUrl: './update-education.component.html',
-  styleUrls: ['./update-education.component.css']
+  selector: 'app-update-language',
+  templateUrl: './update-language.component.html',
+  styleUrls: ['./update-language.component.css']
 })
-export class UpdateEducationComponent implements OnInit {
+export class UpdateLanguageComponent implements OnInit {
 
   users: User[];
 
   public user: User;
-  public _education: Education;
+  public _language: Languages;
 
-  public type: FormControl;
   public level: FormControl;
-  public name: FormControl;
-  public university: FormControl;
+  public language: FormControl;
   public finishDate: FormControl;
-  public educationForm: FormGroup;
+  public languageForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) {
     this.user = this._global.globalVar;
-    this._education = this._global.globalEducation;
+    this._language = this._global.globalLanguage;
   }
 
   ngOnInit(): void {
 
-    this.type = new FormControl('');
     this.level = new FormControl('');
-    this.name = new FormControl('');
-    this.university = new FormControl('');
+    this.language = new FormControl('');
     this.finishDate = new FormControl('');
 
-    this.educationForm = this.formBuilder.group({
-      type: this.type,
+    this.languageForm = this.formBuilder.group({
       level: this.level,
-      name: this.name,
-      university: this.university,
+      language: this.language,
       finishDate: this.finishDate,
     });
     this.getUsers();
@@ -55,17 +49,17 @@ export class UpdateEducationComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  updateEducation() {
-    const form = this.educationForm.value as Education;
+  updateLanguage() {
+    const form = this.languageForm.value as Languages;
 
-    const array = this.user.education;
+    const array = this.user.languages;
 
     for (let i = 0; i < array.length; i++) {
-      if ((array[i].name === this._education.name) && (array[i].level === this._education.level)) {
+      if ((array[i].language === this._language.language) && (array[i].level === this._language.level)) {
         array.splice(i, 1);
       }
     }
-    this.user.education = [...this.user.education, form];
+    this.user.languages = [...this.user.languages, form];
 
     console.log(this.user);
 
@@ -73,3 +67,4 @@ export class UpdateEducationComponent implements OnInit {
 
   }
 }
+

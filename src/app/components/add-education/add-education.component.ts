@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
 
 @Component({
-  selector: 'app-update-education',
-  templateUrl: './update-education.component.html',
-  styleUrls: ['./update-education.component.css']
+  selector: 'app-add-education',
+  templateUrl: './add-education.component.html',
+  styleUrls: ['./add-education.component.css']
 })
-export class UpdateEducationComponent implements OnInit {
+export class AddEducationComponent implements OnInit {
 
   users: User[];
 
@@ -22,7 +22,7 @@ export class UpdateEducationComponent implements OnInit {
   public name: FormControl;
   public university: FormControl;
   public finishDate: FormControl;
-  public educationForm: FormGroup;
+  public addEducationForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) {
@@ -38,7 +38,7 @@ export class UpdateEducationComponent implements OnInit {
     this.university = new FormControl('');
     this.finishDate = new FormControl('');
 
-    this.educationForm = this.formBuilder.group({
+    this.addEducationForm = this.formBuilder.group({
       type: this.type,
       level: this.level,
       name: this.name,
@@ -55,16 +55,9 @@ export class UpdateEducationComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  updateEducation() {
-    const form = this.educationForm.value as Education;
+  addEducation() {
+    const form = this.addEducationForm.value as Education;
 
-    const array = this.user.education;
-
-    for (let i = 0; i < array.length; i++) {
-      if ((array[i].name === this._education.name) && (array[i].level === this._education.level)) {
-        array.splice(i, 1);
-      }
-    }
     this.user.education = [...this.user.education, form];
 
     console.log(this.user);

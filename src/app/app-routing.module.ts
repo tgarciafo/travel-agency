@@ -9,6 +9,10 @@ import { HomeComponent } from '../app/components/home/home.component';
 import { ProfileComponent } from '../../src/app/components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { UpdateEducationComponent } from './components/update-education/update-education.component';
+import { AddEducationComponent } from './components/add-education/add-education.component';
+import { AddLanguageComponent } from './components/add-language/add-language.component';
+import { UpdateLanguageComponent } from './components/update-language/update-language.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,7 +24,11 @@ const routes: Routes = [
   { path: 'newActivity', component: NewActivityComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'updateProfile', component: UpdateProfileComponent },
-  { path: 'updateEducation', component: UpdateEducationComponent }
+  { path: 'updateEducation', component: UpdateEducationComponent },
+  { path: 'addEducation', component: AddEducationComponent },
+  { path: 'updateLanguage', component: UpdateLanguageComponent },
+  { path: 'addLanguage', component: AddLanguageComponent },
+
 ];
 
 @NgModule({

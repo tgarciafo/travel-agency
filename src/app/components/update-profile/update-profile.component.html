@@ -38,6 +38,21 @@
                 <label>About me:</label>
                 <input type="text" [formControl]="about"/>
             </div>
+            <div *ngIf="company" class="form-group">
+                <label>Company name:
+                    <input type="text" [formControl]="companyName" />
+                </label>
+                </div>
+                <div *ngIf="company">
+                    <label>Company description:
+                        <input type="text"  [formControl]="companyDescription" />
+                    </label>
+                </div>
+                <div *ngIf="company">
+                    <label>CIF:
+                        <input type="text"  [formControl]="cif" />
+                    </label>
+                </div>
     
             <div class="form-group">
                 <button type="submit" [disabled]="!profileForm.valid">UPDATE PROFILE</button>

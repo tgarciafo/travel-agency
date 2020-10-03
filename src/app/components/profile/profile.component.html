@@ -37,6 +37,22 @@
     <input type="text" value="{{user.aboutMe}}" readonly/>
 </label>
 </div>
+<div *ngIf="company">
+<label>Company name:
+    <input type="text" value="{{user.companyName}}" readonly/>
+</label>
+</div>
+<div *ngIf="company">
+    <label>Company description:
+        <input type="text" value="{{user.companyDescription}}" readonly/>
+    </label>
+</div>
+<div *ngIf="company">
+    <label>CIF:
+        <input type="text" value="{{user.cif}}" readonly/>
+    </label>
+</div>
+            
 <button type="button" (click)="updateProfile()">UPDATE PROFILE INFORMATION</button>
 
 <!-- Education -->
@@ -67,6 +83,27 @@
     <button (click)="addEducation()">NEW EDUCATION</button>
 
 <!-- Languages -->
+
+<h2>LANGUAGES</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>LEVEL</th>
+            <th>LANGUAGE</th>
+            <th>FINISH DATE</th>
+            <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let _language of _languages">
+                <th>{{_language.level}}</th>
+                <th>{{_language.language}}</th>
+                <th>{{_language.finishDate}}</th>
+                <th><button (click)="updateLanguage(_language)">UPDATE</button><button (click)="deleteLanguage(_language)">DELETE</button></th>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="addLanguage()">NEW LANGUAGE</button>
 
 
 </div>

@@ -24,6 +24,9 @@ export class InMemoryDataService implements InMemoryDbService{
         nationality: 'ES',
         nif: '47853053N',
         aboutMe: 'M`encanten els gats',
+        companyName: 'GAFO Click',
+        companyDescription: 'Empresa de desenvolupament web',
+        cif: 'B25845852',
         activities: [
           {
         id: 2,
@@ -435,6 +438,9 @@ export class InMemoryDataService implements InMemoryDbService{
       nationality: '',
       nif: '',
       aboutMe: '',
+      companyName: 'Tricatons',
+        companyDescription: 'Empresa de pallassos',
+        cif: 'B25874852',
       activities: [
         {
           id: 4,
