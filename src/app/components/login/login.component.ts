@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { User } from 'src/app/Models/user';
 import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
+import { GlobalService } from '../../Services/global.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   public password: FormControl;
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -50,7 +51,9 @@ export class LoginComponent implements OnInit {
 
       if (obj.password === this.user.password) {
         console.log('Welcome ' + obj.name);
-        if (obj.type === 'tourist') {
+        this._globalService.globalVar = obj;
+
+        if (obj.type === 'Tourist') {
           document.getElementById('logout').style.display = 'inline';
           document.getElementById('home').style.display = 'inline';
           document.getElementById('favorites').style.display = 'inline';
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
           document.getElementById('login').style.display = 'none';
           document.getElementById('register').style.display = 'none';
         }
-        else if (obj.type === 'company') {
+        else if (obj.type === 'Company') {
           document.getElementById('logout').style.display = 'inline';
           document.getElementById('login').style.display = 'none';
           document.getElementById('register').style.display = 'none';

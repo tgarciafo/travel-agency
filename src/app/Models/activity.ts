@@ -1,3 +1,4 @@
+import { User } from './user';
 export class Activity{
     id: number;
     name: string;
@@ -10,4 +11,5 @@ export class Activity{
     minCapacity: number;
     limitCapacity: number;
     state: string;
+    peopleRegistered: number;
 }

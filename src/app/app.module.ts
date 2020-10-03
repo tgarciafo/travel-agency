@@ -17,7 +17,7 @@ import { NewActivityComponent } from './components/new-activity/new-activity.com
 import { MessagesComponent } from './messages/messages.component';
 import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
-
+import { ProfileComponent } from './components/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +28,8 @@ import { HomeComponent } from './components/home/home.component';
     NewActivityComponent,
     MessagesComponent,
     UsersComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
