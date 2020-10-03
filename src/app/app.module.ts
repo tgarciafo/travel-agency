@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { EducationComponent } from './components/education/education.component';
 import { LanguagesComponent } from './components/languages/languages.component';
+import { UpdateEducationComponent } from './components/update-education/update-education.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { LanguagesComponent } from './components/languages/languages.component';
     UpdateProfileComponent,
     EducationComponent,
     LanguagesComponent,
+    UpdateEducationComponent,
   ],
   imports: [
     BrowserModule,

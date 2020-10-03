@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../Models/user';
+import { Education, User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,8 @@ import { User } from '../Models/user';
 export class GlobalService {
 
   public globalVar: User;
+
+  public globalEducation: Education;
 
  
 }

@@ -8,6 +8,7 @@ import { NewActivityComponent } from './components/new-activity/new-activity.com
 import { HomeComponent } from '../app/components/home/home.component';
 import { ProfileComponent } from '../../src/app/components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { UpdateEducationComponent } from './components/update-education/update-education.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'newActivity', component: NewActivityComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'updateProfile', component: UpdateProfileComponent },
-
+  { path: 'updateEducation', component: UpdateEducationComponent }
 ];
 
 @NgModule({

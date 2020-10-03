@@ -1,5 +1,6 @@
-<h2>PROFILE</h2>
+
 <div *ngIf="user != undefined">
+<h2>PROFILE</h2>
 <div>
     <label>Name: 
     <input type="text" value="{{user.name}}" readonly/>
@@ -37,4 +38,35 @@
 </label>
 </div>
 <button type="button" (click)="updateProfile()">UPDATE PROFILE INFORMATION</button>
+
+<!-- Education -->
+
+<h2>EDUCATION</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>TYPE</th>
+            <th>LEVEL</th>
+            <th>NAME</th>
+            <th>UNIVERSITY</th>
+            <th>FINISH DATE</th>
+            <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let education of educations">
+                <th>{{education.type}}</th>
+                <th>{{education.level}}</th>
+                <th>{{education.name}}</th>
+                <th>{{education.university}}</th>
+                <th>{{education.finishDate}}</th>
+                <th><button (click)="updateEducation(education)">UPDATE</button><button (click)="deleteEducation(education)">DELETE</button></th>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="addEducation()">NEW EDUCATION</button>
+
+<!-- Languages -->
+
+
 </div>

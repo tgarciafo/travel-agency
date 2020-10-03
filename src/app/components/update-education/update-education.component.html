@@ -1,0 +1,48 @@
+<div>
+        <h1>Update Profile information</h1>
+        <form [formGroup]="educationForm" (ngSubmit)="updateEducation()">
+    
+            <div class="form-group">
+                <label>Type:</label>
+                <select [formControl]="type">
+                    <option>Títol Universitari</option>
+                    <option>Cicle Formatiu</option>
+                </select>
+            </div>
+    
+            <div *ngIf="type.value === 'Títol Universitari'" class="form-group">
+                <label>Level:</label>
+                <select [formControl]="level">
+                    <option>Grau</option>
+                    <option>Diplomat</option>
+                    <option>Llicenciat</option>
+                    <option>Enginyer</option>
+                    <option>Màster</option>
+                    <option>Doctorat</option>
+                </select>
+            </div>
+                <div *ngIf="type.value === 'Cicle Formatiu'" class="form-group">
+                    <label>Level:</label>
+                    <select [formControl]="level">
+                        <option>Grau Superior</option>
+                        <option>Grau Mitjà</option>
+                    </select>            
+                </div>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" [formControl]="name"/>
+            </div>
+            <div class="form-group">
+                <label>University:</label>
+                <input type="text" [formControl]="university"/>
+            </div>
+            <div class="form-group">
+                <label>Finish Date:</label>
+                <input type="text" [formControl]="finishDate"/>
+            </div>    
+            <div class="form-group">
+                <button type="submit" [disabled]="!educationForm.valid">UPDATE EDUCATION</button>
+            </div>
+        </form>
+    </div>
+    
