@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/Models/user';
 import { Activity } from 'src/app/Models/activity';
 import { UserService } from 'src/app/Services/user.service';
+import { ActivityService } from 'src/app/Services/activity.service';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../Services/global.service';
 
@@ -17,7 +18,9 @@ export class AdminComponent implements OnInit {
   user: User;
   activity: Activity;
 
-  constructor(private _global: GlobalService, private router: Router, private userService: UserService) {
+  constructor(private _global: GlobalService, private router: Router, 
+              private activityService: ActivityService, private userService: UserService) {
+
     this.user = this._global.globalVar;
    }
 
@@ -44,7 +47,7 @@ export class AdminComponent implements OnInit {
     this.router.navigateByUrl('/updateActivity');
   }
 
-  deleteActivity(activity){
+  deleteActivity(activity: Activity): void{
     const array = this.user.activities;
 
     for (let i = 0; i < array.length; i++) {
@@ -52,6 +55,9 @@ export class AdminComponent implements OnInit {
         array.splice(i, 1);
       }
     }
+
+    this.activities = this.activities.filter(a => a !== activity);
+    this.activityService.deleteActivity(activity).subscribe();
   }
 
   addActivity() {

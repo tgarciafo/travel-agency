@@ -51,6 +51,16 @@ export class ActivityService {
     );
   }
 
+  deleteActivity(activity: Activity | number): Observable<Activity>{
+    const id = typeof activity === 'number' ? activity : activity.id;
+    const url = `${this.activitiesUrl}/${id}`;
+
+    return this.http.delete<Activity>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted activity id=${id}`)),
+      catchError(this.handleError<Activity>('deleteActivity'))
+    );
+  }
+
   private log(message: string) {
     this.messageService.add(`ActivityService: ${message}`);
   }
