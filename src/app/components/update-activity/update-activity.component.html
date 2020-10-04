@@ -1,0 +1,105 @@
+<div>
+    <h1>Activity Update</h1>
+    <form [formGroup]="updateActivityForm" (ngSubmit)="updateActivity()">
+
+        <div class="form-group">
+            <label>Activity name:</label>
+            <input type="text" [formControl]="name"/>
+        </div>
+
+        <div class="form-group">
+            <label>Activity category:</label>
+            <select [formControl]="category">
+                <option value="Cultura i Patrimoni">Cultura i Patrimoni</option>
+                <option value="Enoturisme">Enoturisme</option>
+                <option value="Platja">Platja</option>
+            </select>
+        </div>
+
+        <div *ngIf="category.value === 'Cultura i Patrimoni'" class="form-group">
+            <label>Activity subcategory:</label>
+            <select [formControl]="subcategory">
+                <option>Concert</option>
+                <option>Espectacle</option>
+                <option>Excursió</option>
+                <option>Festivals</option>
+                <option>Visita guiada</option>
+                <option>Museu</option>
+                <option>Monument</option>
+            </select>
+        </div>
+        <div *ngIf="category.value === 'Enoturisme'" class="form-group">
+            <label>Activity subcategory:</label>
+            <select [formControl]="subcategory">
+                <option>Bodega</option>
+                <option>Tast de productes</option>
+                <option>Excursió</option>
+                <option>Museu del vi</option>
+                <option>Visita guiada</option>
+            </select>
+        </div>
+        <div *ngIf="category.value === 'Platja'" class="form-group">
+            <label>Activity subcategory:</label>
+            <select [formControl]="subcategory">
+                <option>Activitat nàutica</option>
+                <option>Cala</option>
+                <option>Concert</option>
+                <option>Excursió</option>
+                <option>Taller</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Activity description:</label>
+            <input type="text" [formControl]="description"/>
+        </div>
+
+        <div class="form-group">
+            <label>Activity language:</label>
+            <select [formControl]="language">
+                <option>Anglès</option>
+                <option>Català</option>
+                <option>Castellà</option>
+                <option>Francès</option>
+                <option>Alemany</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Activity date:</label>
+            <input type="string" [formControl]="date"/>
+        </div>
+        <div class="form-group">
+            <label>Activity price:</label>
+            <input type="number" [formControl]="price"/>
+        </div>
+        <div class="form-group">
+            <label>Activity minCapacity:</label>
+            <input type="number" [formControl]="minCapacity"/>
+        </div>
+        <div class="form-group">
+            <label>Activity limitCapacity:</label>
+            <input type="string" [formControl]="limitCapacity"/>
+        </div>
+        <div class="form-group">
+            <label>Activity state:</label>
+            <select [formControl]="state">
+                <option>Cancelled</option>
+                <option>Complete</option>
+                <option>Places available</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" [disabled]="!updateActivityForm.valid">Update activity</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
