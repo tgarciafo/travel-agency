@@ -27,6 +27,7 @@ import { MyActivitiesComponent } from './components/my-activities/my-activities.
 import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UpdateActivityComponent } from './components/update-activity/update-activity.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { UpdateActivityComponent } from './components/update-activity/update-act
     MyActivitiesDetailsComponent,
     AdminComponent,
     UpdateActivityComponent,
+    FavoritesComponent,
     
   ],
   imports: [

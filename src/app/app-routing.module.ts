@@ -16,7 +16,7 @@ import { MyActivitiesComponent } from './components/my-activities/my-activities.
 import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UpdateActivityComponent } from './components/update-activity/update-activity.component';
-
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,7 +35,9 @@ const routes: Routes = [
   { path: 'myActivities', component: MyActivitiesComponent },
   { path: 'myActivitiesDetails', component: MyActivitiesDetailsComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'updateActivity', component: UpdateActivityComponent }
+  { path: 'updateActivity', component: UpdateActivityComponent },
+  { path: 'favorites', component: FavoritesComponent }
+
 ];
 
 @NgModule({

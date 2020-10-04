@@ -59,7 +59,7 @@
     <div id="butsub" *ngIf="registered()">
         <button *ngIf="!subscribed(activity)"  id="signupA" (click)="signUp(activity);subscribed(activity);" type="submit">Subscriure's</button>
         <button *ngIf="subscribed(activity)"   id="signupB" (click)="unsubscribe(activity);subscribed(activity);" type="submit">Anul·lar la subscripció</button>
-        <a title="Add favorite" id="favorite" (click)="favorite(user)"><img src="../../../assets/images/favoriteIcon.png" width="50" height="50" alt="Add favorite" /></a>
+        <a title="Add favorite" id="favorite" (click)="favorite()"><img src="../../../assets/images/favoriteIcon.png" width="50" height="50" alt="Add favorite" /></a>
     </div>
    
 </div>

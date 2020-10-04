@@ -50,8 +50,21 @@ export class ActivityDetailComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  favorite(user) {
-    console.log(user);
+  favorite() {
+
+    const saved = JSON.parse(localStorage.getItem('favorites'));
+console.log(this.activity, saved)
+    if (saved !== null) {
+      const fav = [];
+      fav.push(this.activity);
+      fav.push(saved);
+      localStorage.setItem('favorites', JSON.stringify(fav));
+    } else {
+      const fav = [];
+      fav.push(this.activity);
+      console.log(fav)
+      localStorage.setItem('favorites', JSON.stringify(fav));
+    }
   }
 
   signUp(activity) {
