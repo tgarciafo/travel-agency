@@ -1,0 +1,67 @@
+<div *ngIf="activity">
+    <h2>ACTIVITIES DETAILS</h2>
+    <div>
+        <label>Name: 
+        <input type="text" value="{{activity.name}}" readonly/>
+    </label>
+    </div>
+    <div>
+        <label>Category: 
+            <input type="text" value="{{activity.category}}" readonly/>
+        </label>
+</div>
+<div>
+    <label>Subcategory:
+<input type="text" value="{{activity.subcategory}}" readonly/>
+    </label>
+
+</div>
+<div>
+    <label>Description:
+        <input type="text" value=" {{activity.description}}" readonly/>
+    </label>
+</div>
+<div>
+    <label>Language:
+<input type="text" value="{{activity.language}}" readonly/>
+    </label>         
+</div>
+<div>
+    <label>Date:
+         <input type="text" value="{{activity.date}}" readonly/>
+    </label>
+</div>
+<div>
+    <label>Price:
+        <input type="text" value="{{activity.price}}" readonly/>
+    </label>
+</div>
+<div>
+    <label>Minium capacity:
+        <input type="text" value="{{activity.minCapacity}}" readonly/>
+    </label>
+</div>
+<div>
+    <label>Limit capacity:
+        <input type="text" value="{{activity.limitCapacity}}" readonly/>
+    </label>
+</div>
+<div>
+    <label>State:
+        <input type="text" value="{{activity.state}}" readonly/>
+    </label>
+    </div>
+    <div>
+        <label>People registered:
+            <input type="text" value="" readonly/>
+        </label>
+    </div>
+    <div id="butsub" *ngIf="registered()">
+        <button *ngIf="!subscribed(activity)"  id="signupA" (click)="signUp(activity);subscribed(activity);" type="submit">Subscriure's</button>
+        <button *ngIf="subscribed(activity)"   id="signupB" (click)="unsubscribe(activity);subscribed(activity);" type="submit">Anul·lar la subscripció</button>
+        <a title="Add favorite" id="favorite" (click)="favorite(user)"><img src="../../../assets/images/favoriteIcon.png" width="50" height="50" alt="Add favorite" /></a>
+    </div>
+   
+</div>
+
+

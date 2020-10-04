@@ -12,6 +12,8 @@ import { UpdateEducationComponent } from './components/update-education/update-e
 import { AddEducationComponent } from './components/add-education/add-education.component';
 import { AddLanguageComponent } from './components/add-language/add-language.component';
 import { UpdateLanguageComponent } from './components/update-language/update-language.component';
+import { MyActivitiesComponent } from './components/my-activities/my-activities.component';
+import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
 
 
 const routes: Routes = [
@@ -28,7 +30,8 @@ const routes: Routes = [
   { path: 'addEducation', component: AddEducationComponent },
   { path: 'updateLanguage', component: UpdateLanguageComponent },
   { path: 'addLanguage', component: AddLanguageComponent },
-
+  { path: 'myActivities', component: MyActivitiesComponent },
+  { path: 'myActivitiesDetails', component: MyActivitiesDetailsComponent }
 ];
 
 @NgModule({

@@ -21,9 +21,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { UpdateEducationComponent } from './components/update-education/update-education.component';
 import { AddEducationComponent } from './components/add-education/add-education.component';
-import { MyActivitiesComponent } from './componentes/my-activities/my-activities.component';
 import { AddLanguageComponent } from './components/add-language/add-language.component';
 import { UpdateLanguageComponent } from './components/update-language/update-language.component';
+import { MyActivitiesComponent } from './components/my-activities/my-activities.component';
+import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,9 +40,11 @@ import { UpdateLanguageComponent } from './components/update-language/update-lan
     UpdateProfileComponent,
     UpdateEducationComponent,
     AddEducationComponent,
-    MyActivitiesComponent,
     AddLanguageComponent,
     UpdateLanguageComponent,
+    MyActivitiesComponent,
+    MyActivitiesDetailsComponent,
+    
   ],
   imports: [
     FormsModule,
