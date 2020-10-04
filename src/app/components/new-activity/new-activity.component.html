@@ -92,19 +92,13 @@
 
 
         <div class="form-group">
-            <button type="submit" [disabled]="!newActivityForm.valid">Login</button>
+            <button type="submit" [disabled]="!newActivityForm.valid">Add new activity</button>
         </div>
     </form>
 </div>
 
-<h2>Activities</h2>
-<ul class="activities">
-    <li *ngFor="let activity of activities">
-        <a routerLink="/activityDetail/{{activity.id}}">
-        <span class="badge">{{activity.id}}</span>{{activity.name}}
-    </a>
-    </li>
-</ul>
+
+
 
 
 

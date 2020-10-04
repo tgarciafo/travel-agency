@@ -14,6 +14,7 @@ import { AddLanguageComponent } from './components/add-language/add-language.com
 import { UpdateLanguageComponent } from './components/update-language/update-language.component';
 import { MyActivitiesComponent } from './components/my-activities/my-activities.component';
 import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'updateLanguage', component: UpdateLanguageComponent },
   { path: 'addLanguage', component: AddLanguageComponent },
   { path: 'myActivities', component: MyActivitiesComponent },
-  { path: 'myActivitiesDetails', component: MyActivitiesDetailsComponent }
+  { path: 'myActivitiesDetails', component: MyActivitiesDetailsComponent },
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({

@@ -4,7 +4,10 @@ import { CheckWord } from 'src/app/Directives/check-word.validator';
 import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { Activity } from 'src/app/Models/activity';
 import { ActivityService } from '../../Services/activity.service';
-
+import { User } from 'src/app/Models/user';
+import { UserService } from 'src/app/Services/user.service';
+import { Router } from '@angular/router';
+import { GlobalService } from 'src/app/Services/global.service';
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
@@ -13,6 +16,8 @@ import { ActivityService } from '../../Services/activity.service';
 export class NewActivityComponent implements OnInit {
 
   activities: Activity[];
+  public user: User;
+  users: User[];
 
   public activity: Activity = new Activity();
 
@@ -28,7 +33,11 @@ export class NewActivityComponent implements OnInit {
   public state: FormControl;
   public newActivityForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private activityService: ActivityService) { }
+  constructor(private router: Router, private userService: UserService, private _global: GlobalService,
+              private formBuilder: FormBuilder, private activityService: ActivityService)
+  { 
+      this.user = this._global.globalVar;
+    }
 
   ngOnInit(): void {
 
@@ -57,7 +66,7 @@ export class NewActivityComponent implements OnInit {
     });
 
     this.getActivities();
-
+    this.getUsers();
   }
 
   getActivities(): void {
@@ -65,10 +74,20 @@ export class NewActivityComponent implements OnInit {
       .subscribe(activities => this.activities = activities);
   }
 
+  getUsers(): void {
+    this.userService.getUsers()
+      .subscribe(users => this.users = users);
+  }
+
   addNewActivity() {
-    this.activityService.addActivity(this.newActivityForm.value as Activity)
+    const form = this.newActivityForm.value as Activity;
+
+    this.activityService.addActivity(form)
       .subscribe(activity => {
         this.activities.push(activity);
+        this.user.activities = [...this.user.activities, form];
+        this.router.navigateByUrl('/admin');
+
       });
   }
 

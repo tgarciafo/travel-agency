@@ -25,6 +25,7 @@ import { AddLanguageComponent } from './components/add-language/add-language.com
 import { UpdateLanguageComponent } from './components/update-language/update-language.component';
 import { MyActivitiesComponent } from './components/my-activities/my-activities.component';
 import { MyActivitiesDetailsComponent } from './components/my-activities-details/my-activities-details.component';
+import { AdminComponent } from './components/admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { MyActivitiesDetailsComponent } from './components/my-activities-details
     UpdateLanguageComponent,
     MyActivitiesComponent,
     MyActivitiesDetailsComponent,
+    AdminComponent,
     
   ],
   imports: [
