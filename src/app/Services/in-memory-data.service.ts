@@ -592,10 +592,10 @@ export class InMemoryDataService implements InMemoryDbService{
         language: 'castellà',
         date: '11/11/2020',
         price: 30,
-        minCapacity: 15,
-        limitCapacity: 50,
-      state: 'places available',
-      peopleRegistered: 8
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
     }
     ];
     return {users, activities}

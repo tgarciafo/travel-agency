@@ -53,11 +53,13 @@
     </div>
     <div>
         <label>People registered:
-            <input type="text" value="" readonly/>
+            <input type="text" value="{{activity.peopleRegistered}}" readonly/>
         </label>
     </div>
     <div id="butsub" *ngIf="registered()">
+        <div *ngIf="available()">
         <button *ngIf="!subscribed(activity)"  id="signupA" (click)="signUp(activity);subscribed(activity);" type="submit">Subscriure's</button>
+        </div>
         <button *ngIf="subscribed(activity)"   id="signupB" (click)="unsubscribe(activity);subscribed(activity);" type="submit">Anul·lar la subscripció</button>
         <a *ngIf="!favorited()" title="Add favorite" id="favorite" (click)="favorite();favorited()"><img src="../../../assets/images/favoritoWhite.png" width="50" height="50" alt="Add favorite" /></a>
         <a *ngIf="favorited()" title="Remove favorite" id="unfavorite" (click)="unfavorite();favorited();"><img src="../../../assets/images/favoritoBlack.png" width="50" height="50" alt="Remove favorite" /></a>

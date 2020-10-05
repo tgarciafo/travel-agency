@@ -20,8 +20,9 @@ export class ActivityDetailComponent implements OnInit {
 
   user: User;
   users: User[];
-  
-  constructor( private userService:UserService, private _globalService: GlobalService, private router: Router )
+  activities: Activity[];
+  constructor(private userService: UserService, private activityService: ActivityService,
+              private _globalService: GlobalService, private router: Router)
   {
     this.user = this._globalService.globalVar;
   }
@@ -30,6 +31,18 @@ export class ActivityDetailComponent implements OnInit {
 
     this.getUsers();
     this.registered();
+    this.getActivities();
+  }
+
+  available() {
+    if (this.activity.state === 'complete' || 'Cancelled') {
+      return false;
+    }
+  }
+
+  getActivities(): void{
+    this.activityService.getActivities()
+      .subscribe(activities => this.activities = activities);
   }
 
   registered() {
@@ -108,8 +121,29 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   signUp(activity) {
+
+    this.activities = this.activities.filter(a => a !== activity);
+    this.activityService.deleteActivity(activity).subscribe();
+
+    const registrats = activity.peopleRegistered + 1;
+
+    activity.peopleRegistered = registrats;
+
+    const limit = activity.limitCapacity;
+
+    if (registrats === limit) {
+      activity.state = 'Complete';
+    }
+
+    this.activityService.addActivity(activity)
+      .subscribe( activity => {
+        this.activities.push(activity);
+        this.activities = [...this.activities, activity];
+        this.router.navigateByUrl('/login', { skipLocationChange: true });
+        return this.router.navigateByUrl('/activityList');      });
+
     this.user.activities = [...this.user.activities, activity];
-    console.log(this.user);
+
   }
 
   unsubscribe(activity) {
@@ -121,7 +155,24 @@ export class ActivityDetailComponent implements OnInit {
         }
     }
 
-    console.log(this.user);
+    this.activities = this.activities.filter(a => a !== activity);
+    this.activityService.deleteActivity(activity).subscribe();
+
+    if (activity.peopleRegistered === activity.limitCapacity) {
+      activity.state = 'Places available';
+    }
+
+    const registrats = activity.peopleRegistered - 1;
+
+    activity.peopleRegistered = registrats;
+
+    this.activityService.addActivity(activity)
+      .subscribe( activity => {
+        this.activities.push(activity);
+        this.activities = [...this.activities, activity];
+        this.router.navigateByUrl('/login', { skipLocationChange: true });
+        return this.router.navigateByUrl('/activityList');      });
+
   }
 
 }
