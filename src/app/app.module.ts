@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './Services/in-memory-data.service';
 
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UsersComponent } from './components/users/users.component';
@@ -53,7 +53,6 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     
   ],
   imports: [
-    FormsModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

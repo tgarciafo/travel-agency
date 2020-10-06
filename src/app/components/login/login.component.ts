@@ -18,13 +18,15 @@ export class LoginComponent implements OnInit {
   public email: FormControl;
   public password: FormControl;
   public loginForm: FormGroup;
+  private validate_email = '^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$';
+  public message: string;
 
   constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
-    this.email = new FormControl('');
-    this.password = new FormControl('');
+    this.email = new FormControl('', [Validators.required, Validators.pattern(this.validate_email)]);
+    this.password = new FormControl('', [Validators.required]);
 
     this.loginForm = this.formBuilder.group({
       email: this.email,
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
     const obj = this.users.find(obj => obj.email === this.user.email);
 
     if (obj == null) {
-      alert('El correu ' + this.user.email + ' no existeix a la base de dades.');
+      this.message = 'El correu ' + this.user.email + ' no existeix a la base de dades';
     } else {
 
       if (obj.password === this.user.password) {
@@ -72,7 +74,7 @@ export class LoginComponent implements OnInit {
         }
         this.router.navigate(['activityList']);
       } else {
-        alert('El password no és correcte');
+        this.message = 'El password no és correcte';
       }
     }
   }
