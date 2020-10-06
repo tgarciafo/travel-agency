@@ -52,11 +52,13 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   registered() {
+    if (this._globalService.globalVar !== undefined) { 
     if (this._globalService.globalVar.type === 'Tourist') {
       return true;
     } else {
       return false;
     }
+  }
   }
 
   subscribed(activity) {
@@ -92,7 +94,6 @@ export class ActivityDetailComponent implements OnInit {
   favorite() {
 
     const saved = JSON.parse(localStorage.getItem('favorites'));
-    console.log(this.activity, saved)
 
     if (saved !== null) {
 

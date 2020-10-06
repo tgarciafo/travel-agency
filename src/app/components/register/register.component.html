@@ -5,37 +5,67 @@
         <div class="form-group">
             <label>User name:</label>
             <input type="text" [formControl]="name"/>
+
+            <span style="color: red;" *ngIf="registerForm.get('name').errors && (registerForm.get('name').touched || registerForm.get('name').dirty) ">
+                <span *ngIf="registerForm.get('name').errors.required">User name is required</span>
+                <span *ngIf="registerForm.get('name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
+                <span *ngIf="registerForm.get('name').errors.minlength || registerForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>User surname:</label>
-            <input type="text" [formControl]="surname"/>
+            <input ng-trim="false" type="text" [formControl]="surname"/>
+
+            <span style="color: red;" *ngIf="registerForm.get('surname').errors && (registerForm.get('surname').touched || registerForm.get('surname').dirty) ">
+                <span *ngIf="registerForm.get('surname').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
+                <span *ngIf="registerForm.get('surname').errors.minlength || registerForm.get('surname').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>User type:</label>
             <select [formControl]="type">
-                <option>Tourist</option>
-                <option>Company</option>
+                <option value=" " [selected]="true">Select</option>
+                <option value="Tourist" >Tourist</option>
+                <option value="Company" >Company</option>
             </select>
+            <span style="color: red;" *ngIf="type.invalid && type?.errors.invalidWord">You have to choose one option</span>
+
         </div>
 
         <div class="form-group">
             <label>User email:</label>
             <input type="text" [formControl]="email"/>
+            <span style="color: red;" *ngIf="(registerForm.get('email').errors && (registerForm.get('email').touched) || registerForm.get('email').dirty) ">
+                <span *ngIf="registerForm.get('email').errors?.required">User email is required</span>
+                <span *ngIf="registerForm.get('email').errors?.pattern"> User email must be like name@domin.com</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>User password:</label>
             <input type="password" [formControl]="password"/>
+
+            <span style="color: red;" *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty) ">
+                <span *ngIf="registerForm.get('password').errors?.required">User password is required</span>
+                <span *ngIf="registerForm.get('password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>User repeat password:</label>
             <input type="password" [formControl]="repeat_password"/>
+
+            <span style="color: red;" *ngIf="registerForm.get('repeat_password').errors && (registerForm.get('repeat_password').touched || registerForm.get('repeat_password').dirty) ">
+                <span *ngIf="registerForm.get('repeat_password').errors?.required">User password is required</span>
+                <span *ngIf="registerForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+            </span>
+            <span style="color: red;" *ngIf="validatorEquality()">The passwords must to be equals</span>
         </div>
 
         <div class="form-group">
+            <p *ngIf="message" style="color: red;">{{message}}</p>
             <button type="submit" [disabled]="!registerForm.valid">JOIN NOW</button>
         </div>
     </form>

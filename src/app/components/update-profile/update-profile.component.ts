@@ -4,8 +4,7 @@ import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+import { checkNIF } from 'src/app/Directives/check-nif.validator';
 
 @Component({
   selector: 'app-update-profile',
@@ -30,7 +29,7 @@ export class UpdateProfileComponent implements OnInit {
   public companyDescription: FormControl;
   public cif: FormControl;
   public profileForm: FormGroup;
-
+  private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
   company: boolean;
 
 
@@ -40,9 +39,9 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.name = new FormControl('');
-    this.surname = new FormControl('');
-    this.birthdate = new FormControl('');
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.surname = new FormControl('', [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.birthdate = new FormControl('', Validators.pattern(this.date));
     this.phone = new FormControl('');
     this.nationality = new FormControl('');
     this.nif = new FormControl('');
@@ -62,6 +61,8 @@ export class UpdateProfileComponent implements OnInit {
       companyName: this.companyName,
       companyDescription: this.companyDescription,
       cif: this.cif
+    }, {
+      validators: checkNIF
     });
     this.getUsers();
 
@@ -97,5 +98,10 @@ export class UpdateProfileComponent implements OnInit {
     this.router.navigateByUrl('/profile');
 
   }
+
+  validatorNIF(): boolean{
+    return this.profileForm.hasError('validation') && this.profileForm.get('nif').dirty;
+  }
+
 }
 

@@ -24,17 +24,18 @@ export class RegisterComponent implements OnInit {
   public password: FormControl;
   public repeat_password: FormControl;
   public registerForm: FormGroup;
+  public message: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
 
-    this.name = new FormControl('');
-    this.surname = new FormControl('');
-    this.type = new FormControl('');
-    this.email = new FormControl('');
-    this.password = new FormControl('');
-    this.repeat_password = new FormControl('');
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.surname = new FormControl('', [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.type = new FormControl('', [Validators.required, CheckWord.checkInvalidWord(/ /)]);
+    this.email = new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$')]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+    this.repeat_password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
     this.registerForm = this.formBuilder.group({
       name: this.name,
@@ -43,7 +44,10 @@ export class RegisterComponent implements OnInit {
       email: this.email,
       password: this.password,
       repeat_password: this.repeat_password
-    });
+    }, {
+      validators: checkEquality
+    }
+    );
     this.getUsers();
 
   }
@@ -54,12 +58,26 @@ export class RegisterComponent implements OnInit {
   }
 
   checkRegister() {
-    this.userService.addUser(this.registerForm.value as User)
-      .subscribe(user => {
-        this.users.push(user);
-        console.log('Successfully logged in');
-        this.router.navigate(['login']);
-      });
+
+    this.user.email = this.email.value;
+    const obj = this.users.find(obj => obj.email === this.user.email);
+
+    if (obj == null) {
+
+      this.userService.addUser(this.registerForm.value as User)
+        .subscribe(user => {
+          this.users.push(user);
+          console.log('Successfully registered');
+          this.router.navigate(['login']);
+        });
+    } else {
+      this.message = 'El correu electrònic ja està registrat al sistema';
+    }
+  }
+
+  validatorEquality(): boolean{
+    return this.registerForm.hasError('equals') && this.registerForm.get('password').dirty
+      && this.registerForm.get('repeat_password').dirty;
   }
 
 }

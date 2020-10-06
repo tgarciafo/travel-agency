@@ -2,6 +2,8 @@ import { Component, OnInit,  Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { Router } from '@angular/router';
+
 import { GlobalService } from '../../Services/global.service';
 
 import { ActivityService } from '../../Services/activity.service';
@@ -21,7 +23,7 @@ export class MyActivitiesDetailsComponent implements OnInit {
 
   user: User;
   users: User[];
-  constructor( private userService:UserService, private _globalService: GlobalService )
+  constructor( private userService:UserService, private router: Router, private _globalService: GlobalService )
   {
     this.user = this._globalService.globalVar;
   }
@@ -46,10 +48,65 @@ export class MyActivitiesDetailsComponent implements OnInit {
     }
   }
 
+  favorited() {
+    const saved = JSON.parse(localStorage.getItem('favorites'));
+
+    if (saved !== null) {
+
+      for (let i = 0; i < saved.length; i++) {
+        if (saved[i].id === this.activity.id) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  }
+
   getUsers(): void{
     this.userService.getUsers()
       .subscribe(users => this.users = users);
   }
+
+  favorite() {
+
+    const saved = JSON.parse(localStorage.getItem('favorites'));
+
+    if (saved !== null) {
+
+      saved.push(this.activity);
+      localStorage.setItem('favorites', JSON.stringify(saved));
+    } else {
+      const fav = [];
+      fav.push(this.activity);
+      localStorage.setItem('favorites', JSON.stringify(fav));
+    }
+  }
+
+  unfavorite() {
+
+    const saved = JSON.parse(localStorage.getItem('favorites'));
+
+    for (let i = 0; i < saved.length; i++){
+          if (saved[i].id === this.activity.id) {
+            saved.splice(i, 1);
+            }
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(saved));
+
+    const url = window.location.pathname;
+
+    if (url === '/favorites') {
+      this.reload(url);
+    }
+  }
+
+  async reload(url: string): Promise<boolean> {
+    await this.router.navigateByUrl('/login', { skipLocationChange: true });
+    return this.router.navigateByUrl(url);
+  }
+
 
   signUp(activity) {
     this.user.activities = [...this.user.activities, activity];
