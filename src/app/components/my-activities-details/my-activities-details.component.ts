@@ -51,13 +51,8 @@ export class MyActivitiesDetailsComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  favorite(user) {
-    console.log(user);
-  }
-
   signUp(activity) {
     this.user.activities = [...this.user.activities, activity];
-    console.log(this.user);
   }
 
   unsubscribe(activity) {
@@ -68,8 +63,6 @@ export class MyActivitiesDetailsComponent implements OnInit {
         array.splice(i, 1);
         }
     }
-
-    console.log(this.user);
   }
 
 }

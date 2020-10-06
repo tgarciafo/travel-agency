@@ -67,8 +67,6 @@ export class UpdateEducationComponent implements OnInit {
     }
     this.user.education = [...this.user.education, form];
 
-    console.log(this.user);
-
     this.router.navigateByUrl('/profile');
 
   }

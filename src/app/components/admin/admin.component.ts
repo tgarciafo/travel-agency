@@ -39,7 +39,6 @@ export class AdminComponent implements OnInit {
 
   getActivities(): void{
     this.activities = this.user.activities;
-    console.log(this.activities);
   }
 
   updateActivity(activity) {

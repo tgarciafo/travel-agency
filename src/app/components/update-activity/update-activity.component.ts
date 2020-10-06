@@ -102,8 +102,6 @@ export class UpdateActivityComponent implements OnInit {
         this.user.activities = [...this.user.activities, form];
         this.router.navigateByUrl('/admin');
       });
-
-    console.log(this.activities);
   }
 
 }

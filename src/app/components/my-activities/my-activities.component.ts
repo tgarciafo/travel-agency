@@ -32,7 +32,6 @@ export class MyActivitiesComponent implements OnInit {
 
   getMyActivities(): void{
     this.activities = this.user.activities;
-    console.log(this.activities);
   }
 
 }

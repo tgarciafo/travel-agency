@@ -54,8 +54,6 @@ export class AddLanguageComponent implements OnInit {
 
     this.user.languages = [...this.user.languages, form];
 
-    console.log(this.user);
-
     this.router.navigateByUrl('/profile');
 
   }

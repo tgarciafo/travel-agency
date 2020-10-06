@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
 
   getEducations(): void{
     this.educations = this.user.education;
-    console.log(this.educations);
   }
 
   getLanguages(): void{
@@ -95,8 +94,5 @@ export class ProfileComponent implements OnInit {
   addLanguage() {
     this.router.navigateByUrl('/addLanguage');
    }
-   
 
-
-  
 }

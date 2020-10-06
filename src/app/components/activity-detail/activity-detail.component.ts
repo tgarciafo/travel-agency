@@ -30,14 +30,20 @@ export class ActivityDetailComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUsers();
-    this.registered();
+    if (this.user !== undefined){
+      this.registered();
+    }
+    if (this.activity !== undefined) {
+      this.available();
+    }
     this.getActivities();
   }
 
   available() {
-    if (this.activity.state === 'complete' || 'Cancelled') {
+    if (this.activity.state === ('Complete' || 'Cancelled')) {
       return false;
     }
+    else { return true; }
   }
 
   getActivities(): void{
@@ -46,7 +52,11 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   registered() {
-    return this._globalService.globalVar !== undefined;
+    if (this._globalService.globalVar.type === 'Tourist') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   subscribed(activity) {
@@ -91,7 +101,6 @@ export class ActivityDetailComponent implements OnInit {
     } else {
       const fav = [];
       fav.push(this.activity);
-      console.log(fav)
       localStorage.setItem('favorites', JSON.stringify(fav));
     }
   }

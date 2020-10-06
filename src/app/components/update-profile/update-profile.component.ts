@@ -66,7 +66,6 @@ export class UpdateProfileComponent implements OnInit {
     this.getUsers();
 
     this.getProfile();
-    
 
   }
 

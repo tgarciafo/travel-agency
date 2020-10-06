@@ -35,7 +35,6 @@ export class FavoritesComponent implements OnInit {
     const saved = JSON.parse(localStorage.getItem('favorites'));
 
     this.activities = saved;
-    console.log(this.activities);
   }
 
 }
