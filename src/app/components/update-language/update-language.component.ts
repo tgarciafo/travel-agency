@@ -21,6 +21,7 @@ export class UpdateLanguageComponent implements OnInit {
   public language: FormControl;
   public finishDate: FormControl;
   public languageForm: FormGroup;
+  private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) {
@@ -30,9 +31,9 @@ export class UpdateLanguageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.level = new FormControl('');
-    this.language = new FormControl('');
-    this.finishDate = new FormControl('');
+    this.level = new FormControl('', Validators.required);
+    this.language = new FormControl('', Validators.required);
+    this.finishDate = new FormControl('', Validators.pattern(this.date));
 
     this.languageForm = this.formBuilder.group({
       level: this.level,

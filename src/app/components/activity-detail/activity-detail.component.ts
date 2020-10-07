@@ -33,17 +33,7 @@ export class ActivityDetailComponent implements OnInit {
     if (this.user !== undefined){
       this.registered();
     }
-    if (this.activity !== undefined) {
-      this.available();
-    }
     this.getActivities();
-  }
-
-  available() {
-    if (this.activity.state === ('Complete' || 'Cancelled')) {
-      return false;
-    }
-    else { return true; }
   }
 
   getActivities(): void{

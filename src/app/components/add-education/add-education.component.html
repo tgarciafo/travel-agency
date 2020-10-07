@@ -5,6 +5,7 @@
         <div class="form-group">
             <label>Type:</label>
             <select [formControl]="type">
+                <option value=" " [selected]="true">Select</option>
                 <option>Títol Universitari</option>
                 <option>Cicle Formatiu</option>
             </select>
@@ -13,6 +14,7 @@
         <div *ngIf="type.value === 'Títol Universitari'" class="form-group">
             <label>Level:</label>
             <select [formControl]="level">
+                <option value=" " [selected]="true">Select</option>
                 <option>Grau</option>
                 <option>Diplomat</option>
                 <option>Llicenciat</option>
@@ -24,6 +26,7 @@
             <div *ngIf="type.value === 'Cicle Formatiu'" class="form-group">
                 <label>Level:</label>
                 <select [formControl]="level">
+                    <option value=" " [selected]="true">Select</option>
                     <option>Grau Superior</option>
                     <option>Grau Mitjà</option>
                 </select>            
@@ -31,14 +34,25 @@
         <div class="form-group">
             <label>Name:</label>
             <input type="text" [formControl]="name"/>
+            <span style="color: red;" *ngIf="addEducationForm.get('name').errors && (addEducationForm.get('name').touched || addEducationForm.get('name').dirty) ">
+                <span *ngIf="addEducationForm.get('name').errors.required">Education name is required</span>
+                <span *ngIf="addEducationForm.get('name').errors.minlength || addEducationForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
         <div class="form-group">
             <label>University:</label>
             <input type="text" [formControl]="university"/>
+            <span style="color: red;" *ngIf="addEducationForm.get('university').errors && (addEducationForm.get('university').touched || addEducationForm.get('university').dirty) ">
+                <span *ngIf="addEducationForm.get('university').errors.required">Education university is required</span>
+                <span *ngIf="addEducationForm.get('university').errors.minlength || addEducationForm.get('university').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Finish Date:</label>
             <input type="text" [formControl]="finishDate"/>
+            <span style="color: red;" *ngIf="addEducationForm.get('finishDate').errors && (addEducationForm.get('finishDate').touched || addEducationForm.get('finishDate').dirty) ">
+                <span *ngIf="addEducationForm.get('finishDate').errors.pattern"> Education finish date must be like DD/MM/YYYY</span>
+            </span>
         </div>    
         <div class="form-group">
             <button type="submit" [disabled]="!addEducationForm.valid">ADD EDUCATION</button>

@@ -23,6 +23,7 @@ export class AddEducationComponent implements OnInit {
   public university: FormControl;
   public finishDate: FormControl;
   public addEducationForm: FormGroup;
+  private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) {
@@ -32,11 +33,11 @@ export class AddEducationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.type = new FormControl('');
-    this.level = new FormControl('');
-    this.name = new FormControl('');
-    this.university = new FormControl('');
-    this.finishDate = new FormControl('');
+    this.type = new FormControl('', Validators.required);
+    this.level = new FormControl('', Validators.required);
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
+    this.university = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
+    this.finishDate = new FormControl('', Validators.pattern(this.date));
 
     this.addEducationForm = this.formBuilder.group({
       type: this.type,
@@ -46,8 +47,6 @@ export class AddEducationComponent implements OnInit {
       finishDate: this.finishDate,
     });
     this.getUsers();
-    
-
   }
 
   getUsers(): void {
