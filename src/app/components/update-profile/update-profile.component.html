@@ -53,9 +53,13 @@
                 <input type="text" [formControl]="about"/>
             </div>
             <div *ngIf="company" class="form-group">
-                <label>Company name:
+                <label>Company name:</label>
                     <input type="text" [formControl]="companyName" />
-                </label>
+                    <span style="color: red;" *ngIf="profileForm.get('companyName').errors && (profileForm.get('companyName').touched || profileForm.get('companyName').dirty) ">
+                        <span *ngIf="profileForm.get('companyName').errors.required">Company name is required</span>
+                        <span *ngIf="profileForm.get('companyName').errors.minlength || profileForm.get('companyName').errors.maxlength">El camp ha de contenir entre 3 i 255 caràcters</span>
+                    </span>
+                    <span style="color: red;" *ngIf="validatorTRIM()">There cannot be a whitespace at the beggining</span>
                 </div>
                 <div *ngIf="company">
                     <label>Company description:
@@ -65,6 +69,9 @@
                 <div *ngIf="company">
                     <label>CIF:
                         <input type="text"  [formControl]="cif" />
+                        <span style="color: red;" *ngIf="profileForm.get('cif').errors && (profileForm.get('cif').touched || profileForm.get('cif').dirty) ">
+                            <span *ngIf="profileForm.get('cif').errors.required">User name is required</span>
+                        </span>
                     </label>
                 </div>
     

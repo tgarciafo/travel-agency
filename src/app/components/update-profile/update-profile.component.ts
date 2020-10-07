@@ -5,6 +5,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
 import { checkNIF } from 'src/app/Directives/check-nif.validator';
+import { trimValidator } from 'src/app/Directives/check-whiteSpace.validator';
 
 @Component({
   selector: 'app-update-profile',
@@ -46,9 +47,9 @@ export class UpdateProfileComponent implements OnInit {
     this.nationality = new FormControl('');
     this.nif = new FormControl('');
     this.about = new FormControl('');
-    this.companyName = new FormControl('');
+    this.companyName = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
     this.companyDescription = new FormControl('');
-    this.cif = new FormControl('');
+    this.cif = new FormControl('', Validators.required);
 
     this.profileForm = this.formBuilder.group({
       name: this.name,
@@ -62,7 +63,7 @@ export class UpdateProfileComponent implements OnInit {
       companyDescription: this.companyDescription,
       cif: this.cif
     }, {
-      validators: checkNIF
+      validators: [checkNIF, trimValidator]
     });
     this.getUsers();
 
@@ -101,6 +102,10 @@ export class UpdateProfileComponent implements OnInit {
 
   validatorNIF(): boolean{
     return this.profileForm.hasError('validation') && this.profileForm.get('nif').dirty;
+  }
+
+  validatorTRIM(): boolean{
+    return this.profileForm.hasError('validationT') && this.profileForm.get('companyName').dirty;
   }
 
 }
