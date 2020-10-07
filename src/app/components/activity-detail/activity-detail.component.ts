@@ -52,9 +52,12 @@ export class ActivityDetailComponent implements OnInit {
   subscribed(activity) {
     const array = this.user.activities;
 
-    for (let i = 0; i < array.length; i++){
-      if (array[i].id === activity.id) {
-        return true;
+    if (array !== undefined) {
+
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].id === activity.id) {
+          return true;
+        }
       }
     }
   }
@@ -138,9 +141,15 @@ export class ActivityDetailComponent implements OnInit {
         this.activities.push(activity);
         this.activities = [...this.activities, activity];
         this.router.navigateByUrl('/login', { skipLocationChange: true });
-        return this.router.navigateByUrl('/activityList');      });
+        return this.router.navigateByUrl('/activityList');
+      });
+    
+    if (this.user.activities !== undefined){
 
-    this.user.activities = [...this.user.activities, activity];
+      this.user.activities = [...this.user.activities, activity];
+    } else {
+      this.user.activities = [activity];
+    }
 
   }
 

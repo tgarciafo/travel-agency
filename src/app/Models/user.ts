@@ -1,4 +1,3 @@
-import { ProfileComponent } from '../components/profile/profile.component';
 import { Activity } from '../Models/activity';
 export class User{
     id: number;
