@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User, Education } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
@@ -33,11 +33,11 @@ export class UpdateEducationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.type = new FormControl('', Validators.required);
-    this.level = new FormControl('', Validators.required);
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
-    this.university = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
-    this.finishDate = new FormControl('', Validators.pattern(this.date));
+    this.type = new FormControl(this._education.type, Validators.required);
+    this.level = new FormControl(this._education.level, Validators.required);
+    this.name = new FormControl(this._education.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
+    this.university = new FormControl(this._education.university, [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
+    this.finishDate = new FormControl(this._education.finishDate, Validators.pattern(this.date));
 
     this.educationForm = this.formBuilder.group({
       type: this.type,
@@ -47,7 +47,6 @@ export class UpdateEducationComponent implements OnInit {
       finishDate: this.finishDate,
     });
     this.getUsers();
-    
 
   }
 
@@ -70,5 +69,9 @@ export class UpdateEducationComponent implements OnInit {
 
     this.router.navigateByUrl('/profile');
 
+  }
+
+  changeType(e) {
+    this.educationForm.get('level').setValue(undefined);
   }
 }

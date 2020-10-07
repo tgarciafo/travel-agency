@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CheckWord } from 'src/app/Directives/check-word.validator';
-import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { Activity } from 'src/app/Models/activity';
 import { ActivityService } from '../../Services/activity.service';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
-
 @Component({
   selector: 'app-update-activity',
   templateUrl: './update-activity.component.html',
@@ -31,12 +28,14 @@ export class UpdateActivityComponent implements OnInit {
   public price: FormControl;
   public minCapacity: FormControl;
   public limitCapacity: FormControl;
-  public state: FormControl;
+  public state: string;
+  public peopleRegistered: number;
   public updateActivityForm: FormGroup;
+  private datePattern = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(private router: Router, private userService: UserService, private _global: GlobalService,
               private formBuilder: FormBuilder, private activityService: ActivityService)
-  { 
+  {
     this.user = this._global.globalVar;
     this.activity = this._global.globalActivity;
 
@@ -44,16 +43,17 @@ export class UpdateActivityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.name = new FormControl('');
-    this.category = new FormControl('');
-    this.subcategory = new FormControl('');
-    this.description = new FormControl('');
-    this.language = new FormControl('');
-    this.date = new FormControl('');
-    this.price = new FormControl('');
-    this.minCapacity = new FormControl('');
-    this.limitCapacity = new FormControl('');
-    this.state = new FormControl('');
+    this.name = new FormControl(this.activity.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
+    this.category = new FormControl(this.activity.category, Validators.required);
+    this.subcategory = new FormControl(this.activity.subcategory, Validators.required);
+    this.description = new FormControl(this.activity.description);
+    this.language = new FormControl(this.activity.language);
+    this.date = new FormControl(this.activity.date, Validators.pattern(this.datePattern));
+    this.price = new FormControl(this.activity.price, [Validators.required, Validators.min(0)]);
+    this.minCapacity = new FormControl(this.activity.minCapacity, [Validators.required, Validators.min(0)]);
+    this.limitCapacity = new FormControl(this.activity.limitCapacity, [Validators.required, Validators.min(0)]);
+    this.peopleRegistered = this.activity.peopleRegistered;
+    this.state = this.activity.state;
 
     this.updateActivityForm = this.formBuilder.group({
       name: this.name,
@@ -65,7 +65,8 @@ export class UpdateActivityComponent implements OnInit {
       price: this.price,
       minCapacity: this.minCapacity,
       limitCapacity: this.limitCapacity,
-      state: this.state
+      state: this.state,
+      peopleRegistered: this.peopleRegistered
     });
 
     this.getActivities();
@@ -84,6 +85,8 @@ export class UpdateActivityComponent implements OnInit {
 
   updateActivity() {
     const form = this.updateActivityForm.value as Activity;
+
+    form.state = this.state;
 
     const array = this.user.activities;
 
@@ -104,4 +107,21 @@ export class UpdateActivityComponent implements OnInit {
       });
   }
 
+  calculateState() {
+    if (this.state !== 'Cancelled') {
+      if (this.limitCapacity.value > this.peopleRegistered) {
+        this.state = 'Places available';
+      } else if (this.limitCapacity.value === this.peopleRegistered) {
+        this.state = 'Complete';
+      }
+    }
+  }
+
+  cancelActivity() {
+    this.state = 'Cancelled';
+  }
+
+  changeCategory(e) {
+    this.updateActivityForm.get('subcategory').setValue(undefined);
+  }
 }

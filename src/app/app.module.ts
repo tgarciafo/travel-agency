@@ -15,7 +15,6 @@ import { InMemoryDataService } from './Services/in-memory-data.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewActivityComponent } from './components/new-activity/new-activity.component';
 import { MessagesComponent } from './messages/messages.component';
-import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
@@ -37,7 +36,6 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     LoginComponent,
     NewActivityComponent,
     MessagesComponent,
-    UsersComponent,
     HomeComponent,
     ProfileComponent,
     UpdateProfileComponent,
@@ -49,8 +47,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     MyActivitiesDetailsComponent,
     AdminComponent,
     UpdateActivityComponent,
-    FavoritesComponent,
-    
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

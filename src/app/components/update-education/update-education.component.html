@@ -4,31 +4,28 @@
     
             <div class="form-group">
                 <label>Type:</label>
-                <select [formControl]="type">
-                    <option value=" " [selected]="true">Select</option>
-                    <option>Títol Universitari</option>
-                    <option>Cicle Formatiu</option>
+                <select [formControl]="type" (change)="changeType($event)">
+                    <option value="Títol Universitari">Títol Universitari</option>
+                    <option value="Cicle Formatiu">Cicle Formatiu</option>
                 </select>
             </div>
     
             <div *ngIf="type.value === 'Títol Universitari'" class="form-group">
                 <label>Level:</label>
                 <select [formControl]="level">
-                    <option value=" " [selected]="true">Select</option>
-                    <option>Grau</option>
-                    <option>Diplomat</option>
-                    <option>Llicenciat</option>
-                    <option>Enginyer</option>
-                    <option>Màster</option>
-                    <option>Doctorat</option>
+                    <option value="Grau">Grau</option>
+                    <option value="Diplomat">Diplomat</option>
+                    <option value="Llicenciat">Llicenciat</option>
+                    <option value="Enginyer">Enginyer</option>
+                    <option value="Màster">Màster</option>
+                    <option value="Doctorat">Doctorat</option>
                 </select>
             </div>
                 <div *ngIf="type.value === 'Cicle Formatiu'" class="form-group">
                     <label>Level:</label>
                     <select [formControl]="level">
-                        <option value=" " [selected]="true">Select</option>
-                        <option>Grau Superior</option>
-                        <option>Grau Mitjà</option>
+                        <option value="Grau Superior">Grau Superior</option>
+                        <option value="Grau Mitjà">Grau Mitjà</option>
                     </select>            
                 </div>
             <div class="form-group">

@@ -1,6 +1,4 @@
 import { Component, OnInit,  Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { Router } from '@angular/router';
 
@@ -18,7 +16,6 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class MyActivitiesDetailsComponent implements OnInit {
 
- 
   @Input() activity: Activity;
 
   user: User;

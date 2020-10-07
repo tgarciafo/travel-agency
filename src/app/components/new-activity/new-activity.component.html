@@ -5,18 +5,22 @@
         <div class="form-group">
             <label>Activity name:</label>
             <input type="text" [formControl]="name"/>
+            <span style="color: red;" *ngIf="newActivityForm.get('name').errors && (newActivityForm.get('name').touched || newActivityForm.get('name').dirty) ">
+                <span *ngIf="newActivityForm.get('name').errors.required">Activity name is required</span>
+                <span *ngIf="newActivityForm.get('name').errors.minlength || newActivityForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>Activity category:</label>
             <select [formControl]="category">
-                <option value="Cultura i Patrimoni">Cultura i Patrimoni</option>
+                <option value="Cultura i patrimoni">Cultura i patrimoni</option>
                 <option value="Enoturisme">Enoturisme</option>
                 <option value="Platja">Platja</option>
             </select>
         </div>
 
-        <div *ngIf="category.value === 'Cultura i Patrimoni'" class="form-group">
+        <div *ngIf="category.value === 'Cultura i patrimoni'" class="form-group">
             <label>Activity subcategory:</label>
             <select [formControl]="subcategory">
                 <option>Concert</option>
@@ -68,29 +72,38 @@
         <div class="form-group">
             <label>Activity date:</label>
             <input type="string" [formControl]="date"/>
+            <span style="color: red;" *ngIf="newActivityForm.get('date').errors && (newActivityForm.get('date').touched || newActivityForm.get('date').dirty) ">
+                <span *ngIf="newActivityForm.get('date').errors.pattern"> Activity date must be like DD/MM/YYYY</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity price:</label>
             <input type="number" [formControl]="price"/>
+            <span style="color: red;" *ngIf="newActivityForm.get('price').errors && (newActivityForm.get('price').touched || newActivityForm.get('price').dirty) ">
+                <span *ngIf="newActivityForm.get('price').errors.required">Activity price is required</span>
+                <span *ngIf="newActivityForm.get('price').errors.min">El preu no pot ser negatiu</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity minCapacity:</label>
             <input type="number" [formControl]="minCapacity"/>
+            <span style="color: red;" *ngIf="newActivityForm.get('minCapacity').errors && (newActivityForm.get('minCapacity').touched || newActivityForm.get('minCapacity').dirty) ">
+                <span *ngIf="newActivityForm.get('minCapacity').errors.required">Activity minimum capacity is required</span>
+                <span *ngIf="newActivityForm.get('minCapacity').errors.min">El mínim de capacitat ha de ser 0</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity limitCapacity:</label>
             <input type="string" [formControl]="limitCapacity"/>
+            <span style="color: red;" *ngIf="newActivityForm.get('limitCapacity').errors && (newActivityForm.get('limitCapacity').touched || newActivityForm.get('limitCapacity').dirty) ">
+                <span *ngIf="newActivityForm.get('limitCapacity').errors.required">Activity limit capacity is required</span>
+                <span *ngIf="newActivityForm.get('limitCapacity').errors.min">El límit de capacitat no pot ser negatiu</span>
+            </span>
         </div>
-        <div class="form-group">
+        <div *ngIf="calculateState()" class="form-group">
             <label>Activity state:</label>
-            <select [formControl]="state">
-                <option>Cancelled</option>
-                <option>Complete</option>
-                <option>Places available</option>
-            </select>
+            <input type="string" value={{this.state}} readonly/>
         </div>
-
-
         <div class="form-group">
             <button type="submit" [disabled]="!newActivityForm.valid">Add new activity</button>
         </div>

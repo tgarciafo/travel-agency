@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { User } from '../../Models/user';
 import { Activity } from '../../Models/activity';
 import { GlobalService } from '../../Services/global.service';
@@ -20,7 +20,7 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     if (this.user !== undefined) {
       this.getMyActivities();
     }

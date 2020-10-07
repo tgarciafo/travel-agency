@@ -31,9 +31,9 @@ export class UpdateLanguageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.level = new FormControl('', Validators.required);
-    this.language = new FormControl('', Validators.required);
-    this.finishDate = new FormControl('', Validators.pattern(this.date));
+    this.level = new FormControl(this._language.level, Validators.required);
+    this.language = new FormControl(this._language.language, Validators.required);
+    this.finishDate = new FormControl(this._language.finishDate, Validators.pattern(this.date));
 
     this.languageForm = this.formBuilder.group({
       level: this.level,
@@ -41,7 +41,6 @@ export class UpdateLanguageComponent implements OnInit {
       finishDate: this.finishDate,
     });
     this.getUsers();
-    
 
   }
 

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { User, Education, Languages } from './../Models/user';
+import { User} from './../Models/user';
 import { Activity } from './../Models/activity';
-import { Observable, of } from 'rxjs';
-import { RequestInfo } from 'angular-in-memory-web-api/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,40 +18,41 @@ export class InMemoryDataService implements InMemoryDbService{
         password: '12345678',
         repeat_password: '12345678',
         birthDate: '06/08/1989',
-        phone: 660270463,
+        phone: 660050478,
         nationality: 'ES',
-        nif: '47853053N',
+        nif: '47855553N',
         aboutMe: 'M`encanten els gats',
         companyName: 'GAFO Click',
         companyDescription: 'Empresa de desenvolupament web',
         cif: 'B25845852',
         activities: [
           {
-        id: 2,
-        name: 'Sopa de Cabra',
-        category: 'Cultura i patrimoni',
-        subcategory: 'Concert',
-        description: 'Concert de Sopa de Cabra al teatre l`Atlàntida de Vic',
-        language: 'Català',
-        date: '25/10/2020',
-        price: 20,
-        minCapacity: 20,
-        limitCapacity: 100,
-        state: 'Places available'
+            id: 2,
+            name: 'Sopa de Cabra',
+            category: 'Cultura i patrimoni',
+            subcategory: 'Concert',
+            description: 'Concert de Sopa de Cabra al teatre l`Atlàntida de Vic',
+            language: 'Català',
+            date: '25/10/2020',
+            price: 20,
+            minCapacity: 20,
+            limitCapacity: 100,
+          state: 'Places available',
+          peopleRegistered: 2
           },
           {
             id: 4,
-            name: 'Museu Dalí',
-            category: 'Cultura i patrimoni',
-            subcategory: 'Museu',
-            description: 'Visita al museu Dalí de Figueres',
-            language: 'Castellà',
-            date: '11/11/2020',
-            price: 30,
-            minCapacity: 15,
-            limitCapacity: 50,
-          state: 'Places available',
-            peopleRegistered: 8
+        name: 'Museu Dalí',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Museu',
+        description: 'Visita al museu Dalí de Figueres',
+        language: 'Castellà',
+        date: '11/11/2020',
+        price: 30,
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
           }
         ],
         favorites: [],
@@ -87,13 +86,13 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 2,
         name: 'Carla',
-        surname: 'Garcia Font',
+        surname: 'Rap Font',
         type: 'Tourist',
-        email: 'carla.gf93@gmail.com',
+        email: 'carla56@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
-        birthDate: '06/05/1993',
-        phone: 646792730,
+        birthDate: '06/10/1993',
+        phone: 646877730,
         nationality: 'ES',
         nif: '78545825N',
         aboutMe: 'Tinc molts animals',
@@ -107,9 +106,10 @@ export class InMemoryDataService implements InMemoryDbService{
           language: 'Castellà',
           date: '11/11/2020',
           price: 30,
-          minCapacity: 15,
-          limitCapacity: 50,
-        state: 'Places available'
+          minCapacity: 5,
+          limitCapacity: 9,
+          state: 'Complete',
+          peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -143,19 +143,18 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 3,
         name: 'Aida',
-        surname: 'Castro Ruiz',
+        surname: 'Castro Tort',
         type: 'Tourist',
-        email: 'aida.castroruiz@gmail.com',
+        email: 'aida.ruiz@gmail.com',
         password: '12345678',
       repeat_password: '12345678',
-      birthDate: '25/01/1988',
-      phone: 627955560,
+      birthDate: '25/01/1960',
+      phone: 627445560,
       nationality: 'ES',
       nif: '45875962P',
       aboutMe: 'M`agrada anar a la muntanya',
       activities: [
-        {
-          id: 1,
+     {   id: 1,
         name: 'Bodega Torres',
         category: 'Enoturisme',
         subcategory: 'Bodega',
@@ -166,21 +165,20 @@ export class InMemoryDataService implements InMemoryDbService{
         minCapacity: 3,
         limitCapacity: 10,
         state: 'Places available',
-        peopleRegistered: 3
-        },
+        peopleRegistered: 3},
         {
           id: 4,
-          name: 'Museu Dalí',
-          category: 'Cultura i patrimoni',
-          subcategory: 'Museu',
-          description: 'Visita al museu Dalí de Figueres',
-          language: 'Castellà',
-          date: '11/11/2020',
-          price: 30,
-          minCapacity: 15,
-          limitCapacity: 50,
-        state: 'Places available',
-        peopleRegistered: 8}
+        name: 'Museu Dalí',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Museu',
+        description: 'Visita al museu Dalí de Figueres',
+        language: 'Castellà',
+        date: '11/11/2020',
+        price: 30,
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9}
         ],
         favorites: [],
         education: [
@@ -213,9 +211,9 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 4,
         name: 'Pilar',
-        surname: 'Font Riera',
+        surname: 'Vila Riera',
         type: 'Tourist',
-        email: 'pilarfont62@gmail.com',
+        email: 'pilar62@gmail.com',
         password: '12345678',
       repeat_password: '12345678',
       birthDate: '24/04/1965',
@@ -247,10 +245,10 @@ export class InMemoryDataService implements InMemoryDbService{
         language: 'Castellà',
         date: '11/11/2020',
         price: 30,
-        minCapacity: 15,
-        limitCapacity: 50,
-      state: 'Places available',
-      peopleRegistered: 8
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -271,12 +269,12 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 5,
         name: 'Ramon',
-        surname: 'Garcia Martínez',
+        surname: 'Garcia Mata',
         type: 'Tourist',
-        email: 'ramgar63@gmail.com',
+        email: 'ramgarcia@gmail.com',
         password: '12345678',
       repeat_password: '12345678',
-      birthDate: '11/04/1958',
+      birthDate: '11/08/1958',
       phone: 646774747,
       nationality: 'ES',
       nif: '41254789F',
@@ -284,16 +282,17 @@ export class InMemoryDataService implements InMemoryDbService{
       activities: [
         {
           id: 4,
-          name: 'Museu Dalí',
-          category: 'Cultura i patrimoni',
-          subcategory: 'Museu',
-          description: 'Visita al museu Dalí de Figueres',
-          language: 'Castellà',
-          date: '11/11/2020',
-          price: 30,
-          minCapacity: 15,
-          limitCapacity: 50,
-        state: 'Places available'
+        name: 'Museu Dalí',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Museu',
+        description: 'Visita al museu Dalí de Figueres',
+        language: 'Castellà',
+        date: '11/11/2020',
+        price: 30,
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -384,17 +383,17 @@ export class InMemoryDataService implements InMemoryDbService{
       activities: [
         {
           id: 1,
-        name: 'Bodega Torres',
-        category: 'enoturisme',
-        subcategory: 'bodega',
-        description: 'Visita a la bodega Torres',
-        language: 'Català',
-        date: '11/10/2020',
-        price: 25,
-        minCapacity: 3,
-        limitCapacity: 10,
-        state: 'Places available',
-        peopleRegistered: 3
+          name: 'Bodega Torres',
+          category: 'Enoturisme',
+          subcategory: 'Bodega',
+          description: 'Visita a la bodega Torres',
+          language: 'Català',
+          date: '11/10/2020',
+          price: 25,
+          minCapacity: 3,
+          limitCapacity: 10,
+          state: 'Places available',
+          peopleRegistered: 3
         }
         ],
         favorites: [],
@@ -444,16 +443,17 @@ export class InMemoryDataService implements InMemoryDbService{
       activities: [
         {
           id: 4,
-          name: 'Museu Dalí',
-          category: 'Cultura i patrimoni',
-          subcategory: 'Museu',
-          description: 'Visita al museu Dalí de Figueres',
-          language: 'Castellà',
-          date: '11/11/2020',
-          price: 30,
-          minCapacity: 15,
-          limitCapacity: 50,
-        state: 'Places available'
+        name: 'Museu Dalí',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Museu',
+        description: 'Visita al museu Dalí de Figueres',
+        language: 'Castellà',
+        date: '11/11/2020',
+        price: 30,
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -476,16 +476,17 @@ export class InMemoryDataService implements InMemoryDbService{
       activities: [
         {
           id: 4,
-          name: 'Museu Dalí',
-          category: 'Cultura i patrimoni',
-          subcategory: 'Museu',
-          description: 'Visita al museu Dalí de Figueres',
-          language: 'Castellà',
-          date: '11/11/2020',
-          price: 30,
-          minCapacity: 15,
-          limitCapacity: 50,
-        state: 'Places available'
+        name: 'Museu Dalí',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Museu',
+        description: 'Visita al museu Dalí de Figueres',
+        language: 'Castellà',
+        date: '11/11/2020',
+        price: 30,
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -508,17 +509,17 @@ export class InMemoryDataService implements InMemoryDbService{
       activities: [
         {
           id: 3,
-        name: 'Platja del Castell',
-        category: 'Platges',
-        subcategory: 'Cala',
-        description: 'Estada a la Platja del Castell',
-        language: 'Anglès',
-        date: '31/12/2020',
-        price: 15,
-        minCapacity: 10,
-        limitCapacity: 65,
-      state: 'Places available',
-      peopleRegistered: 1
+          name: 'Platja del Castell',
+          category: 'Platges',
+          subcategory: 'Cala',
+          description: 'Estada a la Platja del Castell',
+          language: 'Anglès',
+          date: '31/12/2020',
+          price: 15,
+          minCapacity: 10,
+          limitCapacity: 65,
+        state: 'Places available',
+        peopleRegistered: 1
         },
         {
           id: 4,
@@ -529,10 +530,10 @@ export class InMemoryDataService implements InMemoryDbService{
         language: 'Castellà',
         date: '11/11/2020',
         price: 30,
-        minCapacity: 15,
-        limitCapacity: 50,
-      state: 'Places available',
-      peopleRegistered: 8
+        minCapacity: 5,
+        limitCapacity: 9,
+        state: 'Complete',
+        peopleRegistered: 9
         }
         ],
         favorites: [],
@@ -609,8 +610,4 @@ export class InMemoryDataService implements InMemoryDbService{
     return activities.length > 0 ? Math.max(...activities.map(activity => activity.id)) + 1 : 1;
   }
 
-  patch(request: RequestInfo): Observable<Response> {
-    console.log('This is inside your custom patch method!');
-    return null;
-  }
 }

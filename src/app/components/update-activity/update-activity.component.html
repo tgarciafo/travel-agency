@@ -5,18 +5,22 @@
         <div class="form-group">
             <label>Activity name:</label>
             <input type="text" [formControl]="name"/>
+            <span style="color: red;" *ngIf="updateActivityForm.get('name').errors && (updateActivityForm.get('name').touched || updateActivityForm.get('name').dirty) ">
+                <span *ngIf="updateActivityForm.get('name').errors.required">Activity name is required</span>
+                <span *ngIf="updateActivityForm.get('name').errors.minlength || updateActivityForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
+            </span>
         </div>
 
         <div class="form-group">
             <label>Activity category:</label>
-            <select [formControl]="category">
-                <option value="Cultura i Patrimoni">Cultura i Patrimoni</option>
+            <select [formControl]="category" (change)="changeCategory($event)">
+                <option value="Cultura i patrimoni">Cultura i patrimoni</option>
                 <option value="Enoturisme">Enoturisme</option>
                 <option value="Platja">Platja</option>
             </select>
         </div>
 
-        <div *ngIf="category.value === 'Cultura i Patrimoni'" class="form-group">
+        <div *ngIf="category.value === 'Cultura i patrimoni'" class="form-group">
             <label>Activity subcategory:</label>
             <select [formControl]="subcategory">
                 <option>Concert</option>
@@ -68,27 +72,39 @@
         <div class="form-group">
             <label>Activity date:</label>
             <input type="string" [formControl]="date"/>
+            <span style="color: red;" *ngIf="updateActivityForm.get('date').errors && (updateActivityForm.get('date').touched || updateActivityForm.get('date').dirty) ">
+                <span *ngIf="updateActivityForm.get('date').errors.pattern"> Activity date must be like DD/MM/YYYY</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity price:</label>
             <input type="number" [formControl]="price"/>
+            <span style="color: red;" *ngIf="updateActivityForm.get('price').errors && (updateActivityForm.get('price').touched || updateActivityForm.get('price').dirty) ">
+                <span *ngIf="updateActivityForm.get('price').errors.required">Activity price is required</span>
+                <span *ngIf="updateActivityForm.get('price').errors.min">El preu no pot ser negatiu</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity minCapacity:</label>
             <input type="number" [formControl]="minCapacity"/>
+            <span style="color: red;" *ngIf="updateActivityForm.get('minCapacity').errors && (updateActivityForm.get('minCapacity').touched || updateActivityForm.get('minCapacity').dirty) ">
+                <span *ngIf="updateActivityForm.get('minCapacity').errors.required">Activity minimum capacity is required</span>
+                <span *ngIf="updateActivityForm.get('minCapacity').errors.min">El mínim de capacitat ha de ser 0</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity limitCapacity:</label>
-            <input type="string" [formControl]="limitCapacity"/>
+            <input type="number" (ngModelChange)="calculateState()" [formControl]="limitCapacity"/>
+            <span style="color: red;" *ngIf="updateActivityForm.get('limitCapacity').errors && (updateActivityForm.get('limitCapacity').touched || updateActivityForm.get('limitCapacity').dirty) ">
+                <span *ngIf="updateActivityForm.get('limitCapacity').errors.required">Activity limit capacity is required</span>
+                <span *ngIf="updateActivityForm.get('limitCapacity').errors.min">El límit de capacitat no pot ser negatiu</span>
+            </span>
         </div>
         <div class="form-group">
             <label>Activity state:</label>
-            <select [formControl]="state">
-                <option>Cancelled</option>
-                <option>Complete</option>
-                <option>Places available</option>
-            </select>
+            <input type="string" value={{this.state}} readonly/>
         </div>
+        <button type="button" (click)="cancelActivity()">Cancel·lar l'activitat</button>
        <div class="form-group">
             <button type="submit" [disabled]="!updateActivityForm.valid">Update activity</button>
         </div>

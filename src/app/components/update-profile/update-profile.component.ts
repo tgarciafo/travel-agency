@@ -18,7 +18,6 @@ export class UpdateProfileComponent implements OnInit {
 
   public user: User = new User();
 
-
   public name: FormControl;
   public surname: FormControl;
   public birthdate: FormControl;
@@ -40,16 +39,16 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
-    this.surname = new FormControl('', [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
-    this.birthdate = new FormControl('', Validators.pattern(this.date));
-    this.phone = new FormControl('');
-    this.nationality = new FormControl('');
-    this.nif = new FormControl('');
-    this.about = new FormControl('');
-    this.companyName = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
-    this.companyDescription = new FormControl('');
-    this.cif = new FormControl('', Validators.required);
+    this.name = new FormControl(this.user.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.surname = new FormControl(this.user.surname, [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.birthdate = new FormControl(this.user.birthDate, Validators.pattern(this.date));
+    this.phone = new FormControl(this.user.phone);
+    this.nationality = new FormControl(this.user.nationality);
+    this.nif = new FormControl(this.user.nif);
+    this.about = new FormControl(this.user.aboutMe);
+    this.companyName = new FormControl(this.user.companyName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
+    this.companyDescription = new FormControl(this.user.companyDescription);
+    this.cif = new FormControl(this.user.cif, Validators.required);
 
     this.profileForm = this.formBuilder.group({
       name: this.name,

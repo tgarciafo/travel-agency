@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
   addEducation() {
     this.router.navigateByUrl('/addEducation');
   }
-  
+
   updateLanguage(_language) {
     this._global.globalLanguage = _language;
     this.router.navigateByUrl('/updateLanguage');
