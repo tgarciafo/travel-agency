@@ -57,7 +57,7 @@
         </label>
     </div>
     <div id="butsub" *ngIf="registered()">
-        <div *ngIf="this.activity.state !== ('Complete' || 'Cancelled')">
+        <div *ngIf="this.activity.state === 'Places available'">
         <button *ngIf="!subscribed(activity)"  id="signupA" (click)="signUp(activity);subscribed(activity);" type="submit">Subscriure's</button>
         </div>
         <button *ngIf="subscribed(activity)"   id="signupB" (click)="unsubscribe(activity);subscribed(activity);" type="submit">Anul·lar la subscripció</button>

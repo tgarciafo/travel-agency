@@ -11,8 +11,8 @@ export class InMemoryDataService implements InMemoryDbService{
     const users = [
       {
         id: 1,
-        name: 'Tània',
-        surname: 'Garcia Font',
+        name: 'Tania',
+        surname: 'Garcia',
         type: 'Company',
         email: 'taniag89@gmail.com',
         password: '12345678',
@@ -86,7 +86,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 2,
         name: 'Carla',
-        surname: 'Rap Font',
+        surname: 'Font',
         type: 'Tourist',
         email: 'carla56@gmail.com',
         password: '12345678',
@@ -143,7 +143,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 3,
         name: 'Aida',
-        surname: 'Castro Tort',
+        surname: 'Castro',
         type: 'Tourist',
         email: 'aida.ruiz@gmail.com',
         password: '12345678',
@@ -211,7 +211,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 4,
         name: 'Pilar',
-        surname: 'Vila Riera',
+        surname: 'Vila',
         type: 'Tourist',
         email: 'pilar62@gmail.com',
         password: '12345678',
@@ -269,7 +269,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 5,
         name: 'Ramon',
-        surname: 'Garcia Mata',
+        surname: 'Garcia',
         type: 'Tourist',
         email: 'ramgarcia@gmail.com',
         password: '12345678',
@@ -313,7 +313,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 6,
         name: 'Kali',
-        surname: 'Garcia Castro',
+        surname: 'Garcia',
         type: 'Tourist',
         email: 'kali@gmail.com',
         password: '12345678',
@@ -370,7 +370,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 7,
         name: 'Goku',
-        surname: 'Garcia Castro',
+        surname: 'Castro',
         type: 'Tourist',
         email: 'goku@gmail.com',
         password: '12345678',
@@ -427,7 +427,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 8,
         name: 'Quim',
-        surname: 'Roca Puig',
+        surname: 'Roca',
         type: 'Company',
         email: 'quimrp@gmail.com',
         password: '12345678',
@@ -463,7 +463,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 9,
         name: 'Isona',
-        surname: 'Fabregó Clos',
+        surname: 'Fabrega',
         type: 'Tourist',
         email: 'ifabcl@gmail.com',
         password: '12345678',
@@ -496,7 +496,7 @@ export class InMemoryDataService implements InMemoryDbService{
     {
         id: 10,
         name: 'Jofre',
-        surname: 'Cano Gil',
+        surname: 'Cano',
         type: 'Tourist',
         email: 'jcGil9@gmail.com',
         password: '12345678',
@@ -582,7 +582,7 @@ export class InMemoryDataService implements InMemoryDbService{
         minCapacity: 10,
         limitCapacity: 65,
       state: 'Places available',
-      peopleRegistered: 1
+      peopleRegistered: 64
     },
     {
         id: 4,
@@ -597,6 +597,20 @@ export class InMemoryDataService implements InMemoryDbService{
         limitCapacity: 9,
         state: 'Complete',
         peopleRegistered: 9
+      },
+      {
+        id: 5,
+        name: 'Aquarium',
+        category: 'Cultura i patrimoni',
+        subcategory: 'Visita guiada',
+        description: 'Visita a l`Aquàrium de Barcelona',
+        language: 'Francès',
+        date: '11/10/2020',
+        price: 20,
+        minCapacity: 5,
+        limitCapacity: 15,
+        state: 'Cancelled',
+        peopleRegistered: 2
     }
     ];
     return {users, activities}

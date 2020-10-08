@@ -40,9 +40,9 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   registered() {
-    if (this._globalService.globalVar !== undefined) { 
-    if (this._globalService.globalVar.type === 'Tourist') {
-      return true;
+    if (this._globalService.globalVar !== undefined) {
+      if (this._globalService.globalVar.type === 'Tourist') {
+        return true;
     } else {
       return false;
     }
