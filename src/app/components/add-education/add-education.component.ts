@@ -57,9 +57,19 @@ export class AddEducationComponent implements OnInit {
   addEducation() {
     const form = this.addEducationForm.value as Education;
 
-    this.user.education = [...this.user.education, form];
+    if (this.user.education !== undefined) {
 
-    this.router.navigateByUrl('/profile');
+      this.user.education = [...this.user.education, form];
 
+      this.router.navigateByUrl('/profile');
+    } else {
+      this.user.education = [form];
+
+      this.router.navigateByUrl('/profile');
+
+    }
+      
+      
+      
   }
 }

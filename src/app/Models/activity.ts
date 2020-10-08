@@ -1,4 +1,3 @@
-import { User } from './user';
 export class Activity{
     id: number;
     name: string;

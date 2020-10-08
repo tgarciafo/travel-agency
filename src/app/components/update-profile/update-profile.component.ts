@@ -39,43 +39,83 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.name = new FormControl(this.user.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
-    this.surname = new FormControl(this.user.surname, [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
-    this.birthdate = new FormControl(this.user.birthDate, Validators.pattern(this.date));
-    this.phone = new FormControl(this.user.phone);
-    this.nationality = new FormControl(this.user.nationality);
-    this.nif = new FormControl(this.user.nif);
-    this.about = new FormControl(this.user.aboutMe);
-    this.companyName = new FormControl(this.user.companyName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
-    this.companyDescription = new FormControl(this.user.companyDescription);
-    this.cif = new FormControl(this.user.cif, Validators.required);
+    if (this.getProfile() === true) {
 
-    this.profileForm = this.formBuilder.group({
-      name: this.name,
-      surname: this.surname,
-      birthDate: this.birthdate,
-      phone: this.phone,
-      nationality: this.nationality,
-      nif: this.nif,
-      aboutMe: this.about,
-      companyName: this.companyName,
-      companyDescription: this.companyDescription,
-      cif: this.cif
-    }, {
-      validators: [checkNIF, trimValidator]
-    });
+      this.name = new FormControl(this.user.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+      this.surname = new FormControl(this.user.surname, [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+      this.birthdate = new FormControl(this.user.birthDate, Validators.pattern(this.date));
+      this.phone = new FormControl(this.user.phone);
+      this.nationality = new FormControl(this.user.nationality);
+      this.nif = new FormControl(this.user.nif);
+      this.about = new FormControl(this.user.aboutMe);
+      this.companyName = new FormControl(this.user.companyName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
+      this.companyDescription = new FormControl(this.user.companyDescription);
+      this.cif = new FormControl(this.user.cif, Validators.required);
+
+      this.profileForm = this.formBuilder.group({
+        name: this.name,
+        surname: this.surname,
+        birthDate: this.birthdate,
+        phone: this.phone,
+        nationality: this.nationality,
+        nif: this.nif,
+        aboutMe: this.about,
+        companyName: this.companyName,
+        companyDescription: this.companyDescription,
+        cif: this.cif
+      }, {
+        validators: [checkNIF, trimValidator]
+      });
+    } else {
+      this.name = new FormControl(this.user.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+      this.surname = new FormControl(this.user.surname, [Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+      this.birthdate = new FormControl(this.user.birthDate, Validators.pattern(this.date));
+      this.phone = new FormControl(this.user.phone);
+      this.nationality = new FormControl(this.user.nationality);
+      this.nif = new FormControl(this.user.nif);
+      this.about = new FormControl(this.user.aboutMe);
+
+      this.profileForm = this.formBuilder.group({
+        name: this.name,
+        surname: this.surname,
+        birthDate: this.birthdate,
+        phone: this.phone,
+        nationality: this.nationality,
+        nif: this.nif,
+        aboutMe: this.about,
+      }, {
+        validators: checkNIF
+      });
+    }
+
     this.getUsers();
 
     this.getProfile();
+
+    this.getInformation();
 
   }
 
   getProfile() {
     if (this.user.type === 'Company') {
+
       return this.company = true;
     } else {
+
       return this.company = false;
     }
+  }
+
+  getInformation() {
+
+    if (this.user.nif === null) {
+      this.user.nif = '';
+    }
+
+    if (this.user.companyName === null) {
+      this.user.companyName = '';
+    }
+
   }
 
   getUsers(): void{
@@ -85,18 +125,27 @@ export class UpdateProfileComponent implements OnInit {
 
   updateProfile() {
     const form = this.profileForm.value as User;
-    this.user.name = form.name;
-    this.user.surname = form.surname;
-    this.user.birthDate = form.birthDate;
-    this.user.phone = form.phone;
-    this.user.nationality = form.nationality;
-    this.user.nif = form.nif;
-    this.user.aboutMe = form.aboutMe;
-    this.user.companyName = form.companyName;
-    this.user.companyDescription = form.companyDescription;
-    this.user.cif = form.cif;
+    if (this.getProfile() === true) {
+      this.user.name = form.name;
+      this.user.surname = form.surname;
+      this.user.birthDate = form.birthDate;
+      this.user.phone = form.phone;
+      this.user.nationality = form.nationality;
+      this.user.nif = form.nif;
+      this.user.aboutMe = form.aboutMe;
+      this.user.companyName = form.companyName;
+      this.user.companyDescription = form.companyDescription;
+      this.user.cif = form.cif;
+    } else {
+      this.user.name = form.name;
+      this.user.surname = form.surname;
+      this.user.birthDate = form.birthDate;
+      this.user.phone = form.phone;
+      this.user.nationality = form.nationality;
+      this.user.nif = form.nif;
+      this.user.aboutMe = form.aboutMe;
+    }
     this.router.navigateByUrl('/profile');
-
   }
 
   validatorNIF(): boolean{

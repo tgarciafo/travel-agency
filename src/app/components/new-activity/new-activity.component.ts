@@ -86,10 +86,16 @@ export class NewActivityComponent implements OnInit {
 
     form.state = this.state;
 
+    form.id = this.activities.length > 0 ? Math.max(...this.activities.map(activity => activity.id)) + 1 : 1;
+
     this.activityService.addActivity(form)
       .subscribe(activity => {
         this.activities.push(activity);
-        this.user.activities = [...this.user.activities, form];
+        if (this.user.activities === undefined) {
+          this.user.activities = [form];
+        } else {
+          this.user.activities = [...this.user.activities, form];
+        }
         this.router.navigateByUrl('/admin');
 
       });

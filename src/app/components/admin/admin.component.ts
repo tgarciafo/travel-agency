@@ -54,7 +54,6 @@ export class AdminComponent implements OnInit {
         array.splice(i, 1);
       }
     }
-
     this.activities = this.activities.filter(a => a !== activity);
     this.activityService.deleteActivity(activity).subscribe();
   }
