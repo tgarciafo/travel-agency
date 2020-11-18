@@ -15,6 +15,14 @@ import { MessagesComponent } from './messages/messages.component';
 import { LoginModule } from './logins/login.module';
 import { ProfileModule } from './profiles/profile.module';
 import { ActivityModule } from '../app/activities/activity.module';
+import { StoreModule } from '@ngrx/store';
+import { loginReducer } from './logins/reducers/login.reducer';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { activityReducer } from './activities/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { EffectsArray } from './activities/effects';
+import { appReducers } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -28,6 +36,12 @@ import { ActivityModule } from '../app/activities/activity.module';
     ActivityModule,
     ProfileModule,
     ReactiveFormsModule,
+    EffectsModule.forRoot(EffectsArray),
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}

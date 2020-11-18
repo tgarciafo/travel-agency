@@ -7,6 +7,10 @@ import { HomeComponent } from '../activities/home/home.component';
 import { UpdateActivityComponent } from '../activities/update-activity/update-activity.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from '../Services/in-memory-data.service';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +23,19 @@ import { FavoritesComponent } from './favorites/favorites.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
+  ],
+  exports: [
+    ActivityListComponent,
+    ActivityDetailComponent,
+    NewActivityComponent,
+    HomeComponent,
+    UpdateActivityComponent,
+    FavoritesComponent
   ]
 })
 export class ActivityModule { }
