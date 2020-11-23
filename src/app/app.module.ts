@@ -21,8 +21,9 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { activityReducer } from './activities/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { EffectsArray } from './activities/effects';
+
 import { appReducers } from './app.reducer';
+import { EffectsApp } from './app.effects';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { appReducers } from './app.reducer';
     ActivityModule,
     ProfileModule,
     ReactiveFormsModule,
-    EffectsModule.forRoot(EffectsArray),
+    EffectsModule.forRoot(EffectsApp),
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

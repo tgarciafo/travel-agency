@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/Models/user';
 import { Activity } from 'src/app/Models/activity';
-import { UserService } from 'src/app/Services/user.service';
-import { ActivityService } from 'src/app/Services/activity.service';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { getAllUsers } from 'src/app/profiles/actions';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../Services/global.service';
+import { getAllActivities, deleteActivity } from 'src/app/activities/actions';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +21,7 @@ export class AdminComponent implements OnInit {
   activity: Activity;
 
   constructor(private _global: GlobalService, private router: Router, 
-              private activityService: ActivityService, private userService: UserService) {
+    private store: Store<AppState>) {
 
     this.user = this._global.globalVar;
    }
@@ -27,18 +29,16 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.user !== undefined) {
-      this.getUsers();
-      this.getActivities();
+      this.store.select('profilesApp').subscribe(profileResponse => {
+        this.users = profileResponse.users;
+      });
+      this.store.dispatch(getAllUsers());
+      this.store.select('activitiesApp').subscribe(activitiesResponse => {
+        this.activities = activitiesResponse.activities;
+      });
+  
+      this.store.dispatch(getAllActivities());
     }
-  }
-
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
-  }
-
-  getActivities(): void{
-    this.activities = this.user.activities;
   }
 
   updateActivity(activity) {
@@ -55,7 +55,9 @@ export class AdminComponent implements OnInit {
       }
     }
     this.activities = this.activities.filter(a => a !== activity);
-    this.activityService.deleteActivity(activity).subscribe();
+  /* this.activityService.deleteActivity(activity).subscribe(); */
+    this.store.dispatch(deleteActivity({ id: activity.id } ));
+
   }
 
   addActivity() {

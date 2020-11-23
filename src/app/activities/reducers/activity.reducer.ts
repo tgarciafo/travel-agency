@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Activity } from '../../Models/activity';
-import { createActivity, editActivity, deleteActivity, getAllActivities, getAllActivitiesSuccess, getAllActivitiesError } from '../actions/activity.actions';
+import { createActivity, editActivity, subscribeActivity,subscribeActivityError,subscribeActivitySuccess,editActivityError,editActivitySuccess, deleteActivity,deleteActivitySuccess,deleteActivityError, getAllActivities, getAllActivitiesSuccess, getAllActivitiesError, createActivitySuccess, createActivityError } from '../actions/activity.actions';
 
 export interface ActivityState{
     activities: Activity[];
@@ -10,7 +10,7 @@ export interface ActivityState{
 }
 
 export const initialState: ActivityState = {
-    activities: [new Activity()],
+    activities: [],
     loading: false,
     loaded: false,
     error: null
@@ -18,42 +18,101 @@ export const initialState: ActivityState = {
 
 const _activityReducer = createReducer(
     initialState,
-
-    on(createActivity, (state, { activity }) => ({
+    on(createActivity, state => ({ ...state, loading: true })),
+    on(createActivitySuccess, (state, { activity }) => ({
         ...state,
         loading: false,
-        loaded: false,
+        loaded: true,
         activities: [...state.activities, activity]
     })),
-    on(editActivity, (state, { _activity }) => ({
+    on(createActivityError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
-        activities: [...state.activities.map((activity) => {
-            if (activity.id === _activity.id) {
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(editActivity,state => ({ ...state, loading: true })),
+    on(editActivitySuccess, (state, { id, activity }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        activities: [...state.activities.map((_activity) => {
+            if (_activity.id === id) {
                 return {
-                    ...activity,
-                    _activity
+                    ...activity
                 };
             } else {
-                return activity;
+                return _activity;
             }
         })]
     })),
-    on(deleteActivity, (state, { id }) => ({
+    on(editActivityError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
-        activities: [...state.activities.filter(activity=>activity.id !== id)]
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(deleteActivity,  state => ({ ...state, loading: true })),
+    on(deleteActivitySuccess, (state, { id }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        activities: [...state.activities.filter(activity => activity.id !== id)]
+    })),
+    on(deleteActivityError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
     })),
     on(getAllActivities, state => ({ ...state, loading: true })),
     on(getAllActivitiesSuccess, (state, { activities }) => ({
         ...state,
         loading: false,
         loaded: true,
-        activities:[...activities]
+        activities: [...activities]
     })),
     on(getAllActivitiesError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(subscribeActivity, state => ({ ...state, loading: true })),
+    on(subscribeActivitySuccess, (state, { id, activity }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        activities: [...state.activities.map((_activity) => {
+            if (_activity.id === id) {
+
+                let people = activity.peopleRegistered + 1;
+
+                activity = { ...activity, peopleRegistered: people };
+
+                return activity;
+            } else {
+                return _activity;
+            }
+        })]
+    })),
+    on(subscribeActivityError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

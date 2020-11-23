@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from 'src/app/Models/activity';
-import { ActivityService } from '../../Services/activity.service';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { createActivity, getAllActivities } from '../actions/activity.actions';
+import { getAllUsers } from 'src/app/profiles/actions';
+
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
@@ -33,8 +36,8 @@ export class NewActivityComponent implements OnInit {
   public newActivityForm: FormGroup;
   private datePattern = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
-  constructor(private router: Router, private userService: UserService, private _global: GlobalService,
-              private formBuilder: FormBuilder, private activityService: ActivityService)
+  constructor(private router: Router, private _global: GlobalService,
+              private formBuilder: FormBuilder, private store: Store<AppState>)
   { 
       this.user = this._global.globalVar;
     }
@@ -67,18 +70,16 @@ export class NewActivityComponent implements OnInit {
       peopleRegistered: this.peopleRegistered
     });
 
-    this.getActivities();
-    this.getUsers();
-  }
+    this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      this.activities = activitiesResponse.activities;
+    });
 
-  getActivities(): void {
-    this.activityService.getActivities()
-      .subscribe(activities => this.activities = activities);
-  }
+    this.store.dispatch(getAllActivities());
 
-  getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
   }
 
   addNewActivity() {
@@ -88,17 +89,15 @@ export class NewActivityComponent implements OnInit {
 
     form.id = this.activities.length > 0 ? Math.max(...this.activities.map(activity => activity.id)) + 1 : 1;
 
-    this.activityService.addActivity(form)
-      .subscribe(activity => {
-        this.activities.push(activity);
-        if (this.user.activities === undefined) {
-          this.user.activities = [form];
-        } else {
-          this.user.activities = [...this.user.activities, form];
-        }
-        this.router.navigateByUrl('/admin');
+    this.store.dispatch(createActivity({ activity: form }));
+    
+    if (this.user.activities === undefined) {
+      this.user.activities = [form];
+    } else {
+      this.user.activities = [...this.user.activities, form];
+    }
+    this.router.navigateByUrl('/admin');
 
-      });
   }
 
   calculateState() {

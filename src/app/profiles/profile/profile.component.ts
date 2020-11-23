@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Education, Languages } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../Services/global.service';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { getAllUsers } from 'src/app/profiles/actions';
 
 @Component({
   selector: 'app-profile',
@@ -19,12 +21,15 @@ export class ProfileComponent implements OnInit {
   company: boolean;
   languages: Languages;
 
-  constructor(private _global: GlobalService, private router: Router, private userService: UserService) {
+  constructor(private _global: GlobalService, private router: Router, private store: Store<AppState>) {
     this.user = this._global.globalVar;
    }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
     if (this.user !== undefined) {
       this.getEducations();
       this.getLanguages();
@@ -38,11 +43,6 @@ export class ProfileComponent implements OnInit {
     } else {
       return this.company = false;
     }
-  }
-
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
   }
 
   getEducations(): void{

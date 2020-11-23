@@ -6,6 +6,10 @@ import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { createActivity, deleteActivity, editActivity, getAllActivities } from '../actions/activity.actions';
+import {  getAllUsers } from '../../profiles/actions/profile.actions';
 @Component({
   selector: 'app-update-activity',
   templateUrl: './update-activity.component.html',
@@ -33,8 +37,8 @@ export class UpdateActivityComponent implements OnInit {
   public updateActivityForm: FormGroup;
   private datePattern = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
-  constructor(private router: Router, private userService: UserService, private _global: GlobalService,
-              private formBuilder: FormBuilder, private activityService: ActivityService)
+  constructor(private router: Router,  private _global: GlobalService,
+              private formBuilder: FormBuilder, private store: Store<AppState>)
   {
     this.user = this._global.globalVar;
     this.activity = this._global.globalActivity;
@@ -69,18 +73,15 @@ export class UpdateActivityComponent implements OnInit {
       peopleRegistered: this.peopleRegistered
     });
 
-    this.getActivities();
-    this.getUsers();
-  }
+    this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      this.activities = activitiesResponse.activities;
+    });
 
-  getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
-  }
-
-  getActivities(): void {
-    this.activityService.getActivities()
-      .subscribe(activities => this.activities = activities);
+    this.store.dispatch(getAllActivities());
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
   }
 
   updateActivity() {
@@ -96,15 +97,14 @@ export class UpdateActivityComponent implements OnInit {
       }
     }
 
-    this.activities = this.activities.filter(a => a !== this.activity);
-    this.activityService.deleteActivity(this.activity).subscribe();
+    /* this.store.dispatch(editActivity({ id: this.activity.id, activity: form  })) */
 
-    this.activityService.addActivity(form)
-      .subscribe(form => {
-        this.activities.push(form);
-        this.user.activities = [...this.user.activities, form];
-        this.router.navigateByUrl('/admin');
-      });
+    this.activities = this.activities.filter(a => a !== this.activity);
+    this.store.dispatch(deleteActivity({ id: this.activity.id }));
+    this.store.dispatch(createActivity({ activity: form }));
+    this.user.activities = [...this.user.activities, form];
+    this.router.navigateByUrl('/admin');
+
   }
 
   calculateState() {

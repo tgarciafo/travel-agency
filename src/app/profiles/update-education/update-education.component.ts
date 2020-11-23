@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User, Education } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { getAllUsers } from 'src/app/profiles/actions';
 
 @Component({
   selector: 'app-update-education',
@@ -26,7 +28,7 @@ export class UpdateEducationComponent implements OnInit {
   private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(
-    private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) {
+    private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>, private _global: GlobalService) {
     this.user = this._global.globalVar;
     this._education = this._global.globalEducation;
   }
@@ -46,13 +48,11 @@ export class UpdateEducationComponent implements OnInit {
       university: this.university,
       finishDate: this.finishDate,
     });
-    this.getUsers();
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
 
-  }
-
-  getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
   }
 
   updateEducation() {

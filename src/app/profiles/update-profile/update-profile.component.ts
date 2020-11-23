@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
 import { checkNIF } from 'src/app/Directives/check-nif.validator';
 import { trimValidator } from 'src/app/Directives/check-whiteSpace.validator';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { getAllUsers } from 'src/app/profiles/actions';
 
 @Component({
   selector: 'app-update-profile',
@@ -33,7 +35,7 @@ export class UpdateProfileComponent implements OnInit {
   company: boolean;
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private _global: GlobalService) { 
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>, private _global: GlobalService) { 
     this.user = this._global.globalVar;
   }
 
@@ -88,7 +90,10 @@ export class UpdateProfileComponent implements OnInit {
       });
     }
 
-    this.getUsers();
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
 
     this.getProfile();
 
@@ -116,11 +121,6 @@ export class UpdateProfileComponent implements OnInit {
       this.user.companyName = '';
     }
 
-  }
-
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
   }
 
   updateProfile() {

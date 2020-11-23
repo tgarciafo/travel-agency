@@ -11,6 +11,9 @@ import { UpdateLanguageComponent } from '../profiles/update-language/update-lang
 import { MyActivitiesComponent } from '../profiles/my-activities/my-activities.component';
 import { MyActivitiesDetailsComponent } from '../profiles/my-activities-details/my-activities-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from '../Services/in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,11 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
   ]
 })
 export class ProfileModule { }

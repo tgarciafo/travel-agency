@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../Models/user';
 import { Activity } from '../../Models/activity';
-import { ActivityService } from '../../Services/activity.service';
 import { GlobalService } from '../../Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';

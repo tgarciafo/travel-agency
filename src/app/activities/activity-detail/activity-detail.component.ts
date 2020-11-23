@@ -1,11 +1,12 @@
 import { Component, OnInit,  Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../Services/global.service';
-
-import { ActivityService } from '../../Services/activity.service';
+import { Store } from '@ngrx/store';
 import { Activity } from 'src/app/Models/activity';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
+import { AppState } from 'src/app/app.reducer';
+import { getAllActivities,deleteActivity,createActivity, subscribeActivity, editActivity } from '../actions/activity.actions';
+import { getAllUsers } from 'src/app/profiles/actions';
 
 @Component({
   selector: 'app-activity-detail',
@@ -19,7 +20,7 @@ export class ActivityDetailComponent implements OnInit {
   user: User;
   users: User[];
   activities: Activity[];
-  constructor(private userService: UserService, private activityService: ActivityService,
+  constructor( private store: Store<AppState>,
               private _globalService: GlobalService, private router: Router)
   {
     this.user = this._globalService.globalVar;
@@ -27,16 +28,20 @@ export class ActivityDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getUsers();
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
+
     if (this.user !== undefined){
       this.registered();
     }
-    this.getActivities();
-  }
 
-  getActivities(): void{
-    this.activityService.getActivities()
-      .subscribe(activities => this.activities = activities);
+    this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      this.activities = activitiesResponse.activities;
+    });
+
+    this.store.dispatch(getAllActivities());
   }
 
   registered() {
@@ -75,11 +80,6 @@ export class ActivityDetailComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
   }
 
   favorite() {
@@ -123,10 +123,14 @@ export class ActivityDetailComponent implements OnInit {
 
   signUp(activity) {
 
-    this.activities = this.activities.filter(a => a !== activity);
-    this.activityService.deleteActivity(activity).subscribe();
+    /* this.activities = this.activities.filter(a => a !== activity); */
+    
+/*     this.activityService.deleteActivity(activity).subscribe();
+ */
+    
+    /* this.store.dispatch(deleteActivity({ id: activity.id })); */
 
-    const registrats = activity.peopleRegistered + 1;
+   /*  const registrats = activity.peopleRegistered + 1;
 
     activity.peopleRegistered = registrats;
 
@@ -134,16 +138,23 @@ export class ActivityDetailComponent implements OnInit {
 
     if (registrats === limit) {
       activity.state = 'Complete';
-    }
+    } */
 
-    this.activityService.addActivity(activity)
+    this.store.dispatch(subscribeActivity({ id: activity.id,  activity } ));
+
+    /* this.store.dispatch(editActivity(activity)); */
+
+    /* this.activityService.addActivity(activity)
       .subscribe( activity => {
         this.activities.push(activity);
         this.activities = [...this.activities, activity];
         this.router.navigateByUrl('/login', { skipLocationChange: true });
         return this.router.navigateByUrl('/activityList');
-      });
-    
+      }); */
+
+    this.router.navigateByUrl('/login', { skipLocationChange: true });
+    this.router.navigateByUrl('/activityList');
+
     if (this.user.activities !== undefined){
 
       this.user.activities = [...this.user.activities, activity];
@@ -163,7 +174,7 @@ export class ActivityDetailComponent implements OnInit {
     }
 
     this.activities = this.activities.filter(a => a !== activity);
-    this.activityService.deleteActivity(activity).subscribe();
+    /* this.activityService.deleteActivity(activity).subscribe(); */
 
     if (activity.peopleRegistered === activity.limitCapacity) {
       activity.state = 'Places available';
@@ -173,12 +184,18 @@ export class ActivityDetailComponent implements OnInit {
 
     activity.peopleRegistered = registrats;
 
-    this.activityService.addActivity(activity)
+    /* this.activityService.addActivity(activity)
       .subscribe( activity => {
         this.activities.push(activity);
         this.activities = [...this.activities, activity];
         this.router.navigateByUrl('/login', { skipLocationChange: true });
-        return this.router.navigateByUrl('/activityList');      });
+        return this.router.navigateByUrl('/activityList');      }); */
+
+    this.store.dispatch(editActivity(activity));
+
+    this.router.navigateByUrl('/login', { skipLocationChange: true });
+    this.router.navigateByUrl('/activityList');
+
 
   }
 

@@ -6,14 +6,43 @@ export const createActivity = createAction(
     props<{ activity: Activity }>()
 );
 
+export const createActivitySuccess = createAction(
+    '[ACTIVITY] Create Activity success',
+    props<{ activity: Activity }>()
+);
+export const createActivityError = createAction(
+    '[ACTIVITY] Create Activity error',
+    props<{payload: any}>()
+);
+
 export const editActivity = createAction(
     '[ACTIVITY] Edit Activity',
-    props<{ _activity: Activity }>()
+    props<{ id: number, activity: Activity }>()
+);
+
+export const editActivitySuccess = createAction(
+    '[ACTIVITY] Edit Activity Success',
+    props<{ id: number, activity: Activity }>()
+);
+
+export const editActivityError = createAction(
+    '[ACTIVITY] Edit Activity Error',
+    props<{ payload: any }>()
 );
 
 export const deleteActivity = createAction(
     '[ACTIVITY] Delete Activity',
     props<{ id:number }>()
+);
+
+export const deleteActivitySuccess = createAction(
+    '[ACTIVITY] Delete Activity Success',
+    props<{ id:number }>()
+);
+
+export const deleteActivityError = createAction(
+    '[ACTIVITY] Delete Activity Error',
+    props<{ payload:any }>()
 );
 
 export const getAllActivities = createAction('[ACTIVITY] Get all');
@@ -26,4 +55,19 @@ export const getAllActivitiesSuccess = createAction(
 export const getAllActivitiesError = createAction(
     '[ACTIVITY] Get all error',
     props<{payload: any}>()
+);
+
+export const subscribeActivity = createAction(
+    '[ACTIVITY] Subscribe Activity',
+    props<{ id:number, activity: Activity }>()
+);
+
+export const subscribeActivitySuccess = createAction(
+    '[ACTIVITY] Subscribe Activity Success',
+    props<{ id:number, activity: Activity }>()
+);
+
+export const subscribeActivityError = createAction(
+    '[ACTIVITY] Subscribe Activity Error',
+    props<{ payload: any }>()
 );
