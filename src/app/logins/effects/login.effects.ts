@@ -12,15 +12,15 @@ export class LoginEffects{
 
     constructor(
         private actions$: Actions,
-        private usersService: UserService
+        private userService: UserService
     ) { }
     
     login$ = createEffect(() =>
         this.actions$.pipe(
             ofType(login),
-            exhaustMap(({ credentials }) =>
-                this.usersService.isLoggedIn(credentials).pipe(
-                    map((user) =>
+            mergeMap(({ credentials } ) =>
+                this.userService.isLoggedIn(credentials).pipe(
+                    map((credentials) =>
                         loginSuccess({ credentials })),
                     catchError((err) => of(loginError({ payload: err })))
                 ))
