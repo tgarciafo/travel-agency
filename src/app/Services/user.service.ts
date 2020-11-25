@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
+import { Credentials } from '../logins/models/credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,14 @@ export class UserService {
     private messageService: MessageService
   ) { }
 
-  isLoggedIn(): boolean{
-    return false;
+  isLoggedIn(credentials: Credentials): Observable<User>{
+
+    const url = `${this.usersUrl}/${credentials.email}`;
+    return this.http.get<User>(url).pipe(
+      tap((user) => this.log(`fetched user email=${user.name}`)),
+      catchError(this.handleError<User>(`Error LogIn`))
+    );
+
   }
 
   getUsers(): Observable<User[]>{

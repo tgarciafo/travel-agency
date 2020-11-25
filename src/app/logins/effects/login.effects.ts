@@ -5,6 +5,7 @@ import { UserService } from '../../Services/user.service';
 import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Credentials } from '../models/credentials';
+import { User } from '../../Models/user';
 
 @Injectable()
 export class LoginEffects{
