@@ -7,7 +7,7 @@ import { GlobalService } from '../../Services/global.service';
 import { Activity } from 'src/app/Models/activity';
 import { User } from 'src/app/Models/user';
 import { AppState } from 'src/app/app.reducer';
-import { getAllActivities, deleteActivity, createActivity } from 'src/app/activities/actions';
+import { getAllActivities, deleteActivity, createActivity, subscribeActivity } from 'src/app/activities/actions';
 import { getAllUsers } from 'src/app/profiles/actions';
 import { Store } from '@ngrx/store';
 
@@ -60,10 +60,10 @@ export class MyActivitiesDetailsComponent implements OnInit {
 
   signUp(activity) {
 
-    this.activities = this.activities.filter(a => a !== activity);
+    /* this.activities = this.activities.filter(a => a !== activity); */
 /*     this.activityService.deleteActivity(activity).subscribe();
  */
-    this.store.dispatch(deleteActivity({ id: activity.id }));
+    /* this.store.dispatch(deleteActivity({ id: activity.id }));
 
     const registrats = activity.peopleRegistered + 1;
 
@@ -75,7 +75,9 @@ export class MyActivitiesDetailsComponent implements OnInit {
       activity.state = 'Complete';
     }
 
-    this.store.dispatch(createActivity({  activity } ));
+    this.store.dispatch(createActivity({ activity })); */
+
+    this.store.dispatch(subscribeActivity({ id: activity.id,  activity } ));
 
     this.router.navigateByUrl('/login', { skipLocationChange: true });
     this.router.navigateByUrl('/myActivities');

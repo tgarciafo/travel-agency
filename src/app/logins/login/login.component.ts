@@ -4,6 +4,11 @@ import { User } from 'src/app/Models/user';
 import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../Services/global.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import { login } from '../actions/login.actions';
+import { getAllUsers } from './../../profiles/actions';
+import { Credentials } from 'src/app/logins/models/credentials';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +26,7 @@ export class LoginComponent implements OnInit {
   private validate_email = '^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$';
   public message: string;
 
-  constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private store: Store<AppState>,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -33,15 +38,19 @@ export class LoginComponent implements OnInit {
       password: this.password
 
     });
-    this.getUsers();
+  /* this.getUsers(); */
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
   }
 
-  getUsers(): void{
+  /* getUsers(): void{
     this.userService.getUsers()
       .subscribe(users => this.users = users);
-  }
+  } */
 
-  public checkLogin() {
+  /* public checkLogin() {
 
     this.user.email =  this.email.value;
     this.user.password = this.password.value;
@@ -77,7 +86,17 @@ export class LoginComponent implements OnInit {
         this.message = 'El password no és correcte';
       }
     }
+  } */
+
+  public login() {
+    const credentials = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+    this.store.dispatch(login({ credentials }));
   }
+
+
 
 
 }

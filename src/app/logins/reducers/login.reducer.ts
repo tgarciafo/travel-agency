@@ -1,29 +1,48 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../../Models/user';
-import { getLogin} from '../actions/login.actions';
+import { Credentials } from '../models/credentials';
+import { login, loginError, loginSuccess, logout} from '../actions/login.actions';
 
-export interface UserState{
-    users: User[];
+export interface LoginState{
+    credentials: Credentials;
     loading: boolean;
-    loaded: boolean;
-    error: any;
+    loggedIn: boolean;
+    error: string | null;
 }
 
-export const initialState: UserState = {
-    users: [new User()],
+export const initialState: LoginState = {
+    credentials: null,
     loading: false,
-    loaded: false,
+    loggedIn: false,
     error: null
 };
 
 const _loginReducer = createReducer(
     initialState,
-    on(getLogin, (state) => ({
+    on(login, (state) => ({
         ...state,
+        loggedIn: false,
+        loading: true,
+        error: null
+    })),
+    on(loginSuccess, (state, { credentials}) => ({
+        ...state,
+        credentials ,
+        loggedIn: true,
         loading: false,
-        loaded: false,
+        error: null
+    })),
+    on(loginError, (state, { payload }) => ({
+        ...state,
+        loggedIn: false,
+        loading: false,
+        error: payload
+    })),
+    on(logout, () => ({
+        loggedIn: false,
+        loading: true,
+        error: null
     }))
-    
+
 )
 
 export function loginReducer(state, action) {

@@ -1,7 +1,21 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../../Models/user';
+import { Credentials } from '../models/credentials';
 
-export const getLogin = createAction(
+export const login = createAction(
     '[Login Page] Login',
-    props<{ email: string, password: string }>()
+    props<{ credentials: Credentials }>()
+);
+
+export const loginSuccess = createAction(
+    '[Login Page] Login Success',
+    props<{ credentials: Credentials }>()
+);
+
+export const loginError = createAction(
+    '[Login Page] Login Error',
+    props<{ payload: any }>()
+);
+
+export const logout = createAction(
+    '[Login Page] Logout'
 );

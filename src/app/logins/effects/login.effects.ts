@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { getLogin } from '../actions';
+import { login, loginSuccess, loginError, logout } from '../actions';
 import { UserService } from '../../Services/user.service';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Credentials } from '../models/credentials';
 
 @Injectable()
 export class LoginEffects{
@@ -13,9 +14,15 @@ export class LoginEffects{
         private usersService: UserService
     ) { }
     
-    getUsers$ = createEffect(() =>
+    login$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(getLogin),
+            ofType(login),
+            exhaustMap(({ credentials }) =>
+                this.usersService.isLoggedIn(credentials).pipe(
+                    map((user) =>
+                        loginSuccess({ credentials })),
+                    catchError((err) => of(loginError({ payload: err })))
+                ))
             
-    ))
+        ));
 }
