@@ -4,8 +4,7 @@ import { login, loginSuccess, loginError, logout } from '../actions';
 import { UserService } from '../../Services/user.service';
 import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Credentials } from '../models/credentials';
-import { User } from '../../Models/user';
+
 
 @Injectable()
 export class LoginEffects{
@@ -25,5 +24,5 @@ export class LoginEffects{
                     catchError((err) => of(loginError({ payload: err })))
                 ))
             
-        ));
+    ));
 }

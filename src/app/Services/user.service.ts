@@ -27,7 +27,7 @@ export class UserService {
   isLoggedIn(credentials: Credentials){
 
     const obj = this.getUsers().pipe(map(users => users.find(user => user.email === credentials.email)));
-  console.log(obj)
+  
     if (obj == null) {
         console.log('El correu ' + credentials.email + ' no existeix a la base de dades');
       } else {

@@ -18,12 +18,9 @@ export const initialState: LoginState = {
 
 const _loginReducer = createReducer(
     initialState,
-    on(login, (state, {credentials}) => ({
+    on(login, (state) => ({
         ...state,
-        credentials,
-        loggedIn: false,
         loading: true,
-        error: null
     })),
     on(loginSuccess, (state, { credentials}) => ({
         ...state,
