@@ -32,7 +32,7 @@ export class UserService {
         console.log('El correu ' + credentials.email + ' no existeix a la base de dades');
       } else {
   
-        if (obj.password === credentials.password) {
+        if (obj.password && obj === credentials.password) {
           console.log('Welcome ' + obj.name);
           this._globalService.globalVar = obj;
   
