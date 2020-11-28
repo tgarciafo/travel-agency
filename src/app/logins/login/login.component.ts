@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .subscribe(users => this.users = users);
   } */
 
-  /* public checkLogin() {
+  public checkLogin() {
 
     this.user.email =  this.email.value;
     this.user.password = this.password.value;
@@ -86,15 +86,15 @@ export class LoginComponent implements OnInit {
         this.message = 'El password no és correcte';
       }
     }
-  } */
+  }
 
-  public login() {
+  /* public checkLogin() {
     const credentials = {
       email: this.email.value,
       password: this.password.value,
     };
     this.store.dispatch(login({ credentials }));
-  }
+  } */
 
 
 

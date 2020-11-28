@@ -3,10 +3,10 @@ import { Credentials } from '../models/credentials';
 import { login, loginError, loginSuccess, logout} from '../actions/login.actions';
 
 export interface LoginState{
-    credentials: Credentials;
+    credentials: Credentials | null;
     loading: boolean;
     loggedIn: boolean;
-    error: string | null;
+    error: any;
 }
 
 export const initialState: LoginState = {
@@ -34,12 +34,12 @@ const _loginReducer = createReducer(
         loggedIn: false,
         loading: false,
         error: payload
-    })),
+    }))/* ,
     on(logout, () => ({
         loggedIn: false,
         loading: true,
         error: null
-    }))
+    })) */
 
 )
 

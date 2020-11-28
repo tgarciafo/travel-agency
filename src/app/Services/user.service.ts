@@ -24,41 +24,8 @@ export class UserService {
     private _globalService: GlobalService, private router: Router
   ) { }
 
-  isLoggedIn(credentials: Credentials){
-
-    const obj = this.getUsers().pipe(map(users => users.find(user => user.email === credentials.email)));
-  
-    if (obj == null) {
-        console.log('El correu ' + credentials.email + ' no existeix a la base de dades');
-      } else {
-  
-        if (obj.password && obj === credentials.password) {
-          console.log('Welcome ' + obj.name);
-          this._globalService.globalVar = obj;
-  
-          if (obj.type === 'Tourist') {
-            document.getElementById('logout').style.display = 'inline';
-            document.getElementById('home').style.display = 'inline';
-            document.getElementById('favorites').style.display = 'inline';
-            document.getElementById('myActivities').style.display = 'inline';
-            document.getElementById('profile').style.display = 'inline';
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('register').style.display = 'none';
-          }
-          else if (obj.type === 'Company') {
-            document.getElementById('logout').style.display = 'inline';
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('register').style.display = 'none';
-            document.getElementById('home').style.display = 'inline';
-            document.getElementById('profile').style.display = 'inline';
-            document.getElementById('admin').style.display = 'inline';
-          }
-          this.router.navigate(['activityList']);
-        } else {
-          this.message = 'El password no és correcte';
-        }
-      }
-
+  isLoggedIn(): boolean{
+    return false;
   }
 
   getUsers(): Observable<User[]>{
