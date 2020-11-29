@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { Credentials } from '../models/credentials';
-import { login, loginError, loginSuccess, logout} from '../actions/login.actions';
+import { User } from '../../Models/user';
+import { login, logout } from '../actions/login.actions';
+import { loginError, loginSuccess} from '../actions/auth.actions';
 
 export interface LoginState{
     credentials: Credentials | null;
@@ -13,7 +15,7 @@ export const initialState: LoginState = {
     credentials: null,
     loading: false,
     loggedIn: false,
-    error: null
+    error: null,
 };
 
 const _loginReducer = createReducer(
@@ -22,9 +24,8 @@ const _loginReducer = createReducer(
         ...state,
         loading: true,
     })),
-    on(loginSuccess, (state, { credentials}) => ({
+    on(loginSuccess, (state) => ({
         ...state,
-        credentials ,
         loggedIn: true,
         loading: false,
         error: null

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from './../Models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, filter, find } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Credentials } from '../logins/models/credentials';
@@ -17,12 +17,29 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+  public message: string;
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
     private _globalService: GlobalService, private router: Router
   ) { }
+
+  async login(credentials: Credentials): Promise<User> {
+    const getUsers = await this.getUsers().toPromise();
+    const obj = getUsers.find(user => user.email === credentials.email);
+
+    if (obj == null) {
+      /* return 'Invalid'); */
+    } else {
+      if (obj.password === credentials.password) {
+        
+        /* console.log(this._globalService.globalVar); */
+        this._globalService.globalVar = obj;
+        return obj;
+      }
+    }
+  }
 
   isLoggedIn(): boolean{
     return false;

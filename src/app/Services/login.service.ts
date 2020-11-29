@@ -30,12 +30,12 @@ export class LoginService {
     return false;
   } */
 
-  isLoggedIn(credentials: Credentials){
-
+  
+/* 
     const obj = this.userService.getUsers().pipe(map(users => users.find(user => user.email === credentials.email)));
     console.log(obj)
     return obj;
-    
+     */
     /* if (obj == null) {
         console.log('El correu ' + credentials.email + ' no existeix a la base de dades');
       } else {
@@ -67,5 +67,5 @@ export class LoginService {
         }
       }
  */
-  }
+  
 }

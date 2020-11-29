@@ -9,6 +9,7 @@ import { AppState } from 'src/app/app.reducer';
 import { login } from '../actions/login.actions';
 import { getAllUsers } from './../../profiles/actions';
 import { Credentials } from 'src/app/logins/models/credentials';
+import { getUserLogin} from 'src/app/logins/actions';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ import { Credentials } from 'src/app/logins/models/credentials';
 })
 export class LoginComponent implements OnInit {
 
+  obj: User;
+  userb: User;
   users: User[];
   public user: User = new User();
 
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
   private validate_email = '^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$';
   public message: string;
 
-  constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private store: Store<AppState>,private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private _globalService: GlobalService, private userService: UserService, private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -38,11 +41,17 @@ export class LoginComponent implements OnInit {
       password: this.password
 
     });
-  /* this.getUsers(); */
+    /* this.getUsers(); */
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
     });
     this.store.dispatch(getAllUsers());
+
+    /* this.store.select('authApp').subscribe(authResponse => {
+      this.userb = authResponse.user;
+    });
+    this.store.dispatch(getUserLogin({ user: this.userb })); */
+  
   }
 
   /* getUsers(): void{
@@ -50,53 +59,27 @@ export class LoginComponent implements OnInit {
       .subscribe(users => this.users = users);
   } */
 
-  public checkLogin() {
+  public async checkLogin(): Promise<void> {
 
-    this.user.email =  this.email.value;
-    this.user.password = this.password.value;
-    const obj = this.users.find(obj => obj.email === this.user.email);
+    /* this.user.email =  this.email.value;
+    this.user.password = this.password.value; */
+    /*     const obj = this.users.find(obj => obj.email === this.user.email);
+     */
 
-    if (obj == null) {
-      this.message = 'El correu ' + this.user.email + ' no existeix a la base de dades';
-    } else {
-
-      if (obj.password === this.user.password) {
-        console.log('Welcome ' + obj.name);
-        this._globalService.globalVar = obj;
-
-        if (obj.type === 'Tourist') {
-          document.getElementById('logout').style.display = 'inline';
-          document.getElementById('home').style.display = 'inline';
-          document.getElementById('favorites').style.display = 'inline';
-          document.getElementById('myActivities').style.display = 'inline';
-          document.getElementById('profile').style.display = 'inline';
-          document.getElementById('login').style.display = 'none';
-          document.getElementById('register').style.display = 'none';
-        }
-        else if (obj.type === 'Company') {
-          document.getElementById('logout').style.display = 'inline';
-          document.getElementById('login').style.display = 'none';
-          document.getElementById('register').style.display = 'none';
-          document.getElementById('home').style.display = 'inline';
-          document.getElementById('profile').style.display = 'inline';
-          document.getElementById('admin').style.display = 'inline';
-        }
-        this.router.navigate(['activityList']);
-      } else {
-        this.message = 'El password no és correcte';
-      }
-    }
-  }
-
-  /* public checkLogin() {
     const credentials = {
       email: this.email.value,
       password: this.password.value,
     };
-    this.store.dispatch(login({ credentials }));
-  } */
+    
+    await this.store.dispatch(login({ credentials }));
+    this.store.select('authApp').subscribe(authResponse => {
+      this.obj = authResponse.user;
+    })
 
-
-
+    this.router.navigate(['activityList']);
+    /* const obj = await this.userService.login(credentials); */
+  }
+    
+  
 
 }

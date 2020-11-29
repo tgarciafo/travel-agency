@@ -42,6 +42,8 @@ export class ActivityDetailComponent implements OnInit {
     });
 
     this.store.dispatch(getAllActivities());
+
+    console.log(this.user)
   }
 
   registered() {
