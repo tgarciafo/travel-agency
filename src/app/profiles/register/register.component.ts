@@ -5,6 +5,10 @@ import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { getAllUsers } from 'src/app/profiles/actions';
+import { registerUser } from '../actions';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +30,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public message: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) { }
 
   ngOnInit(): void {
 
@@ -48,28 +52,26 @@ export class RegisterComponent implements OnInit {
       validators: checkEquality
     }
     );
-    this.getUsers();
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.users = profileResponse.users;
+    });
+    this.store.dispatch(getAllUsers());
 
   }
 
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users);
-  }
-
-  checkRegister() {
+    checkRegister() {
 
     this.user.email = this.email.value;
     const obj = this.users.find(obj => obj.email === this.user.email);
 
     if (obj == null) {
 
-      this.userService.addUser(this.registerForm.value as User)
-        .subscribe(user => {
-          this.users.push(user);
-          console.log('Successfully registered');
-          this.router.navigate(['login']);
-        });
+      const form = this.registerForm.value as User;
+      this.store.dispatch(registerUser({ user: form }));
+
+      console.log('Successfully registered');
+      this.router.navigate(['login']);
+      
     } else {
       this.message = 'El correu electrònic ja està registrat al sistema';
     }

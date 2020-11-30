@@ -1,9 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../../Models/user';
 
-export const createUser = createAction(
-    '[USER] Create User',
+export const registerUser = createAction(
+    '[USER] Register',
     props<{ user: User }>()
+);
+
+export const registerUserSuccess = createAction(
+    '[USER] Create Activity success',
+    props<{ user: User }>()
+);
+export const registerUserError = createAction(
+    '[USER] Create Activity error',
+    props<{payload: any}>()
 );
 
 export const editUser = createAction(
@@ -11,9 +20,14 @@ export const editUser = createAction(
     props<{ id: number, user: User }>()
 );
 
-export const deleteUser = createAction(
-    '[USER] Delete User',
-    props<{ id:number }>()
+export const editUserSuccess = createAction(
+    '[USER] Edit User Success',
+    props<{ id: number, user: User }>()
+);
+
+export const editUserError = createAction(
+    '[USER] Edit User Error',
+    props<{ payload: any }>()
 );
 
 export const getAllUsers = createAction('[USER] Get all');

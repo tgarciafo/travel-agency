@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createUser, getAllUsers, getAllUsersError, getAllUsersSuccess } from '../actions';
+import { registerUser,editUserSuccess,editUserError, getAllUsers,registerUserError, getAllUsersError, getAllUsersSuccess, registerUserSuccess, editUser } from '../actions';
 import { UserService } from '../../Services/user.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -11,26 +11,38 @@ export class ProfilesEffects {
 
     constructor(
         private actions$: Actions,
-        private usersService: UserService
+        private userService: UserService
     ) { }
 
     getUsers$ = createEffect(() =>
         this.actions$.pipe(
             ofType(getAllUsers),
             mergeMap(() =>
-                this.usersService.getUsers().pipe(
+                this.userService.getUsers().pipe(
                     map((users) => getAllUsersSuccess({ users: users })),
                     catchError((err) => of(getAllUsersError({ payload: err })))
                 ))
         ));
 
-    /* createUsers$ = createEffect(() =>
+    registerUsers$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(createUser),
-            mergeMap(() =>
-                this.userService.addUser(new Activity()).pipe(
-                    map((activity) => createActivity({ activity: activity }))
+            ofType(registerUser),
+            mergeMap(action =>
+                this.userService.addUser(action.user).pipe(
+                    map((user) => registerUserSuccess({ user: user })),
+                    catchError((err) => of(registerUserError({payload: err})))
                 ))
         )
-    ); */
+    );
+
+    editUsers$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(editUser),
+            mergeMap(({id, user}) =>
+                this.userService.updateUser(user).pipe(
+                    map(() => editUserSuccess({ id, user } )),
+                    catchError((err) => of(editUserError({payload: err})))
+                ))
+        )
+    );
 }

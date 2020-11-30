@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { User } from '../../Models/user';
-import { createUser, editUser, deleteUser, getAllUsers, getAllUsersSuccess, getAllUsersError } from '../actions/profile.actions';
+import { registerUser,editUserError,editUserSuccess,registerUserError,registerUserSuccess, editUser, getAllUsers, getAllUsersSuccess, getAllUsersError } from '../actions/profile.actions';
 
 export interface ProfileState{
     users: User[];
@@ -18,17 +18,28 @@ export const initialState: ProfileState = {
 
 const _profileReducer = createReducer(
     initialState,
-
-    on(createUser, (state, { user }) => ({
+    on(registerUser, state => ({ ...state, loading: true })),
+    on(registerUserSuccess, (state, { user }) => ({
         ...state,
         loading: false,
-        loaded: false,
+        loaded: true,
         users: [...state.users, user]
     })),
-    on(editUser, (state, { id, user }) => ({
+    on(registerUserError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(editUser, state => ({ ...state, loading: true })),
+    on(editUserSuccess, (state, { id, user }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
         users: [...state.users.map((_user) => {
             if (_user.id === id) {
                 return {
@@ -40,11 +51,15 @@ const _profileReducer = createReducer(
             }
         })]
     })),
-    on(deleteUser, (state, { id }) => ({
+    on(editUserError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
-        users: [...state.users.filter(user=>user.id !== id)]
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
     })),
     on(getAllUsers, state => ({ ...state, loading: true })),
     on(getAllUsersSuccess, (state, { users }) => ({
