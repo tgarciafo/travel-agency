@@ -5,6 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, filter, find } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Credentials } from '../logins/models/credentials';
+import { GlobalService } from './global.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,15 +20,16 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
+    private _globalService: GlobalService
   ) { }
 
-  login(credentials: Credentials): Observable<User> {
-    const url = `${this.usersUrl}/${credentials.email}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`logged in user = ${credentials.email}`)),
-      catchError(this.handleError<User>(`login= ${credentials.email}`))
-    );
-  }
+  login(credentials: Credentials): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl)
+      .pipe(
+        tap(_=>this.log('fetched users')),
+        catchError(this.handleError<User[]>('getUsers', []))
+      );
+    }
 
   isLoggedIn(): boolean{
     return false;
