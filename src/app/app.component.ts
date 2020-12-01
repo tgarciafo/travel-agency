@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from './Services/global.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import { logout } from '../app/logins/actions';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +12,13 @@ import { GlobalService } from './Services/global.service';
 })
 export class AppComponent {
 
-  constructor(private router: Router, private _globalService: GlobalService) { }
+  constructor(private router: Router,private store: Store<AppState>, private _globalService: GlobalService) { }
 
 
   title = 'Travel Agency';
 
   public logout(){
-    document.getElementById('logout').style.display = 'none';
-    document.getElementById('register').style.display = 'inline';
-    document.getElementById('login').style.display = 'inline';
-    document.getElementById('admin').style.display = 'none';
-    document.getElementById('profile').style.display = 'none';
-    document.getElementById('myActivities').style.display = 'none';
-    document.getElementById('favorites').style.display = 'none';
-    document.getElementById('home').style.display = 'none';
-    this._globalService.globalVar = undefined;
+    this.store.dispatch(logout());
     this.router.navigate(['home']);
 
   }

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { login, loginSuccess, loginError, logout } from '../actions';
 import { UserService } from '../../Services/user.service';
-import { mergeMap, map, catchError, exhaustMap, switchMap } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import { mergeMap, map, catchError, exhaustMap, switchMap, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
 import { Credentials } from '../models/credentials';
 import { User } from 'src/app/Models/user';
 import { GlobalService } from 'src/app/Services/global.service';
@@ -73,4 +73,22 @@ export class LoginEffects {
             )
         )
     );
+
+    logout$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(logout),
+            tap(action => {
+                this._globalService.globalVar = undefined;
+                document.getElementById('logout').style.display = 'none';
+                document.getElementById('register').style.display = 'inline';
+                document.getElementById('login').style.display = 'inline';
+                document.getElementById('admin').style.display = 'none';
+                document.getElementById('profile').style.display = 'none';
+                document.getElementById('myActivities').style.display = 'none';
+                document.getElementById('favorites').style.display = 'none';
+                document.getElementById('home').style.display = 'none';
+                
+                return logout();
+            })),
+            {dispatch: false});
 }
