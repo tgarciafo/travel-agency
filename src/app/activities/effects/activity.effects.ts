@@ -61,8 +61,9 @@ export class ActivitiesEffects {
         this.actions$.pipe(
             ofType(subscribeActivity),
             mergeMap(({ id, activity}) =>
-                this.activitiesService.getActivity(id ).pipe(
-                    map(() => subscribeActivitySuccess({ id, activity } )),
+                this.activitiesService.updateActivity(activity ).pipe(
+                    map(() => 
+                    subscribeActivitySuccess({ id, activity } )),
                     catchError((err) => of(subscribeActivityError({payload: err})))
                 ))
         )

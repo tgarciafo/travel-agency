@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { CheckWord } from 'src/app/Directives/check-word.validator';
 import { checkEquality } from 'src/app/Directives/check-equality.validator';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
@@ -71,7 +70,6 @@ export class RegisterComponent implements OnInit {
 
       console.log('Successfully registered');
       this.router.navigate(['login']);
-      
     } else {
       this.message = 'El correu electrònic ja està registrat al sistema';
     }

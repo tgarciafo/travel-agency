@@ -27,23 +27,21 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+      this.store.dispatch(getAllUsers());
 
-    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
-    });
-    this.store.dispatch(getAllUsers());
+      });
 
-    if (this.user !== undefined){
-      this.registered();
-    }
+      this.store.dispatch(getAllActivities());
 
-    this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      this.activities = activitiesResponse.activities;
-    });
+      this.store.select('activitiesApp').subscribe(activitiesResponse => {
+        this.activities = activitiesResponse.activities;
+      });
 
-    this.store.dispatch(getAllActivities());
-
-    console.log(this.user)
+      if (this.user !== undefined){
+        this.registered();
+      }
   }
 
   registered() {
@@ -125,37 +123,13 @@ export class ActivityDetailComponent implements OnInit {
 
   signUp(activity) {
 
-    /* this.activities = this.activities.filter(a => a !== activity); */
+    this.store.dispatch(subscribeActivity({ id: activity.id, activity }));
     
-/*     this.activityService.deleteActivity(activity).subscribe();
- */
-    
-    /* this.store.dispatch(deleteActivity({ id: activity.id })); */
-
-   /*  const registrats = activity.peopleRegistered + 1;
-
-    activity.peopleRegistered = registrats;
-
-    const limit = activity.limitCapacity;
-
-    if (registrats === limit) {
-      activity.state = 'Complete';
-    } */
-
-    this.store.dispatch(subscribeActivity({ id: activity.id,  activity } ));
-
-    /* this.store.dispatch(editActivity(activity)); */
-
-    /* this.activityService.addActivity(activity)
-      .subscribe( activity => {
-        this.activities.push(activity);
-        this.activities = [...this.activities, activity];
-        this.router.navigateByUrl('/login', { skipLocationChange: true });
-        return this.router.navigateByUrl('/activityList');
-      }); */
+    /* this.store.dispatch(subscribeUser({ id: activity.id, activity })); */
 
     this.router.navigateByUrl('/login', { skipLocationChange: true });
     this.router.navigateByUrl('/activityList');
+
 
     if (this.user.activities !== undefined){
 

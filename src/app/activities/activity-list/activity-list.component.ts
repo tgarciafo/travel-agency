@@ -29,10 +29,7 @@ export class ActivityListComponent implements OnInit {
     });
 
     this.store.dispatch(getAllActivities());
-
-    /* this.store.dispatch(getAllActivities()); */
-
-    
+  
   }
  
   detall(activity) {

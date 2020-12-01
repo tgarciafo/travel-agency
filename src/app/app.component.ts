@@ -12,7 +12,7 @@ import { logout } from '../app/logins/actions';
 })
 export class AppComponent {
 
-  constructor(private router: Router,private store: Store<AppState>, private _globalService: GlobalService) { }
+  constructor(private router: Router,private store: Store<AppState>) { }
 
 
   title = 'Travel Agency';

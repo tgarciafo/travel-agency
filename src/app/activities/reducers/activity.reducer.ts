@@ -102,11 +102,9 @@ const _activityReducer = createReducer(
         activities: [...state.activities.map((_activity) => {
             if (_activity.id === id) {
 
-                let people = activity.peopleRegistered + 1;
-
-                activity = { ...activity, peopleRegistered: people };
-
-                return activity;
+                return {
+                    ..._activity, peopleRegistered: activity.peopleRegistered + 1,
+                }
             } else {
                 return _activity;
             }
