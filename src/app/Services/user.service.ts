@@ -5,9 +5,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, filter, find } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Credentials } from '../logins/models/credentials';
-import { GlobalService } from '../Services/global.service';
-import { Router } from '@angular/router';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,23 +19,14 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private _globalService: GlobalService, private router: Router
   ) { }
 
-  async login(credentials: Credentials): Promise<User> {
-    const getUsers = await this.getUsers().toPromise();
-    const obj = getUsers.find(user => user.email === credentials.email);
-
-    if (obj == null) {
-      /* return 'Invalid'); */
-    } else {
-      if (obj.password === credentials.password) {
-        
-        /* console.log(this._globalService.globalVar); */
-        this._globalService.globalVar = obj;
-        return obj;
-      }
-    }
+  login(credentials: Credentials): Observable<User> {
+    const url = `${this.usersUrl}/${credentials.email}`;
+    return this.http.get<User>(url).pipe(
+      tap(_ => this.log(`logged in user = ${credentials.email}`)),
+      catchError(this.handleError<User>(`login= ${credentials.email}`))
+    );
   }
 
   isLoggedIn(): boolean{

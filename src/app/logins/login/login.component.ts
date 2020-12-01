@@ -9,7 +9,6 @@ import { AppState } from 'src/app/app.reducer';
 import { login } from '../actions/login.actions';
 import { getAllUsers } from './../../profiles/actions';
 import { Credentials } from 'src/app/logins/models/credentials';
-import { getUserLogin} from 'src/app/logins/actions';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +50,7 @@ export class LoginComponent implements OnInit {
       this.userb = authResponse.user;
     });
     this.store.dispatch(getUserLogin({ user: this.userb })); */
-  
+ 
   }
 
   /* getUsers(): void{
@@ -70,15 +69,14 @@ export class LoginComponent implements OnInit {
       email: this.email.value,
       password: this.password.value,
     };
-    
-    await this.store.dispatch(login({ credentials }));
-    this.store.select('authApp').subscribe(authResponse => {
-      this.obj = authResponse.user;
-    })
+
+    this.store.dispatch(login({ credentials }));
 
     this.router.navigate(['activityList']);
     /* const obj = await this.userService.login(credentials); */
   }
+
+  
     
   
 

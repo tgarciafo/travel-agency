@@ -6,6 +6,15 @@ export const login = createAction(
     props<{ credentials: Credentials }>()
 );
 
+export const loginSuccess = createAction(
+    '[Login Page] Login Success',
+    props<{ credentials: Credentials }>()
+);
+
+export const loginError = createAction(
+    '[Login Page] Login Error',
+    props<{ payload: any }>()
+);
 
 
 export const logout = createAction(
