@@ -3,10 +3,8 @@ import { User } from 'src/app/Models/user';
 import { Activity } from 'src/app/Models/activity';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { getAllUsers } from 'src/app/profiles/actions';
 import { Router } from '@angular/router';
-import { GlobalService } from '../../Services/global.service';
-import { getAllActivities, deleteActivity } from 'src/app/activities/actions';
+import { getActivity, deleteActivity } from 'src/app/activities/actions';
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +18,7 @@ export class AdminComponent implements OnInit {
   user: User;
   activity: Activity;
 
-  constructor(private _global: GlobalService, private router: Router, 
+  constructor( private router: Router,
     private store: Store<AppState>) {
 
       this.store.select('profilesApp').subscribe(profileResponse => {
@@ -34,17 +32,15 @@ export class AdminComponent implements OnInit {
       this.store.select('profilesApp').subscribe(profileResponse => {
         this.users = profileResponse.users;
       });
-      this.store.dispatch(getAllUsers());
       this.store.select('activitiesApp').subscribe(activitiesResponse => {
         this.activities = activitiesResponse.activities;
       });
-  
-      this.store.dispatch(getAllActivities());
     }
   }
 
   updateActivity(activity) {
-    this._global.globalActivity = activity;
+    this.store.dispatch(getActivity({ activity: activity }));
+    
     this.router.navigateByUrl('/updateActivity');
   }
 

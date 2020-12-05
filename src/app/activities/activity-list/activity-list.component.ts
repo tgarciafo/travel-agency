@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../Models/user';
 import { Activity } from '../../Models/activity';
-import { GlobalService } from '../../Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { getAllActivities } from '../actions/activity.actions';
-import { getUser } from '../../profiles/actions';
 
 @Component({
   selector: 'app-activity-list',

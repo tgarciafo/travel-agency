@@ -25,7 +25,7 @@ export class MyActivitiesDetailsComponent implements OnInit {
   users: User[];
   activities: Activity[];
   constructor(private store: Store<AppState>,
-              private router: Router, private _globalService: GlobalService)
+              private router: Router)
   {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.user = profileResponse.user;
@@ -37,13 +37,11 @@ export class MyActivitiesDetailsComponent implements OnInit {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
     });
-    this.store.dispatch(getAllUsers());
     this.registered();
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
       this.activities = activitiesResponse.activities;
     });
 
-    this.store.dispatch(getAllActivities());
   }
 
   registered() {

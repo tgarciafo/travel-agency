@@ -3,11 +3,9 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Activity } from 'src/app/Models/activity';
 import { User } from 'src/app/Models/user';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { createActivity, getAllActivities } from '../actions/activity.actions';
-import { getAllUsers } from 'src/app/profiles/actions';
+import { createActivity } from '../actions/activity.actions';
 
 @Component({
   selector: 'app-new-activity',
@@ -76,12 +74,9 @@ export class NewActivityComponent implements OnInit {
       this.activities = activitiesResponse.activities;
     });
 
-    this.store.dispatch(getAllActivities());
-
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
     });
-    this.store.dispatch(getAllUsers());
   }
 
   addNewActivity() {

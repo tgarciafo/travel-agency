@@ -57,6 +57,20 @@ export const getAllActivitiesError = createAction(
     props<{payload: any}>()
 );
 
+export const getActivity = createAction(
+    '[ACTIVITY] Get activity',
+props<{ activity: Activity }>());
+
+export const getActivitySuccess = createAction(
+    '[ACTIVITY] Get activity success',
+    props<{ activity: Activity }>()
+);
+
+export const getActivityError = createAction(
+    '[ACTIVITY] Get activity error',
+    props<{payload: any}>()
+);
+
 export const subscribeActivity = createAction(
     '[ACTIVITY] Subscribe Activity',
     props<{ id:number, activity: Activity }>()

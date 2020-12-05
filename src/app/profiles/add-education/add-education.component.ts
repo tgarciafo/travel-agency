@@ -72,6 +72,7 @@ export class AddEducationComponent implements OnInit {
       this.router.navigateByUrl('/profile');
 
     } */
+    this.router.navigateByUrl('/profile');
  
   }
 }

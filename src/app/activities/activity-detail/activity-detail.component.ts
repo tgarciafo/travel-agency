@@ -1,6 +1,5 @@
 import { Component, OnInit,  Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalService } from '../../Services/global.service';
 import { Store } from '@ngrx/store';
 import { Activity } from 'src/app/Models/activity';
 import { User } from 'src/app/Models/user';
@@ -26,16 +25,14 @@ export class ActivityDetailComponent implements OnInit {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.user = profileResponse.user;
     });
+
   }
 
   ngOnInit(): void {
-      this.store.dispatch(getAllUsers());
 
       this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
       });
-
-      this.store.dispatch(getAllActivities());
 
       this.store.select('activitiesApp').subscribe(activitiesResponse => {
         this.activities = activitiesResponse.activities;

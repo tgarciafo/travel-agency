@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from 'src/app/Models/activity';
-import { ActivityService } from '../../Services/activity.service';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { createActivity, deleteActivity, editActivity, getAllActivities } from '../actions/activity.actions';
-import {  getAllUsers } from '../../profiles/actions/profile.actions';
 @Component({
   selector: 'app-update-activity',
   templateUrl: './update-activity.component.html',
@@ -37,13 +33,16 @@ export class UpdateActivityComponent implements OnInit {
   public updateActivityForm: FormGroup;
   private datePattern = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
-  constructor(private router: Router,  private _global: GlobalService,
+  constructor(private router: Router,
               private formBuilder: FormBuilder, private store: Store<AppState>)
   {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.user = profileResponse.user;
     });
-    this.activity = this._global.globalActivity;
+    this.store.select('activitiesApp').subscribe(activityResponse => {
+      this.activity = activityResponse.activity;
+    });
+    
 
     }
 
@@ -78,12 +77,7 @@ export class UpdateActivityComponent implements OnInit {
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
       this.activities = activitiesResponse.activities;
     });
-
-    this.store.dispatch(getAllActivities());
-    this.store.select('profilesApp').subscribe(profileResponse => {
-      this.users = profileResponse.users;
-    });
-    this.store.dispatch(getAllUsers());
+    
   }
 
   updateActivity() {

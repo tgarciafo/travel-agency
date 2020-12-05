@@ -54,8 +54,7 @@ export class RegisterComponent implements OnInit {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.users = profileResponse.users;
     });
-    this.store.dispatch(getAllUsers());
-
+    
   }
 
     checkRegister() {

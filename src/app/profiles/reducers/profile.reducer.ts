@@ -1,10 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../../Models/user';
+import { User, Education } from '../../Models/user';
 import { addEducationError,addEducationSuccess,getUser,getUserError,getUserSuccess,registerUser,editUserError,editUserSuccess,registerUserError,registerUserSuccess, editUser, getAllUsers, getAllUsersSuccess, getAllUsersError, addEducation } from '../actions/profile.actions';
 
 export interface ProfileState{
     users: User[];
     user: User;
+    education: Education[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -13,6 +14,7 @@ export interface ProfileState{
 export const initialState: ProfileState = {
     users: [],
     user: new User(),
+    education: [],
     loading: false,
     loaded: false,
     error: null
@@ -25,7 +27,8 @@ const _profileReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        users: [...state.users, user]
+        users: [...state.users, user],
+        education: []
     })),
     on(registerUserError, (state, { payload }) => ({
         ...state,
@@ -60,8 +63,10 @@ const _profileReducer = createReducer(
         ...state,
         loading: false,
         loaded: false,
-        user: {...user, ...education }
-    }))
+        user: user,
+        education: [...state.education, education]
+        }
+))
     ,
     on(addEducationError, (state, { payload }) => ({
         ...state,
@@ -95,7 +100,8 @@ const _profileReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        user: user
+        user: user,
+        education: user.education
     })),
     on(getUserError, (state, { payload }) => ({
         ...state,

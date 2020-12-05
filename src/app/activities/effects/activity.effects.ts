@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createActivity, createActivityError,subscribeActivity,subscribeActivitySuccess,subscribeActivityError,deleteActivityError, editActivity, editActivitySuccess, editActivityError,deleteActivitySuccess, createActivitySuccess, getAllActivities, getAllActivitiesError, getAllActivitiesSuccess, deleteActivity } from '../actions';
+import { createActivity,getActivitySuccess,getActivityError, createActivityError,subscribeActivity,subscribeActivitySuccess,subscribeActivityError,deleteActivityError, editActivity, editActivitySuccess, editActivityError,deleteActivitySuccess, createActivitySuccess, getAllActivities, getAllActivitiesError, getAllActivitiesSuccess, deleteActivity, getActivity } from '../actions';
 import { ActivityService } from '../../Services/activity.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -75,4 +75,14 @@ export class ActivitiesEffects {
                 ))
         )
     );
+
+    getActivity$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(getActivity),
+            mergeMap((action) =>
+                this.activitiesService.getActivity(action.activity.id).pipe(
+                    map((activity) => getActivitySuccess({ activity })),
+                    catchError((err) => of(getActivityError({ payload: err })))
+                ))
+        ));
 }
