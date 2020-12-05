@@ -8,7 +8,7 @@ import { Credentials } from '../models/credentials';
 import { User } from 'src/app/Models/user';
 import { GlobalService } from 'src/app/Services/global.service';
 import { Store } from '@ngrx/store';
-import { getAllUsers } from './../../profiles/actions';
+import { getAllUsers, getUser } from './../../profiles/actions';
 import { AppState } from 'src/app/app.reducer';
 
 
@@ -44,7 +44,9 @@ export class LoginEffects {
 
 
                         if (credentials.password === obj.password) {
-                            this._globalService.globalVar = obj;
+
+                            this.store.dispatch(getUser({ user: obj }));
+                            /* this._globalService.globalVar = obj; */
                             if (obj.type === 'Tourist') {
                                 document.getElementById('logout').style.display = 'inline';
                                 document.getElementById('home').style.display = 'inline';

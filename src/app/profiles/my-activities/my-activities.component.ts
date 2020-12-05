@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { User } from '../../Models/user';
 import { Activity } from '../../Models/activity';
-import { GlobalService } from '../../Services/global.service';
-
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-my-activities',
   templateUrl: './my-activities.component.html',
@@ -14,8 +14,10 @@ export class MyActivitiesComponent implements OnInit {
   user: User;
   activity: Activity[];
 
-  constructor( private _global: GlobalService) {
-    this.user = this._global.globalVar;
+  constructor( private store: Store<AppState>) {
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
 
   }
 

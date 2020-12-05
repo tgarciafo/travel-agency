@@ -5,7 +5,7 @@ import { GlobalService } from '../../Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { getAllActivities } from '../actions/activity.actions';
-
+import { getUser } from '../../profiles/actions';
 
 @Component({
   selector: 'app-activity-list',
@@ -18,8 +18,11 @@ export class ActivityListComponent implements OnInit {
   activity: Activity[];
   public message: string;
 
-  constructor(private store: Store<AppState>, private _globalService: GlobalService) {
-    this.user = this._globalService.globalVar;
+  constructor(private store: Store<AppState>) {
+
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
 
   }
 
@@ -28,6 +31,7 @@ export class ActivityListComponent implements OnInit {
       this.activities = activitiesResponse.activities;
     });
 
+    
     this.store.dispatch(getAllActivities());
   
   }

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../../Models/user';
+import { Education, User } from '../../Models/user';
 
 export const registerUser = createAction(
     '[USER] Register',
@@ -30,6 +30,21 @@ export const editUserError = createAction(
     props<{ payload: any }>()
 );
 
+export const addEducation = createAction(
+    '[USER] addEducation User',
+    props<{ id: number, user: User, education: Education }>()
+);
+
+export const addEducationSuccess = createAction(
+    '[USER] addEducationSuccess User',
+    props<{ id: number, user: User, education: Education }>()
+);
+
+export const addEducationError = createAction(
+    '[USER] addEducationError User',
+    props<{ payload: any }>()
+);
+
 export const getAllUsers = createAction('[USER] Get all');
 
 export const getAllUsersSuccess = createAction(
@@ -39,5 +54,20 @@ export const getAllUsersSuccess = createAction(
 
 export const getAllUsersError = createAction(
     '[USER] Get all error',
+    props<{payload: any}>()
+);
+
+export const getUser = createAction(
+    '[USER] Get user',
+    props<{ user: User }>()
+);
+
+export const getUserSuccess = createAction(
+    '[USER] Get user success',
+    props<{ user: User }>()
+);
+
+export const getUserError = createAction(
+    '[USER] Get user error',
     props<{payload: any}>()
 );

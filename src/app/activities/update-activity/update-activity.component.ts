@@ -40,7 +40,9 @@ export class UpdateActivityComponent implements OnInit {
   constructor(private router: Router,  private _global: GlobalService,
               private formBuilder: FormBuilder, private store: Store<AppState>)
   {
-    this.user = this._global.globalVar;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
     this.activity = this._global.globalActivity;
 
     }

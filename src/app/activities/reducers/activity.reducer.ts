@@ -103,7 +103,7 @@ const _activityReducer = createReducer(
             if (_activity.id === id) {
 
                 return {
-                    ..._activity, peopleRegistered: activity.peopleRegistered + 1,
+                    ..._activity, peopleRegistered: _activity.peopleRegistered + 1,
                 }
             } else {
                 return _activity;

@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { User } from '../../Models/user';
-import { registerUser,editUserError,editUserSuccess,registerUserError,registerUserSuccess, editUser, getAllUsers, getAllUsersSuccess, getAllUsersError } from '../actions/profile.actions';
+import { addEducationError,addEducationSuccess,getUser,getUserError,getUserSuccess,registerUser,editUserError,editUserSuccess,registerUserError,registerUserSuccess, editUser, getAllUsers, getAllUsersSuccess, getAllUsersError, addEducation } from '../actions/profile.actions';
 
 export interface ProfileState{
     users: User[];
+    user: User;
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -11,6 +12,7 @@ export interface ProfileState{
 
 export const initialState: ProfileState = {
     users: [],
+    user: new User(),
     loading: false,
     loaded: false,
     error: null
@@ -40,18 +42,28 @@ const _profileReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        users: [...state.users.map((_user) => {
-            if (_user.id === id) {
-                return {
-                    ..._user,
-                    ...user
-                };
-            } else {
-                return _user;
-            }
-        })]
-    })),
+        user: user
+        })
+    ),
     on(editUserError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(addEducation, state => ({ ...state, loading: true })),
+    on(addEducationSuccess, (state, { id, user, education }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        user: {...user, ...education }
+    }))
+    ,
+    on(addEducationError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
@@ -69,6 +81,23 @@ const _profileReducer = createReducer(
         users: [...users]
     })),
     on(getAllUsersError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(getUser, state => ({ ...state, loading: true })),
+    on(getUserSuccess, (state, { user } ) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        user: user
+    })),
+    on(getUserError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

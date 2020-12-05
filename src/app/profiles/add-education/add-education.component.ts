@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { getAllUsers } from 'src/app/profiles/actions';
+import { addEducation, addEducationSuccess, getAllUsers } from 'src/app/profiles/actions';
 
 @Component({
   selector: 'app-add-education',
@@ -29,7 +29,9 @@ export class AddEducationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private _global: GlobalService, private store: Store<AppState>) {
-    this.user = this._global.globalVar;
+      this.store.select('profilesApp').subscribe(profileResponse => {
+        this.user = profileResponse.user;
+      });
     this._education = this._global.globalEducation;
   }
 
@@ -57,7 +59,9 @@ export class AddEducationComponent implements OnInit {
   addEducation() {
     const form = this.addEducationForm.value as Education;
 
-    if (this.user.education !== undefined) {
+    this.store.dispatch(addEducationSuccess({ id:this.user.id, user:this.user, education:form }));
+
+    /* if (this.user.education !== undefined) {
 
       this.user.education = [...this.user.education, form];
 
@@ -67,7 +71,7 @@ export class AddEducationComponent implements OnInit {
 
       this.router.navigateByUrl('/profile');
 
-    }
+    } */
  
   }
 }

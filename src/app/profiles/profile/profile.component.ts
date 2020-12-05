@@ -22,14 +22,13 @@ export class ProfileComponent implements OnInit {
   languages: Languages;
 
   constructor(private _global: GlobalService, private router: Router, private store: Store<AppState>) {
-    this.user = this._global.globalVar;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
    }
 
   ngOnInit(): void {
-    this.store.select('profilesApp').subscribe(profileResponse => {
-      this.users = profileResponse.users;
-    });
-    this.store.dispatch(getAllUsers());
+    
     if (this.user !== undefined) {
       this.getEducations();
       this.getLanguages();

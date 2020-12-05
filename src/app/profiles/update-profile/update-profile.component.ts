@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/Models/user';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/Services/global.service';
 import { checkNIF } from 'src/app/Directives/check-nif.validator';
 import { trimValidator } from 'src/app/Directives/check-whiteSpace.validator';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { getAllUsers } from 'src/app/profiles/actions';
+import { editUser } from '../actions';
 
 @Component({
   selector: 'app-update-profile',
@@ -35,8 +34,10 @@ export class UpdateProfileComponent implements OnInit {
   company: boolean;
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>, private _global: GlobalService) { 
-    this.user = this._global.globalVar;
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) { 
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
   }
 
   ngOnInit(): void {
@@ -90,11 +91,6 @@ export class UpdateProfileComponent implements OnInit {
       });
     }
 
-    this.store.select('profilesApp').subscribe(profileResponse => {
-      this.users = profileResponse.users;
-    });
-    this.store.dispatch(getAllUsers());
-
     this.getProfile();
 
     this.getInformation();
@@ -125,26 +121,8 @@ export class UpdateProfileComponent implements OnInit {
 
   updateProfile() {
     const form = this.profileForm.value as User;
-    if (this.getProfile() === true) {
-      this.user.name = form.name;
-      this.user.surname = form.surname;
-      this.user.birthDate = form.birthDate;
-      this.user.phone = form.phone;
-      this.user.nationality = form.nationality;
-      this.user.nif = form.nif;
-      this.user.aboutMe = form.aboutMe;
-      this.user.companyName = form.companyName;
-      this.user.companyDescription = form.companyDescription;
-      this.user.cif = form.cif;
-    } else {
-      this.user.name = form.name;
-      this.user.surname = form.surname;
-      this.user.birthDate = form.birthDate;
-      this.user.phone = form.phone;
-      this.user.nationality = form.nationality;
-      this.user.nif = form.nif;
-      this.user.aboutMe = form.aboutMe;
-    }
+
+    this.store.dispatch(editUser({ id: this.user.id, user: form }));
     this.router.navigateByUrl('/profile');
   }
 

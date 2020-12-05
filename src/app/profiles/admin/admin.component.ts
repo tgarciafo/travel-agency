@@ -23,7 +23,9 @@ export class AdminComponent implements OnInit {
   constructor(private _global: GlobalService, private router: Router, 
     private store: Store<AppState>) {
 
-    this.user = this._global.globalVar;
+      this.store.select('profilesApp').subscribe(profileResponse => {
+        this.user = profileResponse.user;
+      });
    }
 
   ngOnInit(): void {

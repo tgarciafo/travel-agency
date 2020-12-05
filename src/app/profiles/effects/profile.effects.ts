@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { registerUser,editUserSuccess,editUserError, getAllUsers,registerUserError, getAllUsersError, getAllUsersSuccess, registerUserSuccess, editUser } from '../actions';
+import { getUserSuccess,getUserError,getUser,registerUser,editUserSuccess,editUserError, getAllUsers,registerUserError, getAllUsersError, getAllUsersSuccess, registerUserSuccess, editUser } from '../actions';
 import { UserService } from '../../Services/user.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -39,10 +39,20 @@ export class ProfilesEffects {
         this.actions$.pipe(
             ofType(editUser),
             mergeMap(({id, user}) =>
-                this.userService.updateUser(user).pipe(
+                this.userService.updateUser(id).pipe(
                     map(() => editUserSuccess({ id, user } )),
                     catchError((err) => of(editUserError({payload: err})))
                 ))
         )
     );
+
+    getUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(getUser),
+            mergeMap((action) =>
+                this.userService.getUser(action.user.id).pipe(
+                    map((user) => getUserSuccess({ user })),
+                    catchError((err) => of(getUserError({ payload: err })))
+                ))
+        ));
 }

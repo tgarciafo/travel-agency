@@ -5,13 +5,15 @@ import { ActivityService } from '../../Services/activity.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Activity } from 'src/app/Models/activity';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ActivitiesEffects {
 
     constructor(
         private actions$: Actions,
-        private activitiesService: ActivityService
+        private activitiesService: ActivityService,
+        private router: Router
     ) { }
 
     getActivities$ = createEffect(() =>
@@ -62,8 +64,13 @@ export class ActivitiesEffects {
             ofType(subscribeActivity),
             mergeMap(({ id, activity}) =>
                 this.activitiesService.updateActivity(activity ).pipe(
-                    map(() => 
-                    subscribeActivitySuccess({ id, activity } )),
+                    map(() => {
+                        
+                        this.router.navigateByUrl('/login', { skipLocationChange: true }),
+                        this.router.navigateByUrl('/activityList');
+                        return subscribeActivitySuccess({ id, activity })
+                            
+                    }),
                     catchError((err) => of(subscribeActivityError({payload: err})))
                 ))
         )

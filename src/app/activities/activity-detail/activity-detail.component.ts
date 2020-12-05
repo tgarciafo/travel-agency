@@ -21,9 +21,11 @@ export class ActivityDetailComponent implements OnInit {
   users: User[];
   activities: Activity[];
   constructor( private store: Store<AppState>,
-              private _globalService: GlobalService, private router: Router)
+               private router: Router)
   {
-    this.user = this._globalService.globalVar;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
   }
 
   ngOnInit(): void {
@@ -45,8 +47,8 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   registered() {
-    if (this._globalService.globalVar !== undefined) {
-      if (this._globalService.globalVar.type === 'Tourist') {
+    if (this.user !== undefined) {
+      if (this.user.type === 'Tourist') {
         return true;
     } else {
       return false;
@@ -127,8 +129,7 @@ export class ActivityDetailComponent implements OnInit {
     
     /* this.store.dispatch(subscribeUser({ id: activity.id, activity })); */
 
-    this.router.navigateByUrl('/login', { skipLocationChange: true });
-    this.router.navigateByUrl('/activityList');
+    
 
 
     if (this.user.activities !== undefined){

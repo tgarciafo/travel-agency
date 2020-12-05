@@ -27,7 +27,9 @@ export class AddLanguageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>, private _global: GlobalService) {
-    this.user = this._global.globalVar;
+      this.store.select('profilesApp').subscribe(profileResponse => {
+        this.user = profileResponse.user;
+      });
     this._language = this._global.globalLanguage;
   }
 

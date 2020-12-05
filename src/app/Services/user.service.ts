@@ -51,9 +51,11 @@ export class UserService {
     );
   }
 
-  updateUser(user: User): Observable<any>{
-    return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user id=${user.id}`)),
+  updateUser(id:number): Observable<any>{
+    console.log(id)
+    const url = `${this.usersUrl}/${id}`;
+    return this.http.get<User>(url).pipe(
+      tap(_ => this.log(`updated user id=${id}`)),
       catchError(this.handleError<any>('updatedUser'))
     );
   }

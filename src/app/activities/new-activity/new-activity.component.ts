@@ -36,10 +36,12 @@ export class NewActivityComponent implements OnInit {
   public newActivityForm: FormGroup;
   private datePattern = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
-  constructor(private router: Router, private _global: GlobalService,
+  constructor(private router: Router,
               private formBuilder: FormBuilder, private store: Store<AppState>)
   { 
-      this.user = this._global.globalVar;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
     }
 
   ngOnInit(): void {

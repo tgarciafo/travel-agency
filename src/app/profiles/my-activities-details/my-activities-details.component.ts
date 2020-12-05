@@ -27,7 +27,9 @@ export class MyActivitiesDetailsComponent implements OnInit {
   constructor(private store: Store<AppState>,
               private router: Router, private _globalService: GlobalService)
   {
-    this.user = this._globalService.globalVar;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.user = profileResponse.user;
+    });
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class MyActivitiesDetailsComponent implements OnInit {
   }
 
   registered() {
-    return this._globalService.globalVar !== undefined;
+    return this.user !== undefined;
   }
 
   subscribed(activity) {
