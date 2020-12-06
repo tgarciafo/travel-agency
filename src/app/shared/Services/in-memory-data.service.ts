@@ -11,10 +11,10 @@ export class InMemoryDataService implements InMemoryDbService{
     const users = [
       {
         id: 1,
+        type: 'Company',
         profile: {
           name: 'Tania',
           surname: 'Garcia',
-          type: 'Company',
           email: 'taniag89@gmail.com',
           password: '12345678',
           repeat_password: '12345678',
@@ -87,10 +87,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 2,
+      type: 'Tourist',
       profile: {
         name: 'Carla',
         surname: 'Font',
-        type: 'Tourist',
         email: 'carla56@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -146,10 +146,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 3,
+      type: 'Tourist',
       profile: {
         name: 'Aida',
         surname: 'Castro',
-        type: 'Tourist',
         email: 'aida.ruiz@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -216,10 +216,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 4,
+      type: 'Tourist',
       profile: {
         name: 'Pilar',
         surname: 'Vila',
-        type: 'Tourist',
         email: 'pilar62@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -276,10 +276,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 5,
+      type: 'Tourist',
       profile: {
         name: 'Ramon',
         surname: 'Garcia',
-        type: 'Tourist',
         email: 'ramgarcia@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -322,10 +322,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 6,
+      type: 'Tourist',
       profile: {
         name: 'Kali',
         surname: 'Garcia',
-        type: 'Tourist',
         email: 'kali@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -381,10 +381,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 7,
+      type: 'Tourist',
       profile: {
         name: 'Goku',
         surname: 'Castro',
-        type: 'Tourist',
         email: 'goku@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -440,10 +440,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 8,
+      type: 'Company',
       profile: {
         name: 'Quim',
         surname: 'Roca',
-        type: 'Company',
         email: 'quimrp@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -478,10 +478,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 9,
+      type: 'Tourist',
       profile: {
         name: 'Isona',
         surname: 'Fabrega',
-        type: 'Tourist',
         email: 'ifabcl@gmail.com',
         password: '12345678',
         repeat_password: '12345678',
@@ -513,10 +513,10 @@ export class InMemoryDataService implements InMemoryDbService{
     },
     {
       id: 10,
+      type: 'Tourist',
       profile: {
         name: 'Jofre',
         surname: 'Cano',
-        type: 'Tourist',
         email: 'jcGil9@gmail.com',
         password: '12345678',
         repeat_password: '12345678',

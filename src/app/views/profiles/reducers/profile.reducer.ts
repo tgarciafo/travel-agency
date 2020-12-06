@@ -3,7 +3,8 @@ import { User, Education } from '../models/user';
 import {
     addEducationError, addEducationSuccess, getUser, getUserError,
     getUserSuccess, registerUser, editUserError, editUserSuccess, registerUserError,
-    registerUserSuccess, editUser, addEducation, logoutUser
+    registerUserSuccess, editUser, addEducation, logoutUser, addActivity, addActivityError,
+    addActivitySuccess
 } from '../actions/profile.actions';
 
 export interface ProfileState{
@@ -66,6 +67,25 @@ const _profileReducer = createReducer(
 ))
     ,
     on(addEducationError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(addActivity, state => ({ ...state, loading: true })),
+    on(addActivitySuccess, (state, { activity }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        
+        }
+))
+    ,
+    on(addActivityError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

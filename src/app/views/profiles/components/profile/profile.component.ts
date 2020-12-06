@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfile() {
-    if (this.user.profile.type === 'Company') {
+    if (this.user.type === 'Company') {
       return this.company = true;
     } else {
       return this.company = false;

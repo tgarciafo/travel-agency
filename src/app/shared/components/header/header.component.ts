@@ -11,10 +11,14 @@ import { AppState } from 'src/app/app.reducer';
 })
 export class HeaderComponent {
 
-  profileState$;
+  userType: string;
+  loginState$;
 
   constructor(private router: Router, private store: Store<AppState>) { 
-    this.profileState$ = this.store.select('profilesApp');
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this.userType = profileResponse.user.type;
+    });
+    this.loginState$ = this.store.select('loginApp');
   }
 
   title = 'Travel Agency';

@@ -1,6 +1,7 @@
 import { Activity } from '../../activities/models/activity';
 export class User{
     id: number;
+    type: string;
     profile: Profile;
     activities: Activity[];
     favorites: Activity[];
@@ -11,7 +12,6 @@ export class User{
 export class Profile{
     name: string;
     surname: string;
-    type: string;
     email: string;
     password: string;
     repeat_password: string;

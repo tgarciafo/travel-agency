@@ -98,7 +98,7 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   getProfile() {
-    if (this.user.profile.type === 'Company') {
+    if (this.user.type === 'Company') {
 
       return this.company = true;
     } else {

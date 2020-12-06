@@ -5,8 +5,9 @@ import {
     registerUserSuccess, editUser
 } from '../actions';
 import { UserService } from '../services/user.service';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError,exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { loginSuccess } from '../../logins/actions';
 
 @Injectable()
 export class ProfilesEffects {
@@ -40,9 +41,9 @@ export class ProfilesEffects {
 
     getUser$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(getUser),
-            mergeMap((action) =>
-                this.userService.getUser(action.user.id).pipe(
+            ofType(getUser, loginSuccess),
+            exhaustMap(({credentials}) =>
+                this.userService.login(credentials).pipe(
                     map((user) => getUserSuccess({ user })),
                     catchError((err) => of(getUserError({ payload: err })))
                 ))

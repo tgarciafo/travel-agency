@@ -84,7 +84,7 @@ export class NewActivityComponent implements OnInit {
     form.id = this.activities.length > 0 ? Math.max(...this.activities.map(activity => activity.id)) + 1 : 1;
 
     this.store.dispatch(createActivity({ activity: form }));
-    
+
     if (this.user.activities === undefined) {
       this.user.activities = [form];
     } else {

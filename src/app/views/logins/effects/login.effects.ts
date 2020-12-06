@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 @Injectable()
 export class LoginEffects {
     public message: string;
-    users: User[];
     public user: User = new User();
     constructor(
         private actions$: Actions,
@@ -30,8 +29,8 @@ export class LoginEffects {
             ofType(login),
             exhaustMap(({ credentials }) =>
                 this.userService.login(credentials).pipe(
-                    map((user) => 
-                        loginSuccess({credentials})
+                    map((user) =>
+                         loginSuccess({ credentials })
                     ),
                     catchError((error) => of(loginError({ payload: error })))
                 )

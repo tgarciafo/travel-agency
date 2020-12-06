@@ -48,7 +48,5 @@ export class LoginComponent implements OnInit {
 
     this.store.dispatch(login({ credentials }));
 
-/*     this.router.navigate(['activityList']);
- */
   }
 }

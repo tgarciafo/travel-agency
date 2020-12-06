@@ -40,7 +40,7 @@ export class ActivityDetailComponent implements OnInit {
 
   registered() {
     if (this.user !== null) {
-      if (this.user.profile.type === 'Tourist') {
+      if (this.user.type === 'Tourist') {
         return true;
     } else {
       return false;

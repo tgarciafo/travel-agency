@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { Credentials } from '../../logins/models/credentials';
 import { Education, User } from '../models/user';
+import { Activity } from '../../activities/models/activity';
 
 export const registerUser = createAction(
     '[USER] Register',
@@ -45,9 +47,24 @@ export const addEducationError = createAction(
     props<{ payload: any }>()
 );
 
+export const addActivity = createAction(
+    '[USER] addActivity User',
+    props<{ activity: Activity }>()
+);
+
+export const addActivitySuccess = createAction(
+    '[USER] addActivitySuccess User',
+    props<{ activity: Activity }>()
+);
+
+export const addActivityError = createAction(
+    '[USER] addActivityError User',
+    props<{ payload: any }>()
+);
+
 export const getUser = createAction(
     '[USER] Get user',
-    props<{ user: User }>()
+    props<{ credentials: Credentials }>()
 );
 
 export const getUserSuccess = createAction(
