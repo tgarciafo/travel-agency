@@ -6,29 +6,31 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './Services/in-memory-data.service';
+import { InMemoryDataService } from './shared/Services/in-memory-data.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './shared/messages/messages.component';
 
-import { LoginModule } from './logins/login.module';
-import { ProfileModule } from './profiles/profile.module';
-import { ActivityModule } from '../app/activities/activity.module';
+import { LoginModule } from './views/logins/login.module';
+import { ProfileModule } from './views/profiles/profile.module';
+import { ActivityModule } from './views/activities/activity.module';
 import { StoreModule } from '@ngrx/store';
-import { loginReducer } from './logins/reducers/login.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { activityReducer } from './activities/reducers';
 import { EffectsModule } from '@ngrx/effects';
 
 import { appReducers } from './app.reducer';
 import { EffectsApp } from './app.effects';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessagesComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

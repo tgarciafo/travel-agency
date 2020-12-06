@@ -1,8 +1,8 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import * as activityReducers from './activities/reducers';
-import * as profileReducers from './profiles/reducers'; 
-import * as loginReducers from './logins/reducers';
+import * as activityReducers from './views/activities/reducers';
+import * as profileReducers from './views/profiles/reducers';
+import * as loginReducers from './views/logins/reducers';
 export interface AppState{
     activitiesApp: activityReducers.ActivityState;
     profilesApp: profileReducers.ProfileState;

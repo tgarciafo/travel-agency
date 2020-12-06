@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './profiles/register/register.component';
-import { LoginComponent } from './logins/login/login.component';
-import { ActivityListComponent } from './activities/activity-list/activity-list.component';
-import { ActivityDetailComponent } from './activities/activity-detail/activity-detail.component';
-import { NewActivityComponent } from './activities/new-activity/new-activity.component';
-import { HomeComponent } from './activities/home/home.component';
-import { ProfileComponent } from './profiles/profile/profile.component';
-import { UpdateProfileComponent } from './profiles/update-profile/update-profile.component';
-import { UpdateEducationComponent } from './profiles/update-education/update-education.component';
-import { AddEducationComponent } from './profiles/add-education/add-education.component';
-import { AddLanguageComponent } from './profiles/add-language/add-language.component';
-import { UpdateLanguageComponent } from './profiles/update-language/update-language.component';
-import { MyActivitiesComponent } from './profiles/my-activities/my-activities.component';
-import { MyActivitiesDetailsComponent } from './profiles/my-activities-details/my-activities-details.component';
-import { AdminComponent } from './profiles/admin/admin.component';
-import { UpdateActivityComponent } from './activities/update-activity/update-activity.component';
-import { FavoritesComponent } from './activities/favorites/favorites.component';
+import { RegisterComponent } from './views/profiles/components/register/register.component';
+import { LoginComponent } from './views/logins/components/login/login.component';
+import { ActivityListComponent } from './views/activities/components/activity-list/activity-list.component';
+import { ActivityDetailComponent } from './views/activities/components/activity-detail/activity-detail.component';
+import { NewActivityComponent } from './views/activities/components/new-activity/new-activity.component';
+import { HomeComponent } from './views/activities/components/home/home.component';
+import { ProfileComponent } from './views/profiles/components/profile/profile.component';
+import { UpdateProfileComponent } from './views/profiles/components/update-profile/update-profile.component';
+import { UpdateEducationComponent } from './views/profiles/components/update-education/update-education.component';
+import { AddEducationComponent } from './views/profiles/components/add-education/add-education.component';
+import { AddLanguageComponent } from './views/profiles/components/add-language/add-language.component';
+import { UpdateLanguageComponent } from './views/profiles/components/update-language/update-language.component';
+import { MyActivitiesComponent } from './views/profiles/components/my-activities/my-activities.component';
+import { MyActivitiesDetailsComponent } from './views/profiles/components/my-activities-details/my-activities-details.component';
+import { AdminComponent } from './views/profiles/components/admin/admin.component';
+import { UpdateActivityComponent } from './views/activities/components/update-activity/update-activity.component';
+import { FavoritesComponent } from './views/activities/components/favorites/favorites.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

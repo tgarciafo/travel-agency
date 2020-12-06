@@ -1,0 +1,19 @@
+<div id="header">
+    <div class="logo">
+        <img src="../../../assets/images/uoc_logo.png" alt="logo UOC">
+    </div>
+    <div class="titol"><h1>Travel Agency</h1>
+    </div>
+    <div class="menu">
+        <nav>
+        <button *ngIf="profileState$.user?.type === ('Tourist' || 'Company')" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickHome()">HOME</button>
+        <button *ngIf="profileState$.user?.type === 'Tourist'" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickFavorites()">FAVORITES</button>
+        <button *ngIf="profileState$.user?.type === 'Tourist'" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickActivities()">MY ACTIVITIES</button>
+        <button *ngIf="profileState$.user?.type === 'Company'" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickAdmin()">ADMIN</button>
+        <button *ngIf="profileState$.user?.type === ('Tourist' || 'Company')" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickProfile()">PROFILE</button>
+        <button *ngIf="profileState$.user?.type !== ('Tourist' || 'Company')" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickLogin()">SIGN IN</button>
+        <button *ngIf="profileState$.user?.type !== ('Tourist' || 'Company')" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickRegister()">JOIN NOW</button>
+        <button *ngIf="profileState$.user?.type === ('Tourist' || 'Company')" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickLogout()">LOG OUT</button>
+    </nav>
+    </div>
+    </div>
