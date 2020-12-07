@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User, Languages } from 'src/app/views/profiles/models/user';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/shared/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
+import { addLanguage } from '../../actions';
 
 @Component({
   selector: 'app-add-language',
@@ -25,11 +25,10 @@ export class AddLanguageComponent implements OnInit {
   private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(
-    private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>, private _global: GlobalService) {
+    private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) {
       this.store.select('profilesApp').subscribe(profileResponse => {
         this.user = profileResponse.user;
       });
-    this._language = this._global.globalLanguage;
   }
 
   ngOnInit(): void {
@@ -43,15 +42,18 @@ export class AddLanguageComponent implements OnInit {
       language: this.language,
       finishDate: this.finishDate,
     });
-    
+
   }
 
-  
 
   addLanguage() {
     const form = this.addLanguageForm.value as Languages;
 
-    if (this.user.languages !== undefined) {
+    this.store.dispatch(addLanguage({ user: this.user }));
+
+    this.router.navigateByUrl('/profile');
+
+    /* if (this.user.languages !== undefined) {
 
 
       this.user.languages = [...this.user.languages, form];
@@ -62,7 +64,7 @@ export class AddLanguageComponent implements OnInit {
       this.user.languages = [ form];
 
       this.router.navigateByUrl('/profile');
-    }
+    } */
 
   }
 }

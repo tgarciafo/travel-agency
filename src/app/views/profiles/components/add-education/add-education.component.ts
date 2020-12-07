@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User, Education } from 'src/app/views/profiles/models/user';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/shared/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { addEducation, addEducationSuccess } from 'src/app/views/profiles/actions';
+import { addEducation } from 'src/app/views/profiles/actions';
 
 @Component({
   selector: 'app-add-education',
@@ -16,7 +15,6 @@ export class AddEducationComponent implements OnInit {
 
   users: User[];
   public user: User;
-  public _education: Education;
 
   public type: FormControl;
   public level: FormControl;
@@ -27,7 +25,7 @@ export class AddEducationComponent implements OnInit {
   private date = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
 
   constructor(
-    private formBuilder: FormBuilder, private router: Router, private _global: GlobalService, private store: Store<AppState>) {
+    private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) {
       this.store.select('profilesApp').subscribe(profileResponse => {
         this.user = profileResponse.user;
       });

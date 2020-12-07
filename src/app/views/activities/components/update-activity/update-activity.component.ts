@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { createActivity, deleteActivity, editActivity, getAllActivities } from '../../actions/activity.actions';
+import { updateUserActivity } from 'src/app/views/profiles/actions';
 @Component({
   selector: 'app-update-activity',
   templateUrl: './update-activity.component.html',
@@ -48,10 +49,6 @@ export class UpdateActivityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-
-    console.log(this.activity)
-
     this.name = new FormControl(this.activity.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55)]);
     this.category = new FormControl(this.activity.category, Validators.required);
     this.subcategory = new FormControl(this.activity.subcategory, Validators.required);
@@ -89,20 +86,22 @@ export class UpdateActivityComponent implements OnInit {
 
     form.state = this.state;
 
-    const array = this.user.activities;
+    /* const array = this.user.activities;
 
     for (let i = 0; i < array.length; i++) {
       if ((array[i].id === this.activity.id)) {
         array.splice(i, 1);
       }
-    }
+    } */
 
     /* this.store.dispatch(editActivity({ id: this.activity.id, activity: form  })) */
 
-    this.activities = this.activities.filter(a => a !== this.activity);
-    this.store.dispatch(deleteActivity({ id: this.activity.id }));
-    this.store.dispatch(createActivity({ activity: form }));
-    this.user.activities = [...this.user.activities, form];
+    /* this.activities = this.activities.filter(a => a !== this.activity); */
+
+    this.store.dispatch(editActivity({id:this.activity.id, activity:this.activity}))
+
+    this.store.dispatch(updateUserActivity({ user: this.user }));
+
     this.router.navigateByUrl('/admin');
 
   }

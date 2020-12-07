@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   company: boolean;
   languages: Languages;
 
-  constructor(private _global: GlobalService, private router: Router, private store: Store<AppState>) {
+  constructor(private router: Router, private store: Store<AppState>) {
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.user = profileResponse.user;
     });
@@ -46,11 +46,13 @@ export class ProfileComponent implements OnInit {
   getEducations(): void{
     this.store.select('profilesApp').subscribe(profileResponse => {
       this.educations = profileResponse.user.education;
-    })
+    });
   }
 
   getLanguages(): void{
-    this._languages = this.user.languages;
+    this.store.select('profilesApp').subscribe(profileResponse => {
+      this._languages = profileResponse.user.languages;
+    });
   }
 
   updateProfile() {
@@ -77,7 +79,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateLanguage(_language) {
-    this._global.globalLanguage = _language;
+    /* this._global.globalLanguage = _language; */
     this.router.navigateByUrl('/updateLanguage');
   }
 

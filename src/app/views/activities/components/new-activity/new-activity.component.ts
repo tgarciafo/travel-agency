@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { createActivity } from '../../actions/activity.actions';
+import { addUserActivity } from 'src/app/views/profiles/actions';
 
 @Component({
   selector: 'app-new-activity',
@@ -85,11 +86,13 @@ export class NewActivityComponent implements OnInit {
 
     this.store.dispatch(createActivity({ activity: form }));
 
-    if (this.user.activities === undefined) {
+    this.store.dispatch(addUserActivity({ user: this.user }));
+
+    /* if (this.user.activities === undefined) {
       this.user.activities = [form];
     } else {
       this.user.activities = [...this.user.activities, form];
-    }
+    } */
     this.router.navigateByUrl('/admin');
 
   }

@@ -121,47 +121,47 @@ export const deleteLanguageError = createAction(
     props<{ payload: any }>()
 );
 
-export const addActivity = createAction(
+export const addUserActivity = createAction(
     '[USER] addActivity User',
     props<{ user:User }>()
 );
 
-export const addActivitySuccess = createAction(
+export const addUserActivitySuccess = createAction(
     '[USER] addActivitySuccess User',
     props<{ user:User }>()
 );
 
-export const addActivityError = createAction(
+export const addUserActivityError = createAction(
     '[USER] addActivityError User',
     props<{ payload: any }>()
 );
 
-export const deleteActivity = createAction(
+export const deleteUserActivity = createAction(
     '[USER] deleteActivity User',
     props<{ user:User }>()
 );
 
-export const deleteActivitySuccess = createAction(
+export const deleteUserActivitySuccess = createAction(
     '[USER] deleteActivitySuccess User',
     props<{ user:User }>()
 );
 
-export const deleteActivityError = createAction(
+export const deleteUserActivityError = createAction(
     '[USER] deleteActivityError User',
     props<{ payload: any }>()
 );
 
-export const updateActivity = createAction(
+export const updateUserActivity = createAction(
     '[USER] updateActivity User',
     props<{ user:User }>()
 );
 
-export const updateActivitySuccess = createAction(
+export const updateUserActivitySuccess = createAction(
     '[USER] updateActivitySuccess User',
     props<{ user:User }>()
 );
 
-export const updateActivityError = createAction(
+export const updateUserActivityError = createAction(
     '[USER] updateActivityError User',
     props<{ payload: any }>()
 );

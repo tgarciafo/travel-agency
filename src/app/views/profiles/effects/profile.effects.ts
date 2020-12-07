@@ -3,9 +3,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
     getUserSuccess, getUserError, getUser, registerUser, updateUserSuccess, updateUserError, registerUserError,
     registerUserSuccess, updateUser, addEducationError, addEducationSuccess, addEducation, updateEducationSuccess,
-    updateEducationError, updateEducation, deleteEducationSuccess, deleteEducationError, deleteEducation, addActivitySuccess,
-    addActivityError, addActivity, updateActivitySuccess, updateActivityError, updateActivity, deleteActivitySuccess, deleteActivityError,
-    deleteActivity
+    updateEducationError, updateEducation, deleteEducationSuccess, deleteEducationError, deleteEducation, addUserActivitySuccess,
+    addUserActivityError, addUserActivity, updateUserActivitySuccess, updateUserActivityError, updateUserActivity, deleteUserActivitySuccess, deleteUserActivityError,
+    deleteUserActivity, updateLanguage, deleteLanguage, updateLanguageError, addLanguage,
+    updateLanguageSuccess, deleteLanguageError, deleteLanguageSuccess,addLanguageError,addLanguageSuccess
+    
 } from '../actions';
 import { UserService } from '../services/user.service';
 import { mergeMap, map, catchError,exhaustMap } from 'rxjs/operators';
@@ -32,28 +34,6 @@ export class ProfilesEffects {
     );
 
     updateUser$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(updateUser),
-            mergeMap(({user}) =>
-                this.userService.updateUser(user).pipe(
-                    map(() => updateUserSuccess({ user } )),
-                    catchError((err) => of(updateUserError({payload: err})))
-                ))
-        )
-    );
-
-    deleteUser$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(updateUser),
-            mergeMap(({user}) =>
-                this.userService.updateUser(user).pipe(
-                    map(() => updateUserSuccess({ user } )),
-                    catchError((err) => of(updateUserError({payload: err})))
-                ))
-        )
-    );
-
-    addUser$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateUser),
             mergeMap(({user}) =>
@@ -97,35 +77,68 @@ export class ProfilesEffects {
         )
     );
 
-    updateActivity$ = createEffect(() =>
+    updateLanguage$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(updateActivity),
+        ofType(updateLanguage),
         mergeMap(({user}) =>
             this.userService.updateUser(user).pipe(
-                map(() => updateActivitySuccess({ user } )),
-                catchError((err) => of(updateActivityError({payload: err})))
+                map(() => updateLanguageSuccess({ user } )),
+                catchError((err) => of(updateLanguageError({payload: err})))
+            ))
+    )
+    );
+
+    deleteLanguage$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(deleteLanguage),
+            mergeMap(({user}) =>
+                this.userService.updateUser(user).pipe(
+                    map(() => deleteLanguageSuccess({ user } )),
+                    catchError((err) => of(deleteLanguageError({payload: err})))
+                ))
+        )
+    );
+
+    addLanguage$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(addLanguage),
+            mergeMap(({user}) =>
+                this.userService.updateUser(user).pipe(
+                    map(() => addLanguageSuccess({ user } )),
+                    catchError((err) => of(addLanguageError({payload: err})))
+                ))
+        )
+    );
+
+    updateActivity$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(updateUserActivity),
+        mergeMap(({user}) =>
+            this.userService.updateUser(user).pipe(
+                map(() => updateUserActivitySuccess({ user } )),
+                catchError((err) => of(updateUserActivityError({payload: err})))
             ))
     )
     );
 
     deleteActivity$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(deleteActivity),
+            ofType(deleteUserActivity),
             mergeMap(({user}) =>
                 this.userService.updateUser(user).pipe(
-                    map(() => deleteActivitySuccess({ user } )),
-                    catchError((err) => of(deleteActivityError({payload: err})))
+                    map(() => deleteUserActivitySuccess({ user } )),
+                    catchError((err) => of(deleteUserActivityError({payload: err})))
                 ))
         )
     );
 
-    addActivity$ = createEffect(() =>
+    addUserActivity$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(addActivity),
+            ofType(addUserActivity),
             mergeMap(({user}) =>
                 this.userService.updateUser(user).pipe(
-                    map(() => addActivitySuccess({ user } )),
-                    catchError((err) => of(addActivityError({payload: err})))
+                    map(() => addUserActivitySuccess({ user } )),
+                    catchError((err) => of(addUserActivityError({payload: err})))
                 ))
         )
     );
