@@ -8,11 +8,11 @@ export const registerUser = createAction(
 );
 
 export const registerUserSuccess = createAction(
-    '[USER] Create Activity success',
+    '[USER] Register success',
     props<{ user: User }>()
 );
 export const registerUserError = createAction(
-    '[USER] Create Activity error',
+    '[USER] Register error',
     props<{payload: any}>()
 );
 

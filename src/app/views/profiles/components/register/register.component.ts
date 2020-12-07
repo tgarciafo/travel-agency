@@ -28,7 +28,9 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public message: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store<AppState>) {
+
+   }
 
   ngOnInit(): void {
 
@@ -55,19 +57,12 @@ export class RegisterComponent implements OnInit {
 
     checkRegister() {
 
-    this.user.profile.email = this.email.value;
-    const obj = this.users.find(obj => obj.profile.email === this.user.profile.email);
-
-    if (obj == null) {
-
       const form = this.registerForm.value as User;
       this.store.dispatch(registerUser({ user: form }));
 
       console.log('Successfully registered');
       this.router.navigate(['login']);
-    } else {
-      this.message = 'El correu electrònic ja està registrat al sistema';
-    }
+    
   }
 
   validatorEquality(): boolean{
