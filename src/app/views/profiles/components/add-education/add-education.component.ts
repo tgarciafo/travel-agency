@@ -15,7 +15,6 @@ import { addEducation, addEducationSuccess } from 'src/app/views/profiles/action
 export class AddEducationComponent implements OnInit {
 
   users: User[];
-
   public user: User;
   public _education: Education;
 
@@ -32,7 +31,6 @@ export class AddEducationComponent implements OnInit {
       this.store.select('profilesApp').subscribe(profileResponse => {
         this.user = profileResponse.user;
       });
-    this._education = this._global.globalEducation;
   }
 
   ngOnInit(): void {
@@ -56,7 +54,11 @@ export class AddEducationComponent implements OnInit {
   addEducation() {
     const form = this.addEducationForm.value as Education;
 
-    this.store.dispatch(addEducationSuccess({ id:this.user.id, user:this.user, education:form }));
+    this.user.education = [...this.user.education, form];
+
+    this.store.dispatch(addEducation({ user: this.user}));
+    
+    
 
     /* if (this.user.education !== undefined) {
 

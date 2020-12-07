@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Credentials } from '../../logins/models/credentials';
-import { Education, User } from '../models/user';
-import { Activity } from '../../activities/models/activity';
+import { User } from '../models/user';
 
 export const registerUser = createAction(
     '[USER] Register',
@@ -17,29 +16,29 @@ export const registerUserError = createAction(
     props<{payload: any}>()
 );
 
-export const editUser = createAction(
+export const updateUser = createAction(
     '[USER] Edit User',
-    props<{ id: number, user: User }>()
+    props<{ user:User }>()
 );
 
-export const editUserSuccess = createAction(
+export const updateUserSuccess = createAction(
     '[USER] Edit User Success',
-    props<{ id: number, user: User }>()
+    props<{ user:User }>()
 );
 
-export const editUserError = createAction(
+export const updateUserError = createAction(
     '[USER] Edit User Error',
     props<{ payload: any }>()
 );
 
 export const addEducation = createAction(
     '[USER] addEducation User',
-    props<{ id: number, user: User, education: Education }>()
+    props<{ user: User }>()
 );
 
 export const addEducationSuccess = createAction(
     '[USER] addEducationSuccess User',
-    props<{ id: number, user: User, education: Education }>()
+    props<{ user: User }>()
 );
 
 export const addEducationError = createAction(
@@ -47,18 +46,123 @@ export const addEducationError = createAction(
     props<{ payload: any }>()
 );
 
+export const updateEducation = createAction(
+    '[USER] updateEducation User',
+    props<{ user:User }>()
+);
+
+export const updateEducationSuccess = createAction(
+    '[USER] updateEducationSuccess User',
+    props<{ user:User }>()
+);
+
+export const updateEducationError = createAction(
+    '[USER] updateEducationError User',
+    props<{ payload: any }>()
+);
+
+export const deleteEducation = createAction(
+    '[USER] deleteEducation User',
+    props<{ user:User }>()
+);
+
+export const deleteEducationSuccess = createAction(
+    '[USER] deleteEducationSuccess User',
+    props<{ user:User }>()
+);
+
+export const deleteEducationError = createAction(
+    '[USER] deleteEducationError User',
+    props<{ payload: any }>()
+);
+
+export const addLanguage = createAction(
+    '[USER] addLanguage User',
+    props<{ user:User }>()
+);
+
+export const addLanguageSuccess = createAction(
+    '[USER] addLanguageSuccess User',
+    props<{ user:User }>()
+);
+
+export const addLanguageError = createAction(
+    '[USER] addLanguageError User',
+    props<{ payload: any }>()
+);
+
+export const updateLanguage = createAction(
+    '[USER] updateLanguage User',
+    props<{ user:User }>()
+);
+
+export const updateLanguageSuccess = createAction(
+    '[USER] updateLanguageSuccess User',
+    props<{ user:User }>()
+);
+
+export const updateLanguageError = createAction(
+    '[USER] updateLanguageError User',
+    props<{ payload: any }>()
+);
+
+export const deleteLanguage = createAction(
+    '[USER] deleteLanguage User',
+    props<{ user:User }>()
+);
+
+export const deleteLanguageSuccess = createAction(
+    '[USER] deleteLanguageSuccess User',
+    props<{ user:User }>()
+);
+
+export const deleteLanguageError = createAction(
+    '[USER] deleteanguageError User',
+    props<{ payload: any }>()
+);
+
 export const addActivity = createAction(
     '[USER] addActivity User',
-    props<{ activity: Activity }>()
+    props<{ user:User }>()
 );
 
 export const addActivitySuccess = createAction(
     '[USER] addActivitySuccess User',
-    props<{ activity: Activity }>()
+    props<{ user:User }>()
 );
 
 export const addActivityError = createAction(
     '[USER] addActivityError User',
+    props<{ payload: any }>()
+);
+
+export const deleteActivity = createAction(
+    '[USER] deleteActivity User',
+    props<{ user:User }>()
+);
+
+export const deleteActivitySuccess = createAction(
+    '[USER] deleteActivitySuccess User',
+    props<{ user:User }>()
+);
+
+export const deleteActivityError = createAction(
+    '[USER] deleteActivityError User',
+    props<{ payload: any }>()
+);
+
+export const updateActivity = createAction(
+    '[USER] updateActivity User',
+    props<{ user:User }>()
+);
+
+export const updateActivitySuccess = createAction(
+    '[USER] updateActivitySuccess User',
+    props<{ user:User }>()
+);
+
+export const updateActivityError = createAction(
+    '[USER] updateActivityError User',
     props<{ payload: any }>()
 );
 

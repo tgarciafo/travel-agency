@@ -6,7 +6,7 @@ import { checkNIF } from 'src/app/shared/Directives/check-nif.validator';
 import { trimValidator } from 'src/app/shared/Directives/check-whiteSpace.validator';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { editUser } from '../../actions';
+import { updateUser } from '../../actions';
 
 @Component({
   selector: 'app-update-profile',
@@ -122,7 +122,7 @@ export class UpdateProfileComponent implements OnInit {
   updateProfile() {
     const form = this.profileForm.value as User;
 
-    this.store.dispatch(editUser({ id: this.user.id, user: form }));
+    this.store.dispatch(updateUser({ user: form }));
     this.router.navigateByUrl('/profile');
   }
 
