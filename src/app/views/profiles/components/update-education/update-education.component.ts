@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/shared/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
+import { updateEducation } from '../../actions';
 
 @Component({
   selector: 'app-update-education',
@@ -31,9 +32,6 @@ export class UpdateEducationComponent implements OnInit {
       this.store.select('profilesApp').subscribe(profileResponse => {
         this.user = profileResponse.user;
       });
-      /* this.store.select('profilesApp').subscribe(profileResponse => {
-        this._education = profileResponse.education;
-      }); */
   }
 
   ngOnInit(): void {
@@ -57,14 +55,18 @@ export class UpdateEducationComponent implements OnInit {
   updateEducation() {
     const form = this.educationForm.value as Education;
 
-    const array = this.user.education;
+   /*  const array = this.user;
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.education.length; i++) {
       if ((array[i].name === this._education.name) && (array[i].level === this._education.level)) {
-        array.splice(i, 1);
+        array.education.splice(i, 1);
       }
-    }
-    this.user.education = [...this.user.education, form];
+    } */
+    /* this.user.education = [...this.user.education, form]; */
+
+    this.user.education.push(form);
+
+    this.store.dispatch(updateEducation({ user: this.user}));
 
     this.router.navigateByUrl('/profile');
 

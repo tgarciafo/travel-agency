@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CheckWord } from 'src/app/shared/Directives/check-word.validator';
 import { checkEquality } from 'src/app/shared/Directives/check-equality.validator';
-import { User } from 'src/app/views/profiles/models/user';
+import { User, Profile } from 'src/app/views/profiles/models/user';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
@@ -58,6 +58,7 @@ export class RegisterComponent implements OnInit {
     checkRegister() {
 
       const form = this.registerForm.value as User;
+
       this.store.dispatch(registerUser({ user: form }));
 
       console.log('Successfully registered');

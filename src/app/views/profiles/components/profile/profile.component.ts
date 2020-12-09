@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/shared/Services/global.service';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
-import { addEducation } from '../../actions';
+import { addEducation, deleteEducation } from '../../actions';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -55,32 +55,26 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  addEducation() {
+    this.router.navigateByUrl('/addEducation');
+  }
+
+  addLanguage() {
+    this.router.navigateByUrl('/addLanguage');
+   }
+
+  updateLanguage(_language) {
+    /* this._global.globalLanguage = _language; */
+    this.router.navigateByUrl('/updateLanguage');
+  }
+
   updateProfile() {
     this.router.navigateByUrl('/updateProfile');
   }
 
   updateEducation(education) {
-    this.store.dispatch(addEducation(education));
+    this.store.dispatch(deleteEducation(education));
     this.router.navigateByUrl('/updateEducation');
-  }
-
-  deleteEducation(education){
-    const array = this.user.education;
-
-    for (let i = 0; i < array.length; i++) {
-      if ((array[i].name === education.name) && (array[i].level === education.level)) {
-        array.splice(i, 1);
-      }
-    }
-  }
-
-  addEducation() {
-    this.router.navigateByUrl('/addEducation');
-  }
-
-  updateLanguage(_language) {
-    /* this._global.globalLanguage = _language; */
-    this.router.navigateByUrl('/updateLanguage');
   }
 
   deleteLanguage(_language){
@@ -93,8 +87,16 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  addLanguage() {
-    this.router.navigateByUrl('/addLanguage');
-   }
+  deleteEducation(education){
+    const array = this.user.education;
+
+    for (let i = 0; i < array.length; i++) {
+      if ((array[i].name === education.name) && (array[i].level === education.level)) {
+        array.splice(i, 1);
+      }
+    }
+  }
+
+ 
 
 }

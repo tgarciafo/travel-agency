@@ -34,6 +34,22 @@ export class UserService {
         );
   }
 
+  addUser(user: User): Observable<any>{
+    return this.http.get<User[]>(this.usersUrl).pipe(
+      map((users) => {
+        const _user = users.find(x => x.profile.email === user.profile.email);
+        if (_user !== undefined) {
+         throw throwError('El correu electrònic ja està registrat al sistema');;
+        } else {
+          return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
+            tap((newUser: User) => this.log(`added user w/ id=${newUser.id}`)),
+            catchError(this.handleError<User>('addUser'))
+          );
+          }
+      })
+        );
+  }
+
   isLoggedIn(): boolean{
     return false;
   }
@@ -58,22 +74,6 @@ export class UserService {
     return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateUser'))
     );
-  }
-
-  addUser(user): Observable<any>{
-    return this.http.get<User[]>(this.usersUrl).pipe(
-      map((users) => {
-        const _user = users.find(x => x.profile.email === user.email);
-        if (_user !== undefined) {
-         throw throwError('El correu electrònic ja està registrat al sistema');;
-        } else {
-          return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
-            tap((newUser: User) => this.log(`added user w/ id=${newUser.id}`)),
-            catchError(this.handleError<User>('addUser'))
-          );
-          }
-      })
-        );
   }
 
   private log(message: string) {

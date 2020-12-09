@@ -16,7 +16,7 @@ export class HeaderComponent {
 
   constructor(private router: Router, private store: Store<AppState>) { 
     this.store.select('profilesApp').subscribe(profileResponse => {
-      this.userType = profileResponse.user.type;
+      this.userType = profileResponse.user?.type;
     });
     this.loginState$ = this.store.select('loginApp');
   }

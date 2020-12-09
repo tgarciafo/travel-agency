@@ -49,6 +49,8 @@ export class AddLanguageComponent implements OnInit {
   addLanguage() {
     const form = this.addLanguageForm.value as Languages;
 
+    this.user.languages.push(form);
+
     this.store.dispatch(addLanguage({ user: this.user }));
 
     this.router.navigateByUrl('/profile');

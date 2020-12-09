@@ -38,13 +38,7 @@ const _loginReducer = createReducer(
         loading: false,
         error: payload
     })),
-    on(logout, state => ({
-        ...state,
-        loggedIn: false,
-        loading: false,
-        error: null,
-        credentials: null
-    }))
+    on(logout, ()=> initialState)
 
 )
 
